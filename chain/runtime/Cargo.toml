@@ -6,6 +6,7 @@ license = 'Unlicense'
 name = 'node-template-runtime'
 repository = 'https://github.com/paritytech/substrate/'
 version = '2.0.0-alpha.3'
+
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-wasm-builder-runner'
@@ -39,6 +40,7 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
+    'pallet-did/std',
     'sudo/std',
     'system/std',
     'timestamp/std',
@@ -110,6 +112,12 @@ default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-indices'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.pallet-did]
+default-features = false
+package = 'pallet-did'
+path = '../pallets/did'
 version = '2.0.0-alpha.3'
 
 [dependencies.randomness-collective-flip]

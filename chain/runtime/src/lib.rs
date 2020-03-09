@@ -12,7 +12,7 @@ use sp_std::prelude::*;
 use sp_core::OpaqueMetadata;
 use sp_runtime::{
 	ApplyExtrinsicResult, transaction_validity::TransactionValidity, generic, create_runtime_str,
-	impl_opaque_keys, MultiSignature,
+	impl_opaque_keys, MultiSignature, MultiSigner,
 };
 use sp_runtime::traits::{
 	BlakeTwo256, Block as BlockT, StaticLookup, Verify, ConvertInto, IdentifyAccount
@@ -277,6 +277,12 @@ impl transaction_payment::Trait for Runtime {
 	type FeeMultiplierUpdate = ();
 }
 
+impl pallet_did::Trait for Runtime {
+  type Event = Event;
+  type Public = MultiSigner;
+  type Signature = Signature;
+}
+
 impl sudo::Trait for Runtime {
 	type Event = Event;
 	type Call = Call;
@@ -303,6 +309,7 @@ construct_runtime!(
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		Contracts: contracts::{Module, Call, Config<T>, Storage, Event<T>},
+		DID: pallet_did::{Module, Call, Storage, Event<T>},
 		// Used for the module template in `./template.rs`
 		TemplateModule: template::{Module, Call, Storage, Event<T>},
 	}

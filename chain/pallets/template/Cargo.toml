@@ -23,6 +23,7 @@ std = [
     'frame-support/std',
     'safe-mix/std',
     'system/std',
+    'pallet-did/std',
 ]
 
 [package]
@@ -34,6 +35,7 @@ license = 'Unlicense'
 name = 'pallet-template'
 repository = 'https://github.com/paritytech/substrate/'
 version = '2.0.0-alpha.3'
+
 [dependencies.codec]
 default-features = false
 features = ['derive']
@@ -55,4 +57,10 @@ default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'frame-system'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.pallet-did]
+default-features = false
+package = 'pallet-did'
+path = '../did'
 version = '2.0.0-alpha.3'

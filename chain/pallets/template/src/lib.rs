@@ -19,7 +19,7 @@ mod mock;
 mod tests;
 
 /// The pallet's configuration trait.
-pub trait Trait: system::Trait {
+pub trait Trait: system::Trait + pallet_did::Trait {
 	// Add other types and constants required to configure this pallet.
 
 	/// The overarching event type.
