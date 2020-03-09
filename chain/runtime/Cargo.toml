@@ -24,6 +24,7 @@ std = [
     'frame-executive/std',
     'frame-support/std',
     'grandpa/std',
+    "indices/std",
     'randomness-collective-flip/std',
     'serde',
     'sp-api/std',
@@ -101,6 +102,13 @@ version = '2.0.0-alpha.3'
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-grandpa'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.indices]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'pallet-indices'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
 
