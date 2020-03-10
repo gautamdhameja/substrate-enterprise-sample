@@ -131,7 +131,7 @@ impl Alternative {
 	}
 }
 
-fn testnet_genesis(initial_authorities: Vec<(AuraId, GrandpaId)>,
+fn testnet_genesis(initial_authorities: Vec<(AccountId, GrandpaId, AuraId)>,
 	root_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
 	enable_println: bool) -> GenesisConfig {
@@ -146,19 +146,19 @@ fn testnet_genesis(initial_authorities: Vec<(AuraId, GrandpaId)>,
 			code: WASM_BINARY.to_vec(),
 			changes_trie_config: Default::default(),
 		}),
-		indices: Some(IndicesConfig {
-			indices: vec![],
-		}),
-		balances: Some(BalancesConfig {
-			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
-		}),
 		validator_set: Some(ValidatorSetConfig {
 			validators: initial_authorities.iter().map(|x| x.0.clone()).collect::<Vec<_>>(),
 		}),
 		session: Some(SessionConfig {
 			keys: initial_authorities.iter().map(|x| {
-				(x.0.clone(), session_keys(x.1.clone(), x.2.clone()))
+				(x.0.clone(), x.0.clone(), session_keys(x.1.clone(), x.2.clone()))
 			}).collect::<Vec<_>>(),
+		}),
+		indices: Some(IndicesConfig {
+			indices: vec![],
+		}),
+		balances: Some(BalancesConfig {
+			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
 		}),
 		aura: Some(AuraConfig {
 			authorities: vec![],
