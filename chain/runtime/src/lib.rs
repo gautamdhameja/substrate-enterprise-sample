@@ -12,7 +12,7 @@ use sp_std::prelude::*;
 use sp_core::OpaqueMetadata;
 use sp_runtime::{
 	ApplyExtrinsicResult, transaction_validity::TransactionValidity, generic, create_runtime_str,
-	impl_opaque_keys, MultiSignature, MultiSigner,
+	impl_opaque_keys, MultiSignature, MultiSigner, traits::OpaqueKeys,
 };
 use sp_runtime::traits::{
 	BlakeTwo256, Block as BlockT, StaticLookup, Verify, ConvertInto, IdentifyAccount
@@ -86,8 +86,8 @@ pub mod opaque {
 
 	impl_opaque_keys! {
 		pub struct SessionKeys {
-			pub aura: Aura,
 			pub grandpa: Grandpa,
+			pub aura: Aura,
 		}
 	}
 }
@@ -182,6 +182,21 @@ impl aura::Trait for Runtime {
 
 impl grandpa::Trait for Runtime {
 	type Event = Event;
+}
+
+impl validator_set::Trait for Runtime {
+	type Event = Event;
+}
+
+impl session::Trait for Runtime {
+	type SessionHandler = <opaque::SessionKeys as OpaqueKeys>::KeyTypeIdProviders;
+	type ShouldEndSession = ValidatorSet;
+	type SessionManager = ValidatorSet;
+	type Event = Event;
+	type Keys = opaque::SessionKeys;
+	type ValidatorId = <Self as system::Trait>::AccountId;
+	type ValidatorIdOf = validator_set::ValidatorOf<Self>;
+	type DisabledValidatorsThreshold = ();
 }
 
 parameter_types! {
@@ -302,6 +317,8 @@ construct_runtime!(
 		System: system::{Module, Call, Config, Storage, Event<T>},
 		RandomnessCollectiveFlip: randomness_collective_flip::{Module, Call, Storage},
 		Timestamp: timestamp::{Module, Call, Storage, Inherent},
+		Session: session::{Module, Call, Storage, Event, Config<T>},
+		ValidatorSet: validator_set::{Module, Call, Storage, Event<T>, Config<T>},
 		Aura: aura::{Module, Config<T>, Inherent(Timestamp)},
 		Grandpa: grandpa::{Module, Call, Storage, Config, Event},
 		Indices: indices::{Module, Call, Storage, Event<T>, Config<T>},

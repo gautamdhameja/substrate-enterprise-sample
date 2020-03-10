@@ -41,11 +41,13 @@ std = [
     'sp-transaction-pool/std',
     'sp-version/std',
     'pallet-did/std',
+    'session/std',
     'sudo/std',
     'system/std',
     'timestamp/std',
     'transaction-payment/std',
     'template/std',
+    'validator-set/std',
 ]
 [dependencies.aura]
 default-features = false
@@ -118,6 +120,13 @@ version = '2.0.0-alpha.3'
 default-features = false
 package = 'pallet-did'
 path = '../pallets/did'
+version = '2.0.0'
+
+[dependencies.session]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'pallet-session'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
 
 [dependencies.randomness-collective-flip]
@@ -237,3 +246,9 @@ git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-transaction-payment'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
+
+[dependencies.validator-set]
+default-features = false
+package = 'validator-set'
+path = '../pallets/validator-set'
+version = '2.0.0'

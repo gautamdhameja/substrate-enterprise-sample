@@ -1,7 +1,8 @@
 use sp_core::{Pair, Public, sr25519};
 use node_template_runtime::{
-	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig, ContractsConfig, 
-	IndicesConfig, SudoConfig, SystemConfig, WASM_BINARY, Signature, MILLICENTS
+	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig, IndicesConfig, 
+	SudoConfig, SystemConfig, ContractsConfig, ValidatorSetConfig, SessionConfig,
+	WASM_BINARY, Signature, MILLICENTS, opaque::SessionKeys
 };
 use sp_consensus_aura::sr25519::{AuthorityId as AuraId};
 use grandpa_primitives::{AuthorityId as GrandpaId};
@@ -25,6 +26,13 @@ pub enum Alternative {
 	LocalTestnet,
 }
 
+fn session_keys(
+	grandpa: GrandpaId,
+	aura: AuraId,
+) -> SessionKeys {
+	SessionKeys { grandpa, aura }
+}
+
 /// Helper function to generate a crypto pair from seed
 pub fn get_from_seed<TPublic: Public>(seed: &str) -> <TPublic::Pair as Pair>::Public {
 	TPublic::Pair::from_string(&format!("//{}", seed), None)
@@ -42,10 +50,15 @@ pub fn get_account_id_from_seed<TPublic: Public>(seed: &str) -> AccountId where
 }
 
 /// Helper function to generate an authority key for Aura
-pub fn get_authority_keys_from_seed(s: &str) -> (AuraId, GrandpaId) {
+pub fn get_authority_keys_from_seed(seed: &str) -> (
+	AccountId,
+	GrandpaId,
+	AuraId
+) {
 	(
-		get_from_seed::<AuraId>(s),
-		get_from_seed::<GrandpaId>(s),
+		get_account_id_from_seed::<sr25519::Public>(seed),
+		get_from_seed::<GrandpaId>(seed),
+		get_from_seed::<AuraId>(seed)
 	)
 }
 
@@ -139,11 +152,19 @@ fn testnet_genesis(initial_authorities: Vec<(AuraId, GrandpaId)>,
 		balances: Some(BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
 		}),
+		validator_set: Some(ValidatorSetConfig {
+			validators: initial_authorities.iter().map(|x| x.0.clone()).collect::<Vec<_>>(),
+		}),
+		session: Some(SessionConfig {
+			keys: initial_authorities.iter().map(|x| {
+				(x.0.clone(), session_keys(x.1.clone(), x.2.clone()))
+			}).collect::<Vec<_>>(),
+		}),
 		aura: Some(AuraConfig {
-			authorities: initial_authorities.iter().map(|x| (x.0.clone())).collect(),
+			authorities: vec![],
 		}),
 		grandpa: Some(GrandpaConfig {
-			authorities: initial_authorities.iter().map(|x| (x.1.clone(), 1)).collect(),
+				 authorities: vec![],
 		}),
 		sudo: Some(SudoConfig {
 			key: root_key,
