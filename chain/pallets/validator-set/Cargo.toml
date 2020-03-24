@@ -1,5 +1,5 @@
 [package]
-name = "validator-set"
+name = "pallet-validator-set"
 version = "2.0.0"
 authors = ["gautamdhameja"]
 edition = "2018"

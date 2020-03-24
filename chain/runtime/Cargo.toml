@@ -40,7 +40,7 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
-    'pallet-did/std',
+    'did/std',
     'session/std',
     'sudo/std',
     'system/std',
@@ -116,7 +116,7 @@ package = 'pallet-indices'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
 
-[dependencies.pallet-did]
+[dependencies.did]
 default-features = false
 package = 'pallet-did'
 path = '../pallets/did'
@@ -249,6 +249,6 @@ version = '2.0.0-alpha.3'
 
 [dependencies.validator-set]
 default-features = false
-package = 'validator-set'
+package = 'pallet-validator-set'
 path = '../pallets/validator-set'
 version = '2.0.0'

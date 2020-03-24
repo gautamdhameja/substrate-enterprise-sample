@@ -118,16 +118,16 @@ decl_storage! {
     trait Store for Module<T: Trait> as DID {
         /// Identity delegates stored by type.
         /// Delegates are only valid for a specific period defined as blocks number.
-        pub DelegateOf get(delegate_of): map hasher(blake2_256) (T::AccountId, Vec<u8>, T::AccountId) => Option<T::BlockNumber>;
+        pub DelegateOf get(delegate_of): map hasher(blake2_128_concat) (T::AccountId, Vec<u8>, T::AccountId) => Option<T::BlockNumber>;
         /// The attributes that belong to an identity.
         /// Attributes are only valid for a specific period defined as blocks number.
-        pub AttributeOf get(attribute_of): map hasher(blake2_256) (T::AccountId, [u8; 32]) => Attribute<T::BlockNumber, T::Moment>;
+        pub AttributeOf get(attribute_of): map hasher(blake2_128_concat) (T::AccountId, [u8; 32]) => Attribute<T::BlockNumber, T::Moment>;
         /// Attribute nonce used to generate a unique hash even if the attribute is deleted and recreated.
-        pub AttributeNonce get(nonce_of): map hasher(blake2_256) (T::AccountId, Vec<u8>) => u64;
+        pub AttributeNonce get(nonce_of): map hasher(twox_64_concat) (T::AccountId, Vec<u8>) => u64;
         /// Identity owner.
-        pub OwnerOf get(owner_of): map hasher(blake2_256) T::AccountId => Option<T::AccountId>;
+        pub OwnerOf get(owner_of): map hasher(blake2_128_concat) T::AccountId => Option<T::AccountId>;
         /// Tracking the latest identity update.
-        pub UpdatedBy get(updated_by): map hasher(blake2_256) T::AccountId => (T::AccountId, T::BlockNumber, T::Moment);
+        pub UpdatedBy get(updated_by): map hasher(blake2_128_concat) T::AccountId => (T::AccountId, T::BlockNumber, T::Moment);
     }
 }
 
@@ -445,7 +445,7 @@ impl<T: Trait> Module<T> {
                 nonce: nonce.clone(),
             };
 
-            // Prevent panic overflow 
+            // Prevent panic overflow
             nonce = nonce.checked_add(1).ok_or(Error::<T>::Overflow)?;
             <AttributeOf<T>>::insert((&identity, &id), new_attribute);
             <AttributeNonce<T>>::mutate((&identity, &name), |n| *n = nonce);
