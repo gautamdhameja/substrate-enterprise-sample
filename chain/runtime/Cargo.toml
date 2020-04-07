@@ -46,7 +46,7 @@ std = [
     'system/std',
     'timestamp/std',
     'transaction-payment/std',
-    'template/std',
+    'orgs/std',
     'validator-set/std',
 ]
 [dependencies.aura]
@@ -227,10 +227,10 @@ package = 'frame-system'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
 
-[dependencies.template]
+[dependencies.orgs]
 default-features = false
-package = 'pallet-template'
-path = '../pallets/template'
+package = 'pallet-orgs'
+path = '../pallets/organizations'
 version = '2.0.0-alpha.3'
 
 [dependencies.timestamp]

@@ -24,6 +24,8 @@ std = [
     'safe-mix/std',
     'system/std',
     'sp-io/std',
+    'sp-std/std',
+    'sp-core/std',
     'did/std',
     'contracts/std',
     'contracts-primitives/std',
@@ -32,11 +34,11 @@ std = [
 
 [package]
 authors = ['Anonymous']
-description = 'FRAME pallet template'
+description = 'FRAME pallet organizations'
 edition = '2018'
 homepage = 'https://substrate.dev'
 license = 'Unlicense'
-name = 'pallet-template'
+name = 'pallet-orgs'
 repository = 'https://github.com/paritytech/substrate/'
 version = '2.0.0-alpha.3'
 
@@ -56,7 +58,20 @@ version = '2.0.0-alpha.3'
 default-features = false
 version = '1.0.0'
 
+
+[dependencies.sp-core]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
 [dependencies.sp-io]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.sp-std]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'

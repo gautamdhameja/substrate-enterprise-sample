@@ -47,8 +47,9 @@ impl system::Trait for Test {
 }
 impl Trait for Test {
     type Event = ();
+    type Currency: frame_support::traits::Currency<Self::AccountId>;
 }
-pub type TemplateModule = Module<Test>;
+pub type OrgsModule = Module<Test>;
 
 // This function basically just builds a genesis storage key/value store according to
 // our desired mockup.

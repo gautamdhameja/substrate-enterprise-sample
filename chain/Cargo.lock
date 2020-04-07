@@ -2588,10 +2588,10 @@ dependencies = [
  "pallet-did",
  "pallet-grandpa",
  "pallet-indices",
+ "pallet-orgs",
  "pallet-randomness-collective-flip",
  "pallet-session",
  "pallet-sudo",
- "pallet-template",
  "pallet-timestamp",
  "pallet-transaction-payment",
  "pallet-validator-set",
@@ -2889,6 +2889,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-orgs"
+version = "2.0.0-alpha.3"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-contracts",
+ "pallet-contracts-primitives",
+ "pallet-did",
+ "pallet-validator-set",
+ "parity-scale-codec",
+ "safe-mix",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-randomness-collective-flip"
 version = "2.0.0-alpha.3"
 source = "git+https://github.com/paritytech/substrate.git?rev=013c1ee167354a08283fb69915fda56a62fee943#013c1ee167354a08283fb69915fda56a62fee943"
@@ -2931,23 +2949,6 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
-]
-
-[[package]]
-name = "pallet-template"
-version = "2.0.0-alpha.3"
-dependencies = [
- "frame-support",
- "frame-system",
- "pallet-contracts",
- "pallet-contracts-primitives",
- "pallet-did",
- "pallet-validator-set",
- "parity-scale-codec",
- "safe-mix",
- "sp-core",
- "sp-io",
- "sp-runtime",
 ]
 
 [[package]]

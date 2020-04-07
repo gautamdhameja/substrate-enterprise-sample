@@ -37,8 +37,9 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 pub use timestamp::Call as TimestampCall;
 
-/// Importing a template pallet
-pub use template;
+pub use orgs;
+pub use did;
+pub use validator_set;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -301,9 +302,9 @@ impl sudo::Trait for Runtime {
     type Call = Call;
 }
 
-/// Used for the module template in `./template.rs`
-impl template::Trait for Runtime {
+impl orgs::Trait for Runtime {
     type Event = Event;
+    type Currency = Balances;
 }
 
 construct_runtime!(
@@ -326,7 +327,7 @@ construct_runtime!(
 		Contracts: contracts::{Module, Call, Config<T>, Storage, Event<T>},
 		DID: did::{Module, Call, Storage, Event<T>},
 		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Event<T>},
+		OrgsModule: orgs::{Module, Call, Storage, Event<T>},
 	}
 );
 
