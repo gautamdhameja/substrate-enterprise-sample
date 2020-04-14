@@ -26,48 +26,41 @@ version = '1.0.101'
 default-features = false
 features = ['derive']
 package = 'parity-scale-codec'
-version = '1.0.0'
+version = '1.2.0'
 
 [dependencies.sp-runtime]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.frame-support]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.system]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'frame-system'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.sp-io]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.sp-std]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.timestamp]
 default_features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-timestamp'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.sp-core]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'

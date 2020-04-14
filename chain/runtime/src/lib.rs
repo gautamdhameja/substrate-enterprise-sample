@@ -19,7 +19,7 @@ use sp_runtime::traits::{
 };
 use sp_runtime::{
     create_runtime_str, generic, impl_opaque_keys, traits::OpaqueKeys,
-    transaction_validity::TransactionValidity, ApplyExtrinsicResult, MultiSignature, MultiSigner,
+    transaction_validity::{TransactionValidity, TransactionSource}, ApplyExtrinsicResult, MultiSignature, MultiSigner,
 };
 use sp_std::prelude::*;
 #[cfg(feature = "std")]
@@ -198,6 +198,7 @@ impl session::Trait for Runtime {
     type ValidatorId = <Self as system::Trait>::AccountId;
     type ValidatorIdOf = validator_set::ValidatorOf<Self>;
     type DisabledValidatorsThreshold = ();
+    type NextSessionRotation = ValidatorSet;
 }
 
 parameter_types! {
@@ -391,10 +392,6 @@ impl_runtime_apis! {
             Executive::apply_extrinsic(extrinsic)
         }
 
-        fn apply_trusted_extrinsic(extrinsic: <Block as BlockT>::Extrinsic) -> ApplyExtrinsicResult {
-            Executive::apply_trusted_extrinsic(extrinsic)
-        }
-
         fn finalize_block() -> <Block as BlockT>::Header {
             Executive::finalize_block()
         }
@@ -416,8 +413,11 @@ impl_runtime_apis! {
     }
 
     impl sp_transaction_pool::runtime_api::TaggedTransactionQueue<Block> for Runtime {
-        fn validate_transaction(tx: <Block as BlockT>::Extrinsic) -> TransactionValidity {
-            Executive::validate_transaction(tx)
+        fn validate_transaction(
+            source: TransactionSource,
+            tx: <Block as BlockT>::Extrinsic,
+        ) -> TransactionValidity {
+            Executive::validate_transaction(source, tx)
         }
     }
 

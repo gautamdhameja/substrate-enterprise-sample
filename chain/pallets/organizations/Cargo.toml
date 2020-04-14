@@ -1,20 +1,17 @@
 [dev-dependencies.sp-core]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dev-dependencies.sp-io]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dev-dependencies.sp-runtime]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [features]
 default = ['std']
@@ -38,19 +35,18 @@ homepage = 'https://substrate.dev'
 license = 'Unlicense'
 name = 'pallet-orgs'
 repository = 'https://github.com/paritytech/substrate/'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.codec]
 default-features = false
 features = ['derive']
 package = 'parity-scale-codec'
-version = '1.0.0'
+version = '1.2.0'
 
 [dependencies.frame-support]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.safe-mix]
 default-features = false
@@ -60,33 +56,29 @@ version = '1.0.0'
 [dependencies.sp-core]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.sp-io]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.sp-std]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.system]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'frame-system'
-rev = '013c1ee167354a08283fb69915fda56a62fee943'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.did]
 default-features = false
 package = 'pallet-did'
 path = '../identifiers'
-version = '2.0.0-alpha.3'
+version = '2.0.0-alpha.6'
 
 [dependencies.validator-set]
 default-features = false
