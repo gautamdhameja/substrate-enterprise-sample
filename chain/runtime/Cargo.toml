@@ -43,6 +43,7 @@ std = [
     'did/std',
     'session/std',
     'sudo/std',
+    'supply-assets/std',
     'system/std',
     'timestamp/std',
     'transaction-payment/std',
@@ -119,7 +120,7 @@ version = '2.0.0-alpha.3'
 [dependencies.did]
 default-features = false
 package = 'pallet-did'
-path = '../pallets/did'
+path = '../pallets/identifiers'
 version = '2.0.0'
 
 [dependencies.session]
@@ -218,6 +219,12 @@ default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-sudo'
 rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.supply-assets]
+default-features = false
+package = 'pallet-supply-assets'
+path = '../pallets/supply-assets'
 version = '2.0.0-alpha.3'
 
 [dependencies.system]

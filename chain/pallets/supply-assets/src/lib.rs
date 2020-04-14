@@ -7,6 +7,8 @@
 /// For more guidance on Substrate FRAME, see the example pallet
 /// https://github.com/paritytech/substrate/blob/master/frame/example/src/lib.rs
 use frame_support::{decl_error, decl_event, decl_module, decl_storage, dispatch};
+use frame_support::traits::Currency;
+use sp_io::hashing::keccak_256;
 use system::ensure_signed;
 use sp_std::{prelude::*, vec::Vec};
 use codec::{Decode, Encode};
@@ -18,17 +20,45 @@ mod mock;
 #[cfg(test)]
 mod tests;
 
+/// A contract function selector.
+///
+/// # Note
+///
+/// This is equal to the first four bytes of the SHA-3 hash of a function's name.
+#[derive(Clone, Copy, PartialEq, Eq, Encode, Decode, RuntimeDebug)]
+pub struct FunctionSelector([u8; 4]);
+
+impl FunctionSelector {
+    /// Returns the underlying four bytes.
+    pub fn as_bytes(&self) -> &[u8; 4] {
+        &self.0
+    }
+
+    /// Returns a unique identifier as `usize`.
+    pub fn unique_id(self) -> usize {
+        u32::from_le_bytes(self.0) as usize
+    }
+}
+
+impl From<&'_ str> for FunctionSelector {
+    fn from(name: &str) -> Self {
+        let sha3_hash = keccak_256(name.as_bytes());
+        Self([sha3_hash[0], sha3_hash[1], sha3_hash[2], sha3_hash[3]])
+    }
+}
+
 //pub type BalanceOf<T> = <<T as Trait>::Currency as Currency<<T as system::Trait>::AccountId>>::Balance;
 
 /// The pallet's configuration trait.
-pub trait Trait: system::Trait + did::Trait + validator_set::Trait {
+pub trait Trait: system::Trait + did::Trait + contracts::Trait {
     /// The overarching event type.
     type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+    type Currency: Currency<Self::AccountId>;
 }
 
 // This pallet's storage items.
 decl_storage! {
-    trait Store for Module<T: Trait> as Organizations {
+    trait Store for Module<T: Trait> as SupplyAssets {
         // Just a dummy storage item.
         // Here we are declaring a StorageValue, `Something` as a Option<u32>
         // `get(fn something)` is the default getter which returns either the stored `u32` or `None` if nothing stored
@@ -46,6 +76,9 @@ decl_event!(
         /// Event `Something` is declared with a parameter of the type `u32` and `AccountId`
         /// To emit this event, we call the deposit function, from our runtime functions
         SomethingStored(u32, AccountId),
+
+        // A smart contract was called from the runtime.
+        ContractCalled(AccountId, bool),
     }
 );
 
@@ -85,7 +118,6 @@ decl_module! {
 
             <did::Module<T>>::delegate_of((who.clone(), b"validator".to_vec() , validator_id.clone()));
             <did::Module<T>>::add_delegate(origin.clone(), who.clone(), validator_id.clone(), b"validator".to_vec(), 1000.into())?;
-            <validator_set::Module<T>>::add_validator(origin, validator_id)?;
 
             // Here we are raising the Something event
             Self::deposit_event(RawEvent::SomethingStored(something, who));
@@ -107,5 +139,34 @@ decl_module! {
                 },
             }
         }
+
+    //     /// Calls a Substrate smart contract using its address and ABI.
+    //     /// input_data is the bytes representation of contract function/message name
+    //     /// and scale encoded parameter value.
+    //     pub fn call_contract(origin, address: T::AccountId, selector: FunctionSelector
+    //       #[compact] value: BalanceOf<T>,
+    //       #[compact] gas_limit: Gas
+    //     ) -> dispatch::DispatchResult {
+    //       let who = ensure_signed(origin)?;
+    //       let encoded_bool = bool::encode(&flag);
+    //       let encoded_int = u32::encode(&val);
+    //       let input_data = [&selector.as_bytes()[..], &encoded_bool[..], &encoded_int[..]].concat();
+
+    //       let exec_result = <contracts::Module<T>>::bare_call(who, address.clone(), value.into(), 500000, input_data);
+    //       match exec_result {
+    //           Ok(v) => {
+    //               let result_val = bool::decode(&mut &v.data[..]);
+    //               match result_val {
+    //                   Ok(b) => {
+    //                       Self::deposit_event(RawEvent::ContractCalled(address, b));
+    //                   },
+    //                   Err(_) => { },
+    //               }
+    //           },
+    //           Err(_) => { },
+    //       }
+
+    //       Ok(())
+    //   }
     }
 }

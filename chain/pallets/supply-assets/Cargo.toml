@@ -27,6 +27,8 @@ std = [
     'sp-std/std',
     'sp-core/std',
     'did/std',
+    'contracts/std',
+    'contracts-primitives/std',
     'validator-set/std',
 ]
 
@@ -36,7 +38,7 @@ description = 'FRAME pallet organizations'
 edition = '2018'
 homepage = 'https://substrate.dev'
 license = 'Unlicense'
-name = 'pallet-orgs'
+name = 'pallet-supply-assets'
 repository = 'https://github.com/paritytech/substrate/'
 version = '2.0.0-alpha.3'
 
@@ -86,6 +88,20 @@ version = '2.0.0-alpha.3'
 default-features = false
 package = 'pallet-did'
 path = '../identifiers'
+version = '2.0.0-alpha.3'
+
+[dependencies.contracts]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'pallet-contracts'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
+version = '2.0.0-alpha.3'
+
+[dependencies.contracts-primitives]
+default_features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'pallet-contracts-primitives'
+rev = '013c1ee167354a08283fb69915fda56a62fee943'
 version = '2.0.0-alpha.3'
 
 [dependencies.validator-set]

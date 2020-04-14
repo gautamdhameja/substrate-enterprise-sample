@@ -37,8 +37,10 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 pub use timestamp::Call as TimestampCall;
 
-pub use orgs;
+
 pub use did;
+pub use orgs;
+pub use supply_assets;
 pub use validator_set;
 
 /// An index to a block.
@@ -304,6 +306,10 @@ impl sudo::Trait for Runtime {
 
 impl orgs::Trait for Runtime {
     type Event = Event;
+}
+
+impl supply_assets::Trait for Runtime {
+    type Event = Event;
     type Currency = Balances;
 }
 
@@ -327,7 +333,8 @@ construct_runtime!(
 		Contracts: contracts::{Module, Call, Config<T>, Storage, Event<T>},
 		DID: did::{Module, Call, Storage, Event<T>},
 		// Used for the module template in `./template.rs`
-		OrgsModule: orgs::{Module, Call, Storage, Event<T>},
+        Organizations: orgs::{Module, Call, Storage, Event<T>},
+        SupplyAssets: supply_assets::{Module, Call, Storage, Event<T>},
 	}
 );
 
