@@ -16,6 +16,10 @@ use sc_service::ChainType;
 /// Specialized `ChainSpec`. This is a specialization of the general Substrate ChainSpec type.
 pub type ChainSpec = sc_service::GenericChainSpec<GenesisConfig>;
 
+fn session_keys(grandpa: GrandpaId, aura: AuraId) -> SessionKeys {
+    SessionKeys { grandpa, aura }
+}
+
 /// Helper function to generate a crypto pair from seed
 pub fn get_from_seed<TPublic: Public>(seed: &str) -> <TPublic::Pair as Pair>::Public {
     TPublic::Pair::from_string(&format!("//{}", seed), None)
@@ -33,10 +37,11 @@ pub fn get_account_id_from_seed<TPublic: Public>(seed: &str) -> AccountId where
 }
 
 /// Helper function to generate an authority key for Aura
-pub fn authority_keys_from_seed(s: &str) -> (AuraId, GrandpaId) {
+pub fn authority_keys_from_seed(seed: &str) -> (AccountId, GrandpaId, AuraId) {
     (
-        get_from_seed::<AuraId>(s),
-        get_from_seed::<GrandpaId>(s),
+        get_account_id_from_seed::<sr25519::Public>(seed),
+        get_from_seed::<GrandpaId>(seed),
+        get_from_seed::<AuraId>(seed),
     )
 }
 
@@ -101,7 +106,8 @@ pub fn local_testnet_config() -> ChainSpec {
     )
 }
 
-fn testnet_genesis(initial_authorities: Vec<(AuraId, GrandpaId)>,
+fn testnet_genesis(
+    initial_authorities: Vec<(AccountId, GrandpaId, AuraId)>,
     root_key: AccountId,
     endowed_accounts: Vec<AccountId>,
     enable_println: bool) -> GenesisConfig {
