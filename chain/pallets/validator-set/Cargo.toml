@@ -4,6 +4,9 @@ version = "2.0.0"
 authors = ["gautamdhameja"]
 edition = "2018"
 
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
 [features]
 default = ['std']
 std = [
@@ -22,21 +25,18 @@ std = [
 default-features = false
 features = ['derive']
 package = 'parity-scale-codec'
-version = '1.2.0'
+version = '1.3.0'
 
 [dependencies.sp-std]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 version = '2.0.0-alpha.6'
 
 [dependencies.sp-runtime]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 version = '2.0.0-alpha.6'
 
 [dependencies.sp-io]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 version = '2.0.0-alpha.6'
 
 [dependencies.serde]
@@ -46,22 +46,18 @@ version = '1.0.101'
 
 [dependencies.sp-core]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 version = '2.0.0-alpha.6'
 
 [dependencies.frame-support]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 version = '2.0.0-alpha.6'
 
 [dependencies.system]
 default-features = false
-git = 'https://github.com/paritytech/substrate.git'
 package = 'frame-system'
 version = '2.0.0-alpha.6'
 
 [dependencies.session]
 default_features = false
-git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-session'
 version = '2.0.0-alpha.6'

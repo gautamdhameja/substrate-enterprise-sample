@@ -1,5 +1,6 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+use codec::{Decode, Encode};
 /// Feel free to remove or edit this file as needed.
 /// If you change the name of this file, make sure to update its references in runtime/src/lib.rs
 /// If you remove this file, you can remove those references
@@ -7,10 +8,9 @@
 /// For more guidance on Substrate FRAME, see the example pallet
 /// https://github.com/paritytech/substrate/blob/master/frame/example/src/lib.rs
 use frame_support::{decl_error, decl_event, decl_module, decl_storage, dispatch};
-use system::ensure_signed;
-use sp_std::{prelude::*, vec::Vec};
-use codec::{Decode, Encode};
 use sp_core::RuntimeDebug;
+use sp_std::{prelude::*, vec::Vec};
+use system::ensure_signed;
 
 #[cfg(test)]
 mod mock;
@@ -21,7 +21,7 @@ mod tests;
 //pub type BalanceOf<T> = <<T as Trait>::Currency as Currency<<T as system::Trait>::AccountId>>::Balance;
 
 /// The pallet's configuration trait.
-pub trait Trait: system::Trait + did::Trait + validator_set::Trait {
+pub trait Trait: system::Trait + validator_set::Trait + did::Trait {
     /// The overarching event type.
     type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
 }
@@ -75,7 +75,7 @@ decl_module! {
         /// Just a dummy entry point.
         /// function that can be called by the external world as an extrinsics call
         /// takes a parameter of the type `AccountId`, stores it, and emits an event
-        #[weight = frame_support::weights::SimpleDispatchInfo::default()]
+        #[weight = frame_support::weights::SimpleDispatchInfo::FixedNormal(10_000)]
         pub fn do_something(origin, something: u32, validator_id: T::AccountId) -> dispatch::DispatchResult {
             // Check it was signed and get the signer. See also: ensure_root and ensure_none
             let who = ensure_signed(origin.clone())?;
@@ -83,7 +83,6 @@ decl_module! {
             // Code to execute when something calls this.
             // For example: the following line stores the passed in u32 in the storage
             Something::put(something);
-
             <did::Module<T>>::delegate_of((who.clone(), b"validator".to_vec() , validator_id.clone()));
             <did::Module<T>>::add_delegate(origin.clone(), who.clone(), validator_id.clone(), b"validator".to_vec(), 1000.into())?;
             <validator_set::Module<T>>::add_validator(origin, validator_id)?;
@@ -95,7 +94,7 @@ decl_module! {
 
         /// Another dummy entry point.
         /// takes no parameters, attempts to increment storage value, and possibly throws an error
-        #[weight = frame_support::weights::SimpleDispatchInfo::default()]
+        #[weight = frame_support::weights::SimpleDispatchInfo::FixedNormal(10_000)]
         pub fn cause_error(origin) -> dispatch::DispatchResult {
             // Check it was signed and get the signer. See also: ensure_root and ensure_none
             let _who = ensure_signed(origin)?;

@@ -8,7 +8,10 @@
 
 #![cfg_attr(not(feature = "std"), no_std)]
 
-use frame_support::{decl_error, decl_event, decl_module, decl_storage, dispatch, StorageValue, traits::EstimateNextSessionRotation};
+use frame_support::{
+    decl_error, decl_event, decl_module, decl_storage, dispatch,
+    traits::EstimateNextSessionRotation, StorageValue,
+};
 use sp_runtime::traits::Convert;
 use sp_std::prelude::*;
 use system::{self as system, ensure_root};
@@ -51,7 +54,7 @@ decl_module! {
         /// Add a new validator using root/sudo privileges.
         ///
         /// New validator's session keys should be set in session module before calling this.
-        #[weight = frame_support::weights::SimpleDispatchInfo::default()]
+        #[weight = frame_support::weights::SimpleDispatchInfo::FixedNormal(10_000)]
         pub fn add_validator(origin, validator_id: T::AccountId) -> dispatch::DispatchResult {
             ensure_root(origin)?;
             let mut validators = Self::validators().ok_or(Error::<T>::NoValidators)?;
@@ -67,7 +70,7 @@ decl_module! {
         }
 
         /// Remove a validator using root/sudo privileges.
-        #[weight = frame_support::weights::SimpleDispatchInfo::default()]
+        #[weight = frame_support::weights::SimpleDispatchInfo::FixedNormal(10_000)]
         pub fn remove_validator(origin, validator_id: T::AccountId) -> dispatch::DispatchResult {
             ensure_root(origin)?;
             let mut validators = Self::validators().ok_or(Error::<T>::NoValidators)?;

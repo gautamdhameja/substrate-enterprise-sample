@@ -15,11 +15,13 @@ use sp_api::impl_runtime_apis;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::OpaqueMetadata;
 use sp_runtime::traits::{
-    BlakeTwo256, Block as BlockT, ConvertInto, IdentifyAccount, StaticLookup, Verify,
+    BlakeTwo256, Block as BlockT, ConvertInto, IdentifyAccount, IdentityLookup, Verify,
 };
 use sp_runtime::{
-    create_runtime_str, generic, impl_opaque_keys, traits::OpaqueKeys,
-    transaction_validity::{TransactionValidity, TransactionSource}, ApplyExtrinsicResult, MultiSignature, MultiSigner,
+    create_runtime_str, generic, impl_opaque_keys,
+    traits::OpaqueKeys,
+    transaction_validity::{TransactionSource, TransactionValidity},
+    ApplyExtrinsicResult, MultiSignature, MultiSigner,
 };
 use sp_std::prelude::*;
 #[cfg(feature = "std")]
@@ -37,11 +39,9 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 pub use timestamp::Call as TimestampCall;
 
-
 pub use did;
 pub use orgs;
 pub use supply_assets;
-pub use validator_set;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -140,7 +140,7 @@ impl system::Trait for Runtime {
     /// The aggregated dispatch type that is available for extrinsics.
     type Call = Call;
     /// The lookup mechanism to get account ID from whatever is passed in dispatchers.
-    type Lookup = Indices;
+    type Lookup = IdentityLookup<AccountId>;
     /// The index type for storing how many extrinsics an account has signed.
     type Index = Index;
     /// The index type for blocks.
@@ -202,48 +202,6 @@ impl session::Trait for Runtime {
 }
 
 parameter_types! {
-    /// How much an index costs.
-    pub const IndexDeposit: u128 = 100;
-}
-
-impl indices::Trait for Runtime {
-    /// The type for recording indexing into the account enumeration. If this ever overflows, there
-    /// will be problems!
-    type AccountIndex = AccountIndex;
-    /// The ubiquitous event type.
-    type Event = Event;
-    /// The currency type.
-    type Currency = Balances;
-    /// How much an index costs.
-    type Deposit = IndexDeposit;
-}
-
-parameter_types! {
-    pub const MinimumPeriod: u64 = SLOT_DURATION / 2;
-}
-
-impl timestamp::Trait for Runtime {
-    /// A timestamp: milliseconds since the unix epoch.
-    type Moment = u64;
-    type OnTimestampSet = Aura;
-    type MinimumPeriod = MinimumPeriod;
-}
-
-parameter_types! {
-    pub const ExistentialDeposit: u128 = 500;
-}
-
-impl balances::Trait for Runtime {
-    /// The type for recording an account's balance.
-    type Balance = Balance;
-    /// The ubiquitous event type.
-    type Event = Event;
-    type DustRemoval = ();
-    type ExistentialDeposit = ExistentialDeposit;
-    type AccountStore = System;
-}
-
-parameter_types! {
     pub const ContractTransactionBaseFee: Balance = 1 * CENTS;
     pub const ContractTransactionByteFee: Balance = 10 * MILLICENTS;
     pub const ContractFee: Balance = 1 * CENTS;
@@ -281,6 +239,31 @@ impl contracts::Trait for Runtime {
 }
 
 parameter_types! {
+    pub const MinimumPeriod: u64 = SLOT_DURATION / 2;
+}
+
+impl timestamp::Trait for Runtime {
+    /// A timestamp: milliseconds since the unix epoch.
+    type Moment = u64;
+    type OnTimestampSet = Aura;
+    type MinimumPeriod = MinimumPeriod;
+}
+
+parameter_types! {
+    pub const ExistentialDeposit: u128 = 500;
+}
+
+impl balances::Trait for Runtime {
+    /// The type for recording an account's balance.
+    type Balance = Balance;
+    /// The ubiquitous event type.
+    type Event = Event;
+    type DustRemoval = ();
+    type ExistentialDeposit = ExistentialDeposit;
+    type AccountStore = System;
+}
+
+parameter_types! {
     pub const TransactionBaseFee: Balance = 0;
     pub const TransactionByteFee: Balance = 1;
 }
@@ -294,15 +277,15 @@ impl transaction_payment::Trait for Runtime {
     type FeeMultiplierUpdate = ();
 }
 
+impl sudo::Trait for Runtime {
+    type Event = Event;
+    type Call = Call;
+}
+
 impl did::Trait for Runtime {
     type Event = Event;
     type Public = MultiSigner;
     type Signature = Signature;
-}
-
-impl sudo::Trait for Runtime {
-    type Event = Event;
-    type Call = Call;
 }
 
 impl orgs::Trait for Runtime {
@@ -327,20 +310,18 @@ construct_runtime!(
 		ValidatorSet: validator_set::{Module, Call, Storage, Event<T>, Config<T>},
 		Aura: aura::{Module, Config<T>, Inherent(Timestamp)},
 		Grandpa: grandpa::{Module, Call, Storage, Config, Event},
-		Indices: indices::{Module, Call, Storage, Event<T>, Config<T>},
 		Balances: balances::{Module, Call, Storage, Config<T>, Event<T>},
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		Contracts: contracts::{Module, Call, Config<T>, Storage, Event<T>},
 		DID: did::{Module, Call, Storage, Event<T>},
-		// Used for the module template in `./template.rs`
-        Organizations: orgs::{Module, Call, Storage, Event<T>},
-        SupplyAssets: supply_assets::{Module, Call, Storage, Event<T>},
+		Organizations: orgs::{Module, Call, Storage, Event<T>},
+		SupplyAssets: supply_assets::{Module, Call, Storage, Event<T>},
 	}
 );
 
 /// The address format for describing accounts.
-pub type Address = <Indices as StaticLookup>::Source;
+pub type Address = AccountId;
 /// Block header type as expected by this runtime.
 pub type Header = generic::Header<BlockNumber, BlakeTwo256>;
 /// Block type as expected by this runtime.

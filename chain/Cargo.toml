@@ -1,12 +1,7 @@
-[profile.release]
-panic = 'unwind'
-
 [workspace]
 members = [
     'node',
-    'pallets/organizations',
-    'pallets/identifiers',
-    'pallets/supply-assets',
-    'pallets/validator-set',
     'runtime',
 ]
+[profile.release]
+panic = 'unwind'

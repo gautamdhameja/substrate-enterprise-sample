@@ -47,7 +47,7 @@ impl system::Trait for Test {
 }
 impl Trait for Test {
     type Event = ();
-    type Currency: frame_support::traits::Currency<Self::AccountId>;
+    type Currency = frame_support::traits::Currency<Self::AccountId>;
 }
 pub type SupplyAssets = Module<Test>;
 

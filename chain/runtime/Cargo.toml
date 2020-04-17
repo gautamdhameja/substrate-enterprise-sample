@@ -1,3 +1,158 @@
+[dependencies.aura]
+default-features = false
+package = 'pallet-aura'
+version = '2.0.0-alpha.6'
+
+[dependencies.balances]
+default-features = false
+package = 'pallet-balances'
+version = '2.0.0-alpha.6'
+
+[dependencies.codec]
+default-features = false
+features = ['derive']
+package = 'parity-scale-codec'
+version = '1.3.0'
+
+[dependencies.contracts]
+default_features = false
+package = 'pallet-contracts'
+version = '2.0.0-alpha.6'
+
+[dependencies.contracts-primitives]
+default_features = false
+package = 'pallet-contracts-primitives'
+version = '2.0.0-alpha.6'
+
+[dependencies.contracts-rpc-runtime-api]
+default-features = false
+package = 'pallet-contracts-rpc-runtime-api'
+version = '0.8.0-alpha.3'
+
+[dependencies.did]
+default-features = false
+package = 'pallet-did'
+path = '../pallets/identifiers'
+version = '2.0.0'
+
+[dependencies.frame-executive]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.frame-support]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.grandpa]
+default-features = false
+package = 'pallet-grandpa'
+version = '2.0.0-alpha.6'
+
+[dependencies.orgs]
+default-features = false
+package = 'pallet-orgs'
+path = '../pallets/organizations'
+version = '2.0.0-alpha.6'
+
+[dependencies.randomness-collective-flip]
+default-features = false
+package = 'pallet-randomness-collective-flip'
+version = '2.0.0-alpha.6'
+
+[dependencies.session]
+default_features = false
+package = 'pallet-session'
+version = '2.0.0-alpha.6'
+
+[dependencies.serde]
+features = ['derive']
+optional = true
+version = '1.0.101'
+
+[dependencies.sp-api]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-block-builder]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-consensus-aura]
+default-features = false
+version = '0.8.0-alpha.6'
+
+[dependencies.sp-core]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-inherents]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-io]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-offchain]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-runtime]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-session]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-std]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-transaction-pool]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sp-version]
+default-features = false
+version = '2.0.0-alpha.6'
+
+[dependencies.sudo]
+default-features = false
+package = 'pallet-sudo'
+version = '2.0.0-alpha.6'
+
+[dependencies.supply-assets]
+default-features = false
+package = 'pallet-supply-assets'
+path = '../pallets/supply-assets'
+version = '2.0.0-alpha.6'
+
+[dependencies.system]
+default-features = false
+package = 'frame-system'
+version = '2.0.0-alpha.6'
+
+[dependencies.timestamp]
+default-features = false
+package = 'pallet-timestamp'
+version = '2.0.0-alpha.6'
+
+[dependencies.transaction-payment]
+default-features = false
+package = 'pallet-transaction-payment'
+version = '2.0.0-alpha.6'
+
+[dependencies.validator-set]
+default-features = false
+package = 'pallet-validator-set'
+path = '../pallets/validator-set'
+version = '2.0.0'
+
+[build-dependencies.wasm-builder-runner]
+package = 'substrate-wasm-builder-runner'
+version = '1.0.5'
+
 [package]
 authors = ['Anonymous']
 edition = '2018'
@@ -7,10 +162,8 @@ name = 'node-template-runtime'
 repository = 'https://github.com/paritytech/substrate/'
 version = '2.0.0-alpha.6'
 
-[build-dependencies.wasm-builder-runner]
-git = 'https://github.com/paritytech/substrate.git'
-package = 'substrate-wasm-builder-runner'
-version = '1.0.5'
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
 
 [features]
 default = ['std']
@@ -21,12 +174,13 @@ std = [
     'contracts/std',
     'contracts-primitives/std',
     'contracts-rpc-runtime-api/std',
+    'did/std',
     'frame-executive/std',
     'frame-support/std',
     'grandpa/std',
-    "indices/std",
     'randomness-collective-flip/std',
     'serde',
+    'session/std',
     'sp-api/std',
     'sp-block-builder/std',
     'sp-consensus-aura/std',
@@ -39,8 +193,6 @@ std = [
     'sp-std/std',
     'sp-transaction-pool/std',
     'sp-version/std',
-    'did/std',
-    'session/std',
     'sudo/std',
     'supply-assets/std',
     'system/std',
@@ -49,185 +201,3 @@ std = [
     'orgs/std',
     'validator-set/std',
 ]
-[dependencies.aura]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-aura'
-version = '2.0.0-alpha.6'
-
-[dependencies.balances]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-balances'
-version = '2.0.0-alpha.6'
-
-[dependencies.codec]
-default-features = false
-features = ['derive']
-package = 'parity-scale-codec'
-version = '1.0.0'
-
-[dependencies.contracts]
-default_features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-contracts'
-version = '2.0.0-alpha.6'
-
-[dependencies.contracts-primitives]
-default_features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-contracts-primitives'
-version = '2.0.0-alpha.6'
-
-[dependencies.contracts-rpc-runtime-api]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-contracts-rpc-runtime-api'
-version = '0.8.0-alpha.3'
-
-[dependencies.frame-executive]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.frame-support]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.grandpa]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-grandpa'
-version = '2.0.0-alpha.6'
-
-[dependencies.indices]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-indices'
-version = '2.0.0-alpha.6'
-
-[dependencies.did]
-default-features = false
-package = 'pallet-did'
-path = '../pallets/identifiers'
-version = '2.0.0'
-
-[dependencies.session]
-default_features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-session'
-version = '2.0.0-alpha.6'
-
-[dependencies.randomness-collective-flip]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-randomness-collective-flip'
-version = '2.0.0-alpha.6'
-
-[dependencies.serde]
-features = ['derive']
-optional = true
-version = '1.0.101'
-
-[dependencies.sp-api]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-block-builder]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-consensus-aura]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '0.8.0-alpha.3'
-
-[dependencies.sp-core]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-inherents]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-io]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-offchain]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-runtime]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-session]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-std]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-transaction-pool]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sp-version]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-version = '2.0.0-alpha.6'
-
-[dependencies.sudo]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-sudo'
-version = '2.0.0-alpha.6'
-
-[dependencies.supply-assets]
-default-features = false
-package = 'pallet-supply-assets'
-path = '../pallets/supply-assets'
-version = '2.0.0-alpha.6'
-
-[dependencies.system]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'frame-system'
-version = '2.0.0-alpha.6'
-
-[dependencies.orgs]
-default-features = false
-package = 'pallet-orgs'
-path = '../pallets/organizations'
-version = '2.0.0-alpha.6'
-
-[dependencies.timestamp]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-timestamp'
-version = '2.0.0-alpha.6'
-
-[dependencies.transaction-payment]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-transaction-payment'
-version = '2.0.0-alpha.6'
-
-[dependencies.validator-set]
-default-features = false
-package = 'pallet-validator-set'
-path = '../pallets/validator-set'
-version = '2.0.0'
