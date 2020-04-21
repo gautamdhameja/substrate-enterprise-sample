@@ -30,7 +30,7 @@ use sp_version::RuntimeVersion;
 
 // A few exports that help ease life for downstream crates.
 pub use balances::Call as BalancesCall;
-pub use contracts::Gas;
+pub use contracts::Schedule as ContractsSchedule;
 pub use frame_support::{
     construct_runtime, parameter_types, traits::Randomness, weights::Weight, StorageValue,
 };

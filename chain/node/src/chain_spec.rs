@@ -1,7 +1,7 @@
 use node_template_runtime::{
     opaque::SessionKeys, AccountId, AuraConfig, BalancesConfig, ContractsConfig, GenesisConfig,
     GrandpaConfig, SessionConfig, Signature, SudoConfig, SystemConfig, ValidatorSetConfig,
-    MILLICENTS, WASM_BINARY,
+    MILLICENTS, ContractsSchedule, WASM_BINARY,
 };
 use sc_service::ChainType;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
@@ -113,14 +113,7 @@ fn testnet_genesis(
     root_key: AccountId,
     endowed_accounts: Vec<AccountId>,
     enable_println: bool,
-) -> GenesisConfig {
-    let mut contracts_config = ContractsConfig {
-        current_schedule: Default::default(),
-        gas_price: 1 * MILLICENTS,
-    };
-    // IMPORTANT: println should only be enabled on development chains!
-    contracts_config.current_schedule.enable_println = enable_println;
-    GenesisConfig {
+) -> GenesisConfig { GenesisConfig {
         system: Some(SystemConfig {
             code: WASM_BINARY.to_vec(),
             changes_trie_config: Default::default(),
@@ -157,6 +150,12 @@ fn testnet_genesis(
             authorities: vec![],
         }),
         sudo: Some(SudoConfig { key: root_key }),
-        contracts: Some(contracts_config),
+        contracts: Some(ContractsConfig {
+            current_schedule: ContractsSchedule {
+                enable_println, // This should only be enabled on development chains
+                ..Default::default()
+            },
+            gas_price: 1 * MILLICENTS,
+        }),
     }
 }
