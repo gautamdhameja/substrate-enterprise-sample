@@ -31,9 +31,9 @@ version = '0.8.0-alpha.3'
 
 [dependencies.did]
 default-features = false
+git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-path = '../pallets/identifiers'
-version = '2.0.0'
+version = '2.0.0-alpha.6'
 
 [dependencies.frame-executive]
 default-features = false
