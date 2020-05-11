@@ -4,7 +4,6 @@
   "CUSTOM_TYPES": {
     "Address": "AccountId",
     "LookupSource": "AccountId",
-    "Weight": "u32",
     "Signature": "Vec<u8>",
     "Attribute": {
       "name": "Vec<u8>",
