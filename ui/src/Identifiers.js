@@ -62,7 +62,16 @@ function Main (props) {
   useEffect(updateParamFields, [api, callableFunction]);
 
   const onChange = (_, data) => {
-    setFormState(formState => ({ ...formState, [data.state]: data.value, input: [] }));
+    setFormState(formState => {
+      let res;
+      if (Number.isInteger(data.state)) {
+        formState.input[data.state] = data.value;
+        res = formState;
+      } else if (data.state === 'callableFunction') {
+        res = { ...formState, [data.state]: data.value, input: [] };
+      }
+      return res;
+    });
   };
 
   return (
@@ -101,7 +110,7 @@ function Main (props) {
             type='TRANSACTION'
             attrs={{
               params: input,
-              tx: api.tx.palletDid[callableFunction]
+              tx: api.tx.palletDid && api.tx.palletDid[callableFunction]
             }}
           />
         </Form.Field>
