@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Form, Dropdown } from 'semantic-ui-react';
+import { Grid, Form, Dropdown, Input } from 'semantic-ui-react';
 
 import { useSubstrate } from './substrate-lib';
 import { TxButton } from './substrate-lib/components';
@@ -7,16 +7,29 @@ import { TxButton } from './substrate-lib/components';
 function Main (props) {
   const { api } = useSubstrate();
   const [status, setStatus] = useState(null);
+  const [paramFields, setParamFields] = useState([]);
   const [storageFunctions, setStorageFunctionList] = useState([]);
   const [callableFunctionList, setCallableFunctionList] = useState([]);
   const { accountPair } = props;
 
   const [formState, setFormState] = useState({
     callableFunction: '',
-    input: [''],
-    index: 0
+    input: []
   });
   const { callableFunction, input } = formState;
+
+  const updateParamFields = () => {
+    if (callableFunction === '' || !api.tx.palletDid) {
+      return;
+    }
+
+    const paramFields = api.tx.palletDid[callableFunction].meta.args.map(arg => ({
+      name: arg.name.toString(),
+      type: arg.type.toString()
+    }));
+
+    setParamFields(paramFields);
+  };
 
   useEffect(() => {
     const section = api.tx.palletDid;
@@ -46,20 +59,10 @@ function Main (props) {
     setStorageFunctionList(storageFunctions);
   }, [api]);
 
-  const onChange = (_, data) => {
-    var i;
-    for (i in callableFunctionList) {
-      if (JSON.parse(callableFunctionList[i].data)
-        .name
-        .replace(/[^a-zA-Z0-9 ]/g, '')
-        .toLowerCase() === data.value.toLowerCase()
-      ) {
-        break;
-      }
-    }
+  useEffect(updateParamFields, [api, callableFunction]);
 
-    setFormState(formState => ({ ...formState, [data.state]: data.value, index: i }));
-    console.log(JSON.parse(callableFunctionList[i].data));
+  const onChange = (_, data) => {
+    setFormState(formState => ({ ...formState, [data.state]: data.value, input: [] }));
   };
 
   return (
@@ -78,15 +81,18 @@ function Main (props) {
             options={callableFunctionList}
           />
         </Form.Field>
-        <Form.Field>
-          <label>Identity Account</label>
-          <input
-            label='Input'
-            placeholder='identity'
-            state='input'
-            type='text'
-          />
-        </Form.Field>
+        {paramFields.map((paramField, ind) =>
+          <Form.Field key={`${paramField.name}-${paramField.type}`}>
+            <Input
+              placeholder={paramField.type}
+              fluid
+              type='text'
+              label={paramField.name}
+              state={ind}
+              onChange={onChange}
+            />
+          </Form.Field>
+        )}
         <Form.Field>
           <TxButton
             accountPair={accountPair}
@@ -94,7 +100,7 @@ function Main (props) {
             setStatus={setStatus}
             type='TRANSACTION'
             attrs={{
-              params: input ? [input] : null,
+              params: input,
               tx: api.tx.palletDid[callableFunction]
             }}
           />
