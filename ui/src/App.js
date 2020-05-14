@@ -8,6 +8,7 @@ import { DeveloperConsole } from './substrate-lib/components';
 import AccountSelector from './AccountSelector';
 import BlockNumber from './BlockNumber';
 import Events from './Events';
+import Identifiers from './Identifiers';
 import Metadata from './Metadata';
 import NodeInfo from './NodeInfo';
 import Transfer from './Transfer';
@@ -49,6 +50,9 @@ function Main () {
             <Metadata />
             <BlockNumber />
             <BlockNumber finalized />
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Identifiers accountPair={accountPair} />
           </Grid.Row>
           <Grid.Row>
             <Transfer accountPair={accountPair} />
