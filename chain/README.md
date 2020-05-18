@@ -2,11 +2,6 @@
 
 A new Substrate node, ready for hacking. This node includes:
 
-* A FRAME-based runtime
-* A template pallet
-* Aura block authoring
-* Grandpa finality gadget
-
 ## Build
 
 Install Rust:
