@@ -14,7 +14,7 @@ import {
 import { useSubstrate } from './substrate-lib';
 
 function Main (props) {
-  const { api, keyring } = useSubstrate();
+  const { keyring } = useSubstrate();
   const { setAccountAddress } = props;
   const [accountSelected, setAccountSelected] = useState('');
 
@@ -80,7 +80,6 @@ function Main (props) {
               basic
               compact
               size='large'
-              color='grey'
               icon='copy outline'
             />
           </CopyToClipboard>
@@ -95,9 +94,7 @@ function Main (props) {
             }}
             value={accountSelected}
           />
-          {api.query.system && api.query.system.account ? (
-            <BalanceAnnotation accountSelected={accountSelected} />
-          ) : null}
+          <BalanceAnnotation accountSelected={accountSelected} />
         </Menu.Menu>
       </Container>
     </Menu>
@@ -115,23 +112,22 @@ function BalanceAnnotation (props) {
 
     // If the user has selected an address, create a new subscription
     accountSelected &&
-      api.query.system
-        .account(accountSelected, ({ data: { free: balance } }) => {
-          setAccountBalance(balance.toString());
-        })
+      api.query.system.account(accountSelected, balance => {
+        setAccountBalance(balance.data.free.toHuman());
+      })
         .then(unsub => {
           unsubscribe = unsub;
         })
         .catch(console.error);
 
     return () => unsubscribe && unsubscribe();
-  }, [accountSelected, api.query.system]);
+  }, [api, accountSelected]);
 
   return accountSelected ? (
     <Label pointing='left'>
       <Icon
         name='money bill alternate'
-        color={accountBalance > 0 ? 'green' : 'red'}
+        color={accountBalance !== '0' ? 'green' : 'red'}
       />
       {accountBalance}
     </Label>

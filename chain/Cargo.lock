@@ -2757,7 +2757,6 @@ dependencies = [
 [[package]]
 name = "pallet-did"
 version = "2.0.0-alpha.8"
-source = "git+https://github.com/substrate-developer-hub/pallet-did#4cc297864c04f8724900af3ddd9234bf9d9f3406"
 dependencies = [
  "frame-support",
  "frame-system",
