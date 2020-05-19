@@ -39,9 +39,9 @@ version = '2.0.0-alpha.8'
 
 [dependencies.pallet-did]
 default-features = false
-#git = 'https://github.com/substrate-developer-hub/pallet-did'
-path = '../../../../devex/pallet-did'
+git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
+tag = 'v2.0.0-alpha.8'
 version = '2.0.0-alpha.8'
 
 [dependencies.randomness-collective-flip]
