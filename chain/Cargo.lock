@@ -2547,6 +2547,7 @@ dependencies = [
  "pallet-balances",
  "pallet-did",
  "pallet-grandpa",
+ "pallet-product-registry",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
  "pallet-template",
@@ -2804,6 +2805,17 @@ dependencies = [
  "sp-session",
  "sp-staking",
  "sp-std",
+]
+
+[[package]]
+name = "pallet-product-registry"
+version = "0.0.1"
+source = "git+https://github.com/stiiifff/pallet-product-registry#59dd0a7ddc785e3dff3fcec8dbfaf2a00156638c"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-timestamp",
+ "parity-scale-codec",
 ]
 
 [[package]]

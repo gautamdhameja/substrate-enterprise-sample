@@ -44,6 +44,12 @@ package = 'pallet-did'
 tag = 'v2.0.0-alpha.8'
 version = '2.0.0-alpha.8'
 
+[dependencies.product-registry]
+default-features = false
+git = 'https://github.com/stiiifff/pallet-product-registry'
+package = 'pallet-product-registry'
+version = '0.0.1'
+
 [dependencies.randomness-collective-flip]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -209,4 +215,5 @@ std = [
     'timestamp/std',
     'transaction-payment/std',
     'template/std',
+    'product-registry/std',
 ]
