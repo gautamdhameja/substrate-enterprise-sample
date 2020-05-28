@@ -1,0 +1,15 @@
+{
+    "PropName": "Vec<u8>",
+    "PropValue": "Vec<u8>",
+    "ProductProperty": {
+        "name": "PropName",
+        "value": "PropValue"
+    },
+    "ProductId": "Vec<u8>",
+    "Product": {
+        "id": "ProductId",
+        "owner": "AccountId",
+        "props": "Option<Vec<ProductProperty>>",
+        "registered": "Moment"
+    }
+}
