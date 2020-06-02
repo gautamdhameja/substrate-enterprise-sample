@@ -19,6 +19,19 @@
       "validity": "u32",
       "signer": "AccountId",
       "identity": "AccountId"
+    },
+    "ProductId":"Vec<u8>",
+    "PropName":"Vec<u8>",
+    "PropValue":"Vec<u8>",
+    "ProductProperty": {
+      "PropName": "PropName",
+      "PropValue": "PropValue"
+    },
+    "Product": {
+      "id": "ProductId",
+      "owner": "AccountId",
+      "props": "Option<Vec<ProductProperty>>",
+      "registered": "Moment"
     }
   }
 }
