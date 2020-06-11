@@ -2810,6 +2810,7 @@ dependencies = [
 [[package]]
 name = "pallet-product-registry"
 version = "0.0.1"
+source = "git+https://github.com/stiiifff/pallet-product-registry#5fa6e4e2bbbbc06120f1c7292028ba1a7488f720"
 dependencies = [
  "frame-support",
  "frame-system",

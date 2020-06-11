@@ -5,7 +5,7 @@
   "author": "Parity Technologies <admin@parity.io>",
   "license": "Unlicense",
   "dependencies": {
-    "@polkadot/api": "^1.14.1",
+    "@polkadot/api": "^1.17.2",
     "@polkadot/extension-dapp": "^0.25.1",
     "@polkadot/keyring": "^2.10.1",
     "@polkadot/react-identicon": "^0.53.1",
