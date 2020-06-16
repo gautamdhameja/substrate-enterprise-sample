@@ -107,7 +107,7 @@ function Main (props) {
             accountPair={accountPair}
             label='Call'
             setStatus={setStatus}
-            type='TRANSACTION'
+            type='SIGNED-TX'
             attrs={{
               params: input,
               tx: api.tx.palletDid && api.tx.palletDid[callableFunction]

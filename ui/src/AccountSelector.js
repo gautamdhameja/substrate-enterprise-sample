@@ -3,12 +3,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import {
   Menu,
+  Button,
   Dropdown,
   Container,
   Icon,
   Image,
-  Label,
-  Button
+  Label
 } from 'semantic-ui-react';
 
 import { useSubstrate } from './substrate-lib';
@@ -31,8 +31,8 @@ function Main (props) {
 
   // Set the initial address
   useEffect(() => {
-    setAccountSelected(initialAddress);
     setAccountAddress(initialAddress);
+    setAccountSelected(initialAddress);
   }, [setAccountAddress, initialAddress]);
 
   const onChange = address => {
@@ -56,9 +56,9 @@ function Main (props) {
         <Menu.Menu>
           <Image src='Substrate-Logo.png' size='mini' />
         </Menu.Menu>
-        <Menu.Menu position='right'>
-          {!accountSelected ? (
-            <span>
+        <Menu.Menu position='right' style={{ alignItems: 'center' }}>
+          { !accountSelected
+            ? <span>
               Add your account with the{' '}
               <a
                 target='_blank'
@@ -68,19 +68,14 @@ function Main (props) {
                 Polkadot JS Extension
               </a>
             </span>
-          ) : null}
-          <Icon
-            name='users'
-            size='large'
-            circular
-            color={accountSelected ? 'green' : 'red'}
-          />
+            : null }
           <CopyToClipboard text={accountSelected}>
             <Button
               basic
-              compact
+              circular
               size='large'
-              icon='copy outline'
+              icon='user'
+              color={accountSelected ? 'green' : 'red'}
             />
           </CopyToClipboard>
           <Dropdown
@@ -125,10 +120,7 @@ function BalanceAnnotation (props) {
 
   return accountSelected ? (
     <Label pointing='left'>
-      <Icon
-        name='money bill alternate'
-        color={accountBalance !== '0' ? 'green' : 'red'}
-      />
+      <Icon name='money' color='green' />
       {accountBalance}
     </Label>
   ) : null;
