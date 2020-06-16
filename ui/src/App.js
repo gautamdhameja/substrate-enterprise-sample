@@ -9,6 +9,7 @@ import AccountSelector from './AccountSelector';
 import BlockNumber from './BlockNumber';
 import Events from './Events';
 import Identifiers from './Identifiers';
+import Products from './Products';
 import Metadata from './Metadata';
 import NodeInfo from './NodeInfo';
 import Transfer from './Transfer';
@@ -53,6 +54,9 @@ function Main () {
           </Grid.Row>
           <Grid.Row stretched>
             <Identifiers accountPair={accountPair} />
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Products accountPair={accountPair} />
           </Grid.Row>
           <Grid.Row>
             <Transfer accountPair={accountPair} />
