@@ -77,10 +77,28 @@ pub mod crypto {
 // ref: https://serde.rs/container-attrs.html#crate
 #[serde(crate = "alt_serde")]
 #[derive(Deserialize, Encode, Decode, Default)]
+struct WeatherForecast {
+	main: WeatherInfo,
+}
+
+// Specifying serde path as `alt_serde`
+// ref: https://serde.rs/container-attrs.html#crate
+#[serde(crate = "alt_serde")]
+#[derive(Deserialize, Encode, Decode, Default)]
 struct WeatherInfo {
-	// Specify our own deserializing function to convert JSON string to vector of bytes
-	#[serde(deserialize_with = "de_string_to_bytes")]
-	podcast: Vec<u8>,
+	// // Specify our own deserializing function to convert JSON string to vector of bytes
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	temp: u32,
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	feels_like: u32,
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	temp_min: u32,
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	temp_max: u32,
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	pressure: u32,
+	#[serde(deserialize_with = "de_f32_to_u32")]
+	humidity: u32,
 }
 
 pub fn de_string_to_bytes<'de, D>(de: D) -> Result<Vec<u8>, D::Error>
@@ -91,14 +109,35 @@ where
 	Ok(s.as_bytes().to_vec())
 }
 
-impl fmt::Debug for WeatherInfo {
+pub fn de_f32_to_u32<'de, D>(de: D) -> Result<u32, D::Error>
+where
+	D: Deserializer<'de>,
+{
+	let f: f32 = Deserialize::deserialize(de)?;
+	Ok(f as u32)
+}
+
+impl fmt::Debug for WeatherForecast {
 	// `fmt` converts the vector of bytes inside the struct back to string for
 	//   more friendly display.
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(
 			f,
-			"{{ podcast: {}}}",
-			str::from_utf8(&self.podcast).map_err(|_| fmt::Error)?,
+			"{{ main: {:#?}}}",
+			&self.main
+		)
+	}
+}
+
+impl fmt::Debug for WeatherInfo {
+	// `fmt` converts the vector of bytes inside the struct back to string for
+	//   more friendly display.
+	// Convert temperature from Kelvin to Celsius
+	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+		write!(
+			f,
+			"{{ Temperature in Berlin: {:#?}°C}}",
+			(&self.temp - 273)
 		)
 	}
 }
@@ -236,9 +275,9 @@ impl<T: Trait> Module<T> {
 		// the storage in one go.
 		//
 		// Ref: https://substrate.dev/rustdocs/v2.0.0-rc3/sp_runtime/offchain/storage/struct.StorageValueRef.html
-		if let Some(Some(weather_info)) = s_info.get::<WeatherInfo>() {
+		if let Some(Some(weather_forecast)) = s_info.get::<WeatherInfo>() {
 			// weather-info has already been fetched. Return early.
-			debug::info!("cached weather-info: {:?}", weather_info);
+			debug::info!("cached weather-info: {:?}", weather_forecast);
 			return Ok(());
 		}
 
@@ -267,12 +306,12 @@ impl<T: Trait> Module<T> {
 		//   `Ok(Ok(true))` - successfully acquire the lock, so we run `fetch_n_parse`
 		if let Ok(Ok(true)) = res {
 			match Self::fetch_n_parse() {
-				Ok(weather_info) => {
+				Ok(weather_forecast) => {
 					// set weather-info into the storage and release the lock
-					s_info.set(&weather_info);
+					s_info.set(&weather_forecast);
 					s_lock.set(&false);
 
-					debug::info!("fetched weather-info: {:?}", weather_info);
+					debug::info!("fetched weather-info: {:?}", weather_forecast);
 				}
 				Err(err) => {
 					// release the lock
@@ -285,7 +324,7 @@ impl<T: Trait> Module<T> {
 	}
 
 	/// Fetch from remote and deserialize the JSON to a struct
-	fn fetch_n_parse() -> Result<(), Error<T>> {
+	fn fetch_n_parse() -> Result<WeatherForecast, Error<T>> {
 		let resp_bytes = Self::fetch_from_remote().map_err(|e| {
 			debug::error!("fetch_from_remote error: {:?}", e);
 			<Error<T>>::HttpFetchingError
@@ -293,13 +332,16 @@ impl<T: Trait> Module<T> {
 
 		let resp_str = str::from_utf8(&resp_bytes).map_err(|_| <Error<T>>::HttpFetchingError)?;
 		// Print out our fetched JSON string
-		debug::info!("{}", resp_str);
+		//debug::info!("{}", resp_str);
 
-		// // Deserializing JSON to struct, thanks to `serde` and `serde_derive`
-		// let weather_info: WeatherInfo =
-		// 	serde_json::from_str(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
-		// Ok(weather_info)
-		Ok(())
+		// Deserializing JSON to struct, thanks to `serde` and `serde_derive`
+		let weather_forecast: WeatherForecast =
+			//serde_json::from_str::<WeatherInfo>(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
+			serde_json::from_str(&resp_str).unwrap();
+		// Print out our fetched JSON string
+		debug::info!("{:#?}", weather_forecast);
+
+		Ok(weather_forecast)
 	}
 
 	/// This function uses the `offchain::http` API to query the remote Weather information,
