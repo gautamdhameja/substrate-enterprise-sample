@@ -57,6 +57,12 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
+[dependencies.pallet-template]
+default-features = false
+package = 'pallet-template'
+path = '../template'
+version = '2.0.0-rc3'
+
 [features]
 default = ['std']
 std = [
@@ -66,4 +72,5 @@ std = [
 	'sp-io/std',
 	'sp-runtime/std',
 	'sp-std/std',
+	'pallet-template/std',
 ]

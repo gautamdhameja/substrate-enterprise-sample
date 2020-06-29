@@ -10,19 +10,16 @@ use frame_support::{
 use codec::{Decode, Encode};
 
 use frame_system::{
-	self as system, ensure_none, ensure_signed,
+	self as system, ensure_signed,
 	offchain::{
-		AppCrypto, CreateSignedTransaction, SendSignedTransaction, Signer, SubmitTransaction,
+		AppCrypto, CreateSignedTransaction, SendSignedTransaction, Signer,
 	},
 };
 use sp_core::crypto::KeyTypeId;
 use sp_runtime::{
 	offchain as rt_offchain,
 	offchain::storage::StorageValueRef,
-	transaction_validity::{
-		InvalidTransaction, TransactionPriority, TransactionSource, TransactionValidity,
-		ValidTransaction,
-	},
+	transaction_validity::TransactionPriority,
 };
 use sp_std::prelude::*;
 use sp_std::str;
@@ -41,9 +38,8 @@ use alt_serde::{Deserialize, Deserializer};
 pub const KEY_TYPE: KeyTypeId = KeyTypeId(*b"ocww");
 pub const NUM_VEC_LEN: usize = 10;
 
-// We are fetching information from github public API about organisation `substrate-developer-hub`.
-pub const HTTP_REMOTE_REQUEST_BYTES: &[u8] = b"https://api.github.com/orgs/substrate-developer-hub";
-pub const HTTP_HEADER_USER_AGENT: &[u8] = b"riusricardo";
+// We are fetching information from Weather public API about organisation `substrate-developer-hub`.
+pub const HTTP_REMOTE_REQUEST_BYTES: &[u8] = b"https://api.openweathermap.org/data/2.5/weather?lat=52.494245&lon=13.437114&appid=729a404d474b8b3527343a4ce3c15196" ;
 
 /// Based on the above `KeyTypeId` we need to generate a pallet-specific crypto type wrappers.
 /// We can use from supported crypto kinds (`sr25519`, `ed25519` and `ecdsa`) and augment
@@ -81,13 +77,10 @@ pub mod crypto {
 // ref: https://serde.rs/container-attrs.html#crate
 #[serde(crate = "alt_serde")]
 #[derive(Deserialize, Encode, Decode, Default)]
-struct GithubInfo {
+struct WeatherInfo {
 	// Specify our own deserializing function to convert JSON string to vector of bytes
 	#[serde(deserialize_with = "de_string_to_bytes")]
-	login: Vec<u8>,
-	#[serde(deserialize_with = "de_string_to_bytes")]
-	blog: Vec<u8>,
-	public_repos: u32,
+	podcast: Vec<u8>,
 }
 
 pub fn de_string_to_bytes<'de, D>(de: D) -> Result<Vec<u8>, D::Error>
@@ -98,22 +91,20 @@ where
 	Ok(s.as_bytes().to_vec())
 }
 
-impl fmt::Debug for GithubInfo {
+impl fmt::Debug for WeatherInfo {
 	// `fmt` converts the vector of bytes inside the struct back to string for
 	//   more friendly display.
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(
 			f,
-			"{{ login: {}, blog: {}, public_repos: {} }}",
-			str::from_utf8(&self.login).map_err(|_| fmt::Error)?,
-			str::from_utf8(&self.blog).map_err(|_| fmt::Error)?,
-			&self.public_repos
+			"{{ podcast: {}}}",
+			str::from_utf8(&self.podcast).map_err(|_| fmt::Error)?,
 		)
 	}
 }
 
 /// This is the pallet's configuration trait
-pub trait Trait: system::Trait + CreateSignedTransaction<Call<Self>> {
+pub trait Trait: system::Trait + CreateSignedTransaction<Call<Self>>  + pallet_template::Trait {
 	/// The identifier type for an offchain worker.
 	type AuthorityId: AppCrypto<Self::Public, Self::Signature>;
 	/// The overarching dispatch call type.
@@ -128,7 +119,6 @@ pub trait Trait: system::Trait + CreateSignedTransaction<Call<Self>> {
 #[derive(Debug)]
 enum TransactionType {
 	SignedSubmitNumber,
-	UnsignedSubmitNumber,
 	HttpFetching,
 	None,
 }
@@ -136,7 +126,7 @@ enum TransactionType {
 decl_storage! {
 	trait Store for Module<T: Trait> as Example {
 		/// A vector of recently submitted numbers. Should be bounded
-		Numbers get(fn numbers): Vec<u64>;
+		Numbers get(fn numbers): Vec<u32>;
 	}
 }
 
@@ -147,7 +137,7 @@ decl_event!(
 		AccountId = <T as system::Trait>::AccountId,
 	{
 		/// Event generated when a new number is accepted to contribute to the average.
-		NewNumber(Option<AccountId>, u64),
+		NewNumber(Option<AccountId>, u32),
 	}
 );
 
@@ -155,11 +145,9 @@ decl_error! {
 	pub enum Error for Module<T: Trait> {
 		// Error returned when making signed transactions in off-chain worker
 		SignedSubmitNumberError,
-		// Error returned when making unsigned transactions in off-chain worker
-		UnsignedSubmitNumberError,
 		// Error returned when making remote http fetching
 		HttpFetchingError,
-		// Error returned when gh-info has already been fetched
+		// Error returned when Weather-info has already been fetched
 		AlreadyFetched,
 	}
 }
@@ -169,25 +157,18 @@ decl_module! {
 		fn deposit_event() = default;
 
 		#[weight = 0]
-		pub fn submit_number_signed(origin, number: u64) -> DispatchResult {
+		pub fn submit_number_signed(origin, number: u32) -> DispatchResult {
 			debug::info!("submit_number_signed: {:?}", number);
-			let who = ensure_signed(origin)?;
+			let who = ensure_signed(origin.clone())?;
+			<pallet_template::Module<T>>::do_something(origin, number.clone())?;
 			Self::append_or_replace_number(Some(who), number)
-		}
-
-		#[weight = 0]
-		pub fn submit_number_unsigned(origin, number: u64) -> DispatchResult {
-			debug::info!("submit_number_unsigned: {:?}", number);
-			let _ = ensure_none(origin)?;
-			Self::append_or_replace_number(None, number)
 		}
 
 		fn offchain_worker(block_number: T::BlockNumber) {
 			debug::info!("Entering off-chain workers");
 
 			let result = match Self::choose_tx_type(block_number) {
-				TransactionType::SignedSubmitNumber => Self::signed_submit_number(block_number),
-				TransactionType::UnsignedSubmitNumber => Self::unsigned_submit_number(block_number),
+				TransactionType::SignedSubmitNumber => Self::signed_submit_number(block_number.into()),
 				TransactionType::HttpFetching => Self::fetch_if_needed(),
 				TransactionType::None => Ok(())
 			};
@@ -199,7 +180,7 @@ decl_module! {
 
 impl<T: Trait> Module<T> {
 	/// Add a new number to the list.
-	fn append_or_replace_number(who: Option<T::AccountId>, number: u64) -> DispatchResult {
+	fn append_or_replace_number(who: Option<T::AccountId>, number: u32) -> DispatchResult {
 		Numbers::mutate(|numbers| {
 			// The append or replace logic. The `numbers` vector is at most `NUM_VEC_LEN` long.
 			let num_len = numbers.len();
@@ -214,7 +195,7 @@ impl<T: Trait> Module<T> {
 			let num_len = numbers.len();
 			let average = match num_len {
 				0 => 0,
-				_ => numbers.iter().sum::<u64>() / (num_len as u64),
+				_ => numbers.iter().sum::<u32>() / (num_len as u32),
 			};
 
 			debug::info!("Current average of numbers is: {}", average);
@@ -229,22 +210,21 @@ impl<T: Trait> Module<T> {
 		// Decide what type of transaction to send based on block number.
 		// Each block the offchain worker will send one type of transaction back to the chain.
 		// First a signed transaction, then an unsigned transaction, then an http fetch and json parsing.
-		match block_number.try_into().ok().unwrap() % 3 {
+		match block_number.try_into().ok().unwrap() % 2 {
 			0 => TransactionType::SignedSubmitNumber,
-			1 => TransactionType::UnsignedSubmitNumber,
-			2 => TransactionType::HttpFetching,
+			1 => TransactionType::HttpFetching,
 			_ => TransactionType::None,
 		}
 	}
 
-	/// Check if we have fetched github info before. If yes, we use the cached version that is
+	/// Check if we have fetched Weather info before. If yes, we use the cached version that is
 	///   stored in off-chain worker storage `storage`. If no, we fetch the remote info and then
 	///   write the info into the storage for future retrieval.
 	fn fetch_if_needed() -> Result<(), Error<T>> {
 		// Start off by creating a reference to Local Storage value.
 		// Since the local storage is common for all offchain workers, it's a good practice
 		// to prepend our entry with the pallet name.
-		let s_info = StorageValueRef::persistent(b"ocw-weather::gh-info");
+		let s_info = StorageValueRef::persistent(b"ocw-weather::weather-info");
 		let s_lock = StorageValueRef::persistent(b"ocw-weather::lock");
 
 		// The local storage is persisted and shared between runs of the offchain workers,
@@ -256,9 +236,9 @@ impl<T: Trait> Module<T> {
 		// the storage in one go.
 		//
 		// Ref: https://substrate.dev/rustdocs/v2.0.0-rc3/sp_runtime/offchain/storage/struct.StorageValueRef.html
-		if let Some(Some(gh_info)) = s_info.get::<GithubInfo>() {
-			// gh-info has already been fetched. Return early.
-			debug::info!("cached gh-info: {:?}", gh_info);
+		if let Some(Some(weather_info)) = s_info.get::<WeatherInfo>() {
+			// weather-info has already been fetched. Return early.
+			debug::info!("cached weather-info: {:?}", weather_info);
 			return Ok(());
 		}
 
@@ -287,12 +267,12 @@ impl<T: Trait> Module<T> {
 		//   `Ok(Ok(true))` - successfully acquire the lock, so we run `fetch_n_parse`
 		if let Ok(Ok(true)) = res {
 			match Self::fetch_n_parse() {
-				Ok(gh_info) => {
-					// set gh-info into the storage and release the lock
-					s_info.set(&gh_info);
+				Ok(weather_info) => {
+					// set weather-info into the storage and release the lock
+					s_info.set(&weather_info);
 					s_lock.set(&false);
 
-					debug::info!("fetched gh-info: {:?}", gh_info);
+					debug::info!("fetched weather-info: {:?}", weather_info);
 				}
 				Err(err) => {
 					// release the lock
@@ -305,7 +285,7 @@ impl<T: Trait> Module<T> {
 	}
 
 	/// Fetch from remote and deserialize the JSON to a struct
-	fn fetch_n_parse() -> Result<GithubInfo, Error<T>> {
+	fn fetch_n_parse() -> Result<(), Error<T>> {
 		let resp_bytes = Self::fetch_from_remote().map_err(|e| {
 			debug::error!("fetch_from_remote error: {:?}", e);
 			<Error<T>>::HttpFetchingError
@@ -315,17 +295,18 @@ impl<T: Trait> Module<T> {
 		// Print out our fetched JSON string
 		debug::info!("{}", resp_str);
 
-		// Deserializing JSON to struct, thanks to `serde` and `serde_derive`
-		let gh_info: GithubInfo =
-			serde_json::from_str(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
-		Ok(gh_info)
+		// // Deserializing JSON to struct, thanks to `serde` and `serde_derive`
+		// let weather_info: WeatherInfo =
+		// 	serde_json::from_str(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
+		// Ok(weather_info)
+		Ok(())
 	}
 
-	/// This function uses the `offchain::http` API to query the remote github information,
+	/// This function uses the `offchain::http` API to query the remote Weather information,
 	///   and returns the JSON response as vector of bytes.
 	fn fetch_from_remote() -> Result<Vec<u8>, Error<T>> {
 		let remote_url_bytes = HTTP_REMOTE_REQUEST_BYTES.to_vec();
-		let user_agent = HTTP_HEADER_USER_AGENT.to_vec();
+		// let user_agent = HTTP_HEADER_USER_AGENT.to_vec();
 		let remote_url =
 			str::from_utf8(&remote_url_bytes).map_err(|_| <Error<T>>::HttpFetchingError)?;
 
@@ -337,13 +318,7 @@ impl<T: Trait> Module<T> {
 		// Keeping the offchain worker execution time reasonable, so limiting the call to be within 3s.
 		let timeout = sp_io::offchain::timestamp().add(rt_offchain::Duration::from_millis(3000));
 
-		// For github API request, we also need to specify `user-agent` in http request header.
-		//   See: https://developer.github.com/v3/#user-agent-required
 		let pending = request
-			.add_header(
-				"User-Agent",
-				str::from_utf8(&user_agent).map_err(|_| <Error<T>>::HttpFetchingError)?,
-			)
 			.deadline(timeout) // Setting the timeout time
 			.send() // Sending the request out by the host
 			.map_err(|_| <Error<T>>::HttpFetchingError)?;
@@ -377,7 +352,7 @@ impl<T: Trait> Module<T> {
 		// representing the call, we've just created.
 		// Submit signed will return a vector of results for all accounts that were found in the
 		// local keystore with expected `KEY_TYPE`.
-		let submission: u64 = block_number.try_into().ok().unwrap() as u64;
+		let submission: u32 = block_number.try_into().ok().unwrap() as u32;
 		let results = signer.send_signed_transaction(|_acct| {
 			// We are just submitting the current block number back on-chain
 			Call::submit_number_signed(submission)
@@ -399,36 +374,5 @@ impl<T: Trait> Module<T> {
 			};
 		}
 		Ok(())
-	}
-
-	fn unsigned_submit_number(block_number: T::BlockNumber) -> Result<(), Error<T>> {
-		let submission: u64 = block_number.try_into().ok().unwrap() as u64;
-		// Submitting the current block number back on-chain.
-		let call = Call::submit_number_unsigned(submission);
-
-		SubmitTransaction::<T, Call<T>>::submit_unsigned_transaction(call.into()).map_err(|e| {
-			debug::error!("Failed in unsigned_submit_number: {:?}", e);
-			<Error<T>>::UnsignedSubmitNumberError
-		})
-	}
-}
-
-impl<T: Trait> frame_support::unsigned::ValidateUnsigned for Module<T> {
-	type Call = Call<T>;
-
-	fn validate_unsigned(_source: TransactionSource, call: &Self::Call) -> TransactionValidity {
-		#[allow(unused_variables)]
-		if let Call::submit_number_unsigned(number) = call {
-			debug::native::info!("off-chain send_unsigned: number: {}", number);
-
-			ValidTransaction::with_tag_prefix("ocw-weather")
-				.priority(T::UnsignedPriority::get())
-				.and_provides([b"submit_number_unsigned"])
-				.longevity(3)
-				.propagate(true)
-				.build()
-		} else {
-			InvalidTransaction::Call.into()
-		}
 	}
 }

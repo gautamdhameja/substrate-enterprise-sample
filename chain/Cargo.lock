@@ -2720,6 +2720,7 @@ dependencies = [
  "alt_serde",
  "frame-support",
  "frame-system",
+ "pallet-template",
  "parity-scale-codec",
  "parking_lot 0.10.2",
  "serde_json 1.0.44",
