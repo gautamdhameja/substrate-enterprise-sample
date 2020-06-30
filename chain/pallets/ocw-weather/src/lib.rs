@@ -79,6 +79,8 @@ pub mod crypto {
 #[derive(Deserialize, Encode, Decode, Default)]
 struct WeatherForecast {
 	main: WeatherInfo,
+	#[serde(deserialize_with = "de_string_to_bytes")]
+	name: Vec<u8>,
 }
 
 // Specifying serde path as `alt_serde`
@@ -95,9 +97,7 @@ struct WeatherInfo {
 	temp_min: u32,
 	#[serde(deserialize_with = "de_f32_to_u32")]
 	temp_max: u32,
-	#[serde(deserialize_with = "de_f32_to_u32")]
 	pressure: u32,
-	#[serde(deserialize_with = "de_f32_to_u32")]
 	humidity: u32,
 }
 
@@ -123,8 +123,9 @@ impl fmt::Debug for WeatherForecast {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(
 			f,
-			"{{ main: {:#?}}}",
-			&self.main
+			"{{ Forecast: {:#?}, Location {:#?}}}",
+			&self.main,
+			str::from_utf8(&self.name).map_err(|_| fmt::Error)?,
 		)
 	}
 }
@@ -136,7 +137,7 @@ impl fmt::Debug for WeatherInfo {
 	fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
 		write!(
 			f,
-			"{{ Temperature in Berlin: {:#?}°C}}",
+			"{{ Temperature: {:#?}°C}}",
 			(&self.temp - 273)
 		)
 	}
@@ -275,11 +276,11 @@ impl<T: Trait> Module<T> {
 		// the storage in one go.
 		//
 		// Ref: https://substrate.dev/rustdocs/v2.0.0-rc3/sp_runtime/offchain/storage/struct.StorageValueRef.html
-		if let Some(Some(weather_forecast)) = s_info.get::<WeatherInfo>() {
-			// weather-info has already been fetched. Return early.
-			debug::info!("cached weather-info: {:?}", weather_forecast);
-			return Ok(());
-		}
+		// if let Some(Some(weather_forecast)) = s_info.get::<WeatherInfo>() {
+		// 	// weather-info has already been fetched. Return early.
+		// 	debug::info!("cached weather-info: {:?}", weather_forecast);
+		// 	return Ok(());
+		// }
 
 		// We are implementing a mutex lock here with `s_lock`
 		let res: Result<Result<bool, bool>, Error<T>> = s_lock.mutate(|s: Option<Option<bool>>| {
@@ -336,8 +337,7 @@ impl<T: Trait> Module<T> {
 
 		// Deserializing JSON to struct, thanks to `serde` and `serde_derive`
 		let weather_forecast: WeatherForecast =
-			//serde_json::from_str::<WeatherInfo>(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
-			serde_json::from_str(&resp_str).unwrap();
+					serde_json::from_str::<WeatherForecast>(&resp_str).map_err(|_| <Error<T>>::HttpFetchingError)?;
 		// Print out our fetched JSON string
 		debug::info!("{:#?}", weather_forecast);
 
@@ -348,7 +348,6 @@ impl<T: Trait> Module<T> {
 	///   and returns the JSON response as vector of bytes.
 	fn fetch_from_remote() -> Result<Vec<u8>, Error<T>> {
 		let remote_url_bytes = HTTP_REMOTE_REQUEST_BYTES.to_vec();
-		// let user_agent = HTTP_HEADER_USER_AGENT.to_vec();
 		let remote_url =
 			str::from_utf8(&remote_url_bytes).map_err(|_| <Error<T>>::HttpFetchingError)?;
 
