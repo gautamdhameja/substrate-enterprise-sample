@@ -3,6 +3,14 @@ import { Dimmer, Loader, Grid, Message } from 'semantic-ui-react';
 import Homepage from './Homepage';
 import 'semantic-ui-css/semantic.min.css';
 import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
+import ChainData from './ChainData';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
+
 
 function Main () {
   const { apiState, keyringState, apiError } = useSubstrate();
@@ -32,7 +40,16 @@ function Main () {
 
   return (
     <div ref={contextRef}>
-      <Homepage/>
+      <Router>
+        <Switch>
+          <Route path="/ChainData">
+            <ChainData />
+          </Route>
+          <Route path="/">
+            <Homepage/>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

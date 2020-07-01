@@ -88,30 +88,23 @@ class DesktopContainer extends Component {
             style={{ minHeight: 700, padding: '1em 0em' }}
             vertical
           >
-            <Router>
-              <Menu
-                fixed={fixed ? 'top' : null}
-                inverted={!fixed}
-                pointing={!fixed}
-                secondary={!fixed}
-                size='large'
-              >
-                <Container>
-                  <Menu.Item as='a' active>
-                    Home
-                  </Menu.Item>
-                  <Menu.Item as={Link} to='/ChainData'>Demo</Menu.Item>
-                  <Menu.Item href="https://substrate.dev">Substrate</Menu.Item>
-                  <Menu.Item href="https://parity.io">Parity</Menu.Item>
-                  <Switch>
-                    <Route path="/ChainData">
-                      <ChainData />
-                    </Route>
-                  </Switch>
-                </Container>
-              </Menu>
-              <HomepageHeading/>
-            </Router>
+            <Menu
+              fixed={fixed ? 'top' : null}
+              inverted={!fixed}
+              pointing={!fixed}
+              secondary={!fixed}
+              size='large'
+            >
+              <Container>
+                <Menu.Item as='a' active>
+                  Home
+                </Menu.Item>
+                <Menu.Item as={Link} to='/ChainData'>Demo</Menu.Item>
+                <Menu.Item href="https://substrate.dev">Substrate</Menu.Item>
+                <Menu.Item href="https://parity.io">Parity</Menu.Item>
+              </Container>
+            </Menu>
+            <HomepageHeading/>
           </Segment>
         </Visibility>
 
