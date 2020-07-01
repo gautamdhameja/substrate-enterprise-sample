@@ -1,27 +1,11 @@
-import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Loader, Grid, Sticky, Message } from 'semantic-ui-react';
+import React, { createRef } from 'react';
+import { Dimmer, Loader, Grid, Message } from 'semantic-ui-react';
+import Homepage from './Homepage';
 import 'semantic-ui-css/semantic.min.css';
-
 import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
-import { DeveloperConsole } from './substrate-lib/components';
-
-import AccountSelector from './AccountSelector';
-import BlockNumber from './BlockNumber';
-import Events from './Events';
-import Identifiers from './Identifiers';
-import Products from './Products';
-import Metadata from './Metadata';
-import NodeInfo from './NodeInfo';
-import Transfer from './Transfer';
 
 function Main () {
-  const [accountAddress, setAccountAddress] = useState(null);
-  const { apiState, keyring, keyringState, apiError } = useSubstrate();
-  const accountPair =
-    accountAddress &&
-    keyringState === 'READY' &&
-    keyring.getPair(accountAddress);
-
+  const { apiState, keyringState, apiError } = useSubstrate();
   const loader = text =>
     <Dimmer active>
       <Loader size='small'>{text}</Loader>
@@ -48,30 +32,7 @@ function Main () {
 
   return (
     <div ref={contextRef}>
-      <Sticky context={contextRef}>
-        <AccountSelector setAccountAddress={setAccountAddress} />
-      </Sticky>
-      <Container>
-        <Grid stackable columns='equal'>
-          <Grid.Row stretched>
-            <NodeInfo />
-            <Metadata />
-            <BlockNumber />
-            <BlockNumber finalized />
-          </Grid.Row>
-          <Grid.Row stretched>
-            <Identifiers accountPair={accountPair} />
-          </Grid.Row>
-          <Grid.Row stretched>
-            <Products accountPair={accountPair} />
-          </Grid.Row>
-          <Grid.Row>
-            <Transfer accountPair={accountPair} />
-            <Events />
-          </Grid.Row>
-        </Grid>
-      </Container>
-      <DeveloperConsole />
+      <Homepage/>
     </div>
   );
 }

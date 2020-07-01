@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import BlockNumber from './BlockNumber';
 
 import {
   Menu,
@@ -55,6 +56,10 @@ function Main (props) {
       <Container>
         <Menu.Menu>
           <Image src='Substrate-Logo.png' size='mini' />
+        </Menu.Menu>
+        <Menu.Menu position='right'>
+          <BlockNumber style={{ fontSize: '1em' }}/>
+          <BlockNumber finalized style={{ fontSize: '1em' }}/>
         </Menu.Menu>
         <Menu.Menu position='right' style={{ alignItems: 'center' }}>
           { !accountSelected

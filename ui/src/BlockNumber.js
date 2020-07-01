@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Statistic, Grid, Card, Icon } from 'semantic-ui-react';
+import { Statistic, Grid, Icon } from 'semantic-ui-react';
 
 import { useSubstrate } from './substrate-lib';
 
@@ -39,17 +39,11 @@ function Main (props) {
 
   return (
     <Grid.Column>
-      <Card>
-        <Card.Content textAlign='center'>
-          <Statistic
-            label={(finalized ? 'Finalized' : 'Current') + ' Block'}
-            value={blockNumber}
-          />
-        </Card.Content>
-        <Card.Content extra>
-          <Icon name='time' /> {blockNumberTimer}
-        </Card.Content>
-      </Card>
+      <Statistic
+        label={(finalized ? 'Finalized' : 'Current') + ' Block'}
+        value={blockNumber}
+      />
+      <Icon name='time' /> {blockNumberTimer}
     </Grid.Column>
   );
 }
