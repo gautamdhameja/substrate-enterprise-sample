@@ -1,3 +1,15 @@
+[package]
+authors = ['Anonymous']
+edition = '2018'
+homepage = 'https://substrate.dev'
+license = 'Unlicense'
+name = 'node-template-runtime'
+repository = 'https://github.com/paritytech/substrate/'
+version = '2.0.0-rc3'
+
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
 [dependencies.aura]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -36,19 +48,6 @@ git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-grandpa'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
-
-[dependencies.pallet-did]
-default-features = false
-git = 'https://github.com/substrate-developer-hub/pallet-did'
-package = 'pallet-did'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
-
-[dependencies.product-registry]
-default-features = false
-git = 'https://github.com/stiiifff/pallet-product-registry'
-package = 'pallet-product-registry'
-version = '0.0.1'
 
 [dependencies.randomness-collective-flip]
 default-features = false
@@ -148,18 +147,6 @@ package = 'frame-system'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
-[dependencies.template]
-default-features = false
-package = 'pallet-template'
-path = '../pallets/template'
-version = '2.0.0-rc3'
-
-[dependencies.ocw-weather]
-default-features = false
-package = 'ocw-weather'
-path = '../pallets/ocw-weather'
-version = '2.0.0-rc3'
-
 [dependencies.timestamp]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -174,23 +161,33 @@ package = 'pallet-transaction-payment'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
+[dependencies.pallet-did]
+default-features = false
+path = '../pallets/pallet-did'
+version = '2.0.0-rc3'
+
+[dependencies.product-registry]
+default-features = false
+path = '../pallets/pallet-product-registry'
+package = 'pallet-product-registry'
+version = '0.0.1'
+
+[dependencies.template]
+default-features = false
+path = '../pallets/template'
+package = 'pallet-template'
+version = '2.0.0-rc3'
+
+[dependencies.ocw-weather]
+default-features = false
+path = '../pallets/ocw-weather'
+version = '2.0.0-rc3'
+
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-wasm-builder-runner'
 tag = 'v2.0.0-rc3'
 version = '1.0.5'
-
-[package]
-authors = ['Anonymous']
-edition = '2018'
-homepage = 'https://substrate.dev'
-license = 'Unlicense'
-name = 'node-template-runtime'
-repository = 'https://github.com/paritytech/substrate/'
-version = '2.0.0-rc3'
-
-[package.metadata.docs.rs]
-targets = ['x86_64-unknown-linux-gnu']
 
 [features]
 default = ['std']
