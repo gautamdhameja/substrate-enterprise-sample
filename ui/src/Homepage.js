@@ -1,10 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ChainData from './ChainData';
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from 'react-router-dom';
 import {
@@ -14,7 +10,6 @@ import {
   Grid,
   Header,
   Icon,
-  Image,
   List,
   Menu,
   Responsive,
