@@ -2863,10 +2863,13 @@ version = "2.0.0-rc3"
 dependencies = [
  "frame-support",
  "frame-system",
+ "pallet-product-registry",
+ "pallet-timestamp",
  "parity-scale-codec",
  "sp-core",
  "sp-io",
  "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
