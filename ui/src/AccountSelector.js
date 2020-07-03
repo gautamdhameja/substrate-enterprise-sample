@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import BlockNumber from './BlockNumber';
-
+import { Link } from 'react-router-dom';
 import {
   Menu,
   Button,
-  Dropdown,
   Container,
+  Dropdown,
+  Grid,
   Icon,
   Image,
   Label
@@ -54,13 +55,15 @@ function Main (props) {
       }}
     >
       <Container>
-        <Menu.Menu>
-          <Image src='Substrate-Logo.png' size='mini' />
-        </Menu.Menu>
-        <Menu.Menu position='right'>
-          <BlockNumber style={{ fontSize: '1em' }}/>
-          <BlockNumber finalized style={{ fontSize: '1em' }}/>
-        </Menu.Menu>
+        <Grid stackable columns='equal' >
+          <Grid.Row stretched >
+            <Menu.Item as={Link} to='/'>
+              <Image src='Substrate-Logo.png' size='mini' />
+            </Menu.Item>
+            <BlockNumber />
+            <BlockNumber finalized />
+          </Grid.Row>
+        </Grid>
         <Menu.Menu position='right' style={{ alignItems: 'center' }}>
           { !accountSelected
             ? <span>

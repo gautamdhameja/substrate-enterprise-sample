@@ -1,6 +1,7 @@
 import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Divider, Loader, Grid, Sticky, Message } from 'semantic-ui-react';
+import { Container, Dimmer, Divider, Loader, Grid, Sticky, Message, Menu } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import { Link } from 'react-router-dom';
 
 import { useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
@@ -47,6 +48,14 @@ const ChainData = () => {
 
   return (
     <div ref={contextRef}>
+      <Menu>
+        <Container>
+          <Menu.Item as={Link} to='/'>Home</Menu.Item>
+          <Menu.Item as={Link} to='/ChainData' active>Demo</Menu.Item>
+          <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
+          <Menu.Item href="https://parity.io">Parity</Menu.Item>
+        </Container>
+      </Menu>
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
       </Sticky>

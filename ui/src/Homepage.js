@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-  Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
@@ -95,7 +93,7 @@ class DesktopContainer extends Component {
                   Home
                 </Menu.Item>
                 <Menu.Item as={Link} to='/ChainData'>Demo</Menu.Item>
-                <Menu.Item href="https://substrate.dev">Substrate</Menu.Item>
+                <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
                 <Menu.Item href="https://parity.io">Parity</Menu.Item>
               </Container>
             </Menu>
@@ -141,7 +139,7 @@ class MobileContainer extends Component {
           <Menu.Item as='a' active>
             Home
           </Menu.Item>
-          <Menu.Item href="https://substrate.dev">Substrate</Menu.Item>
+          <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
           <Menu.Item href="https://parity.io">Parity</Menu.Item>
         </Sidebar>
 
