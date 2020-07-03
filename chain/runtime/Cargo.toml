@@ -162,7 +162,7 @@ package = 'pallet-transaction-payment'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
-# -- Pallets for specific for this runtime --
+# -- Pallets specific for this runtime --
 
 [dependencies.pallet-did]
 default-features = false
@@ -183,6 +183,8 @@ version = '2.0.0-rc3'
 default-features = false
 path = '../pallets/ocw-weather'
 version = '2.0.0-rc3'
+
+# -- End of Pallets specific for this runtime --
 
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'

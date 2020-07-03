@@ -274,6 +274,10 @@ impl pallet_ocw_weather::Trait for Runtime {
 	type UnsignedPriority = UnsignedPriority;
 }
 
+impl pallet_product_tracking::Trait for Runtime {
+	type Event = Event;
+}
+
 impl<LocalCall> system::offchain::CreateSignedTransaction<LocalCall> for Runtime
 where
 	Call: From<LocalCall>,
@@ -347,6 +351,7 @@ construct_runtime!(
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
+		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
 		OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
