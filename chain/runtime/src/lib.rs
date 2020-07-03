@@ -42,8 +42,7 @@ pub use frame_support::{
 	StorageValue,
 };
 
-/// Importing a template pallet
-pub use template;
+/// Importing pallets
 pub use ocw_weather;
 
 /// An index to a block.
@@ -265,11 +264,6 @@ impl product_registry::Trait for Runtime {
 	type Event = Event;
 }
 
-/// Used for the module template in `./template.rs`
-impl template::Trait for Runtime {
-	type Event = Event;
-}
-
 pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
 
 parameter_types! {
@@ -357,8 +351,6 @@ construct_runtime!(
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: product_registry::{Module, Call, Storage, Event<T>},
 		OcwWeather: ocw_weather::{Module, Call, Storage, Event<T>},
-		// Used for the module template in `./template.rs`
-		TemplateModule: template::{Module, Call, Storage, Event<T>},
 	}
 );
 
