@@ -12,7 +12,6 @@ import Products from './Products';
 // import Metadata from './Metadata';
 // import NodeInfo from './NodeInfo';
 import Transfer from './Transfer';
-import HomepageLayout from './Homepage';
 
 const ChainData = () => {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -48,7 +47,6 @@ const ChainData = () => {
 
   return (
     <div ref={contextRef}>
-      <HomepageLayout/>
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
       </Sticky>
