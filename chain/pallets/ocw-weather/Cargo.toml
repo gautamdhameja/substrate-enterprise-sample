@@ -1,8 +1,11 @@
 [package]
-name = "ocw-weather"
+name = "pallet-ocw-weather"
 version = "2.0.0-rc3"
-authors = ["Parity Technologies <admin@parity.io>"]
-edition = "2018"
+description = 'Substrate OCW Weather Pallet'
+edition = '2018'
+authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+homepage = 'https://substrate.dev'
+repository = 'https://github.com/paritytech/substrate/'
 license = 'Unlicense'
 
 [dependencies]
@@ -38,6 +41,12 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
+[dependencies.sp-application-crypto]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc3'
+version = '2.0.0-rc3'
+
 [dependencies.sp-core]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -63,6 +72,7 @@ std = [
 	'frame-support/std',
 	'frame-system/std',
 	'sp-io/std',
+  'sp-application-crypto/std',
 	'sp-runtime/std',
 	'sp-std/std',
 ]

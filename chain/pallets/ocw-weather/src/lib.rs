@@ -48,10 +48,10 @@ pub mod crypto {
 	use crate::KEY_TYPE;
 	use sp_core::sr25519::Signature as Sr25519Signature;
 	use sp_runtime::{
-		app_crypto::{app_crypto, sr25519},
 		traits::Verify,
 		MultiSignature, MultiSigner,
 	};
+	use sp_application_crypto::{ app_crypto, sr25519 };
 
 	app_crypto!(sr25519, KEY_TYPE);
 

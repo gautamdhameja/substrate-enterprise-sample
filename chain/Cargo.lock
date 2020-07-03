@@ -908,16 +908,16 @@ name = "frame-benchmarking"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "linregress",
  "parity-scale-codec",
  "paste",
  "sp-api",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-io",
+ "sp-runtime",
+ "sp-runtime-interface",
+ "sp-std",
 ]
 
 [[package]]
@@ -925,25 +925,14 @@ name = "frame-executive"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "parity-scale-codec",
  "serde",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-tracing 2.0.0-rc3",
-]
-
-[[package]]
-name = "frame-metadata"
-version = "11.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "parity-scale-codec",
- "serde",
- "sp-core 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-tracing",
 ]
 
 [[package]]
@@ -953,32 +942,8 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "parity-scale-codec",
  "serde",
- "sp-core 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "frame-support"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "bitmask",
- "frame-metadata 11.0.0-alpha.8",
- "frame-support-procedural 2.0.0-alpha.8",
- "impl-trait-for-tuples",
- "log",
- "once_cell",
- "parity-scale-codec",
- "paste",
- "serde",
- "sp-arithmetic 2.0.0-alpha.8",
- "sp-core 2.0.0-alpha.8",
- "sp-inherents 2.0.0-alpha.8",
- "sp-io 2.0.0-alpha.8",
- "sp-runtime 2.0.0-alpha.8",
- "sp-state-machine 0.8.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "sp-tracing 2.0.0-alpha.8",
+ "sp-core",
+ "sp-std",
 ]
 
 [[package]]
@@ -987,8 +952,8 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "bitmask",
- "frame-metadata 11.0.0-rc3",
- "frame-support-procedural 2.0.0-rc3",
+ "frame-metadata",
+ "frame-support-procedural",
  "impl-trait-for-tuples",
  "log",
  "once_cell",
@@ -996,25 +961,14 @@ dependencies = [
  "paste",
  "serde",
  "smallvec 1.4.0",
- "sp-arithmetic 2.0.0-rc3",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-tracing 2.0.0-rc3",
-]
-
-[[package]]
-name = "frame-support-procedural"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "frame-support-procedural-tools 2.0.0-alpha.8",
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.31",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-std",
+ "sp-tracing",
 ]
 
 [[package]]
@@ -1022,19 +976,7 @@ name = "frame-support-procedural"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support-procedural-tools 2.0.0-rc3",
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.31",
-]
-
-[[package]]
-name = "frame-support-procedural-tools"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "frame-support-procedural-tools-derive 2.0.0-alpha.8",
- "proc-macro-crate",
+ "frame-support-procedural-tools",
  "proc-macro2",
  "quote 1.0.7",
  "syn 1.0.31",
@@ -1045,18 +987,8 @@ name = "frame-support-procedural-tools"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support-procedural-tools-derive 2.0.0-rc3",
+ "frame-support-procedural-tools-derive",
  "proc-macro-crate",
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.31",
-]
-
-[[package]]
-name = "frame-support-procedural-tools-derive"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
  "proc-macro2",
  "quote 1.0.7",
  "syn 1.0.31",
@@ -1074,34 +1006,18 @@ dependencies = [
 
 [[package]]
 name = "frame-system"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "frame-support 2.0.0-alpha.8",
- "impl-trait-for-tuples",
- "parity-scale-codec",
- "serde",
- "sp-core 2.0.0-alpha.8",
- "sp-io 2.0.0-alpha.8",
- "sp-runtime 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "sp-version 2.0.0-alpha.8",
-]
-
-[[package]]
-name = "frame-system"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
+ "frame-support",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "serde",
- "sp-core 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-version 2.0.0-rc3",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-version",
 ]
 
 [[package]]
@@ -2644,10 +2560,10 @@ dependencies = [
  "sc-transaction-pool",
  "sp-consensus",
  "sp-consensus-aura",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-finality-grandpa",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
  "sp-transaction-pool",
  "structopt",
  "substrate-build-script-utils",
@@ -2658,14 +2574,15 @@ name = "node-template-runtime"
 version = "2.0.0-rc3"
 dependencies = [
  "frame-executive",
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
- "ocw-weather",
+ "frame-support",
+ "frame-system",
  "pallet-aura",
  "pallet-balances",
  "pallet-did",
  "pallet-grandpa",
+ "pallet-ocw-weather",
  "pallet-product-registry",
+ "pallet-product-tracking",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
  "pallet-timestamp",
@@ -2675,15 +2592,15 @@ dependencies = [
  "sp-api",
  "sp-block-builder",
  "sp-consensus-aura",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
  "sp-offchain",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-session",
- "sp-std 2.0.0-rc3",
+ "sp-std",
  "sp-transaction-pool",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "substrate-wasm-builder-runner",
 ]
 
@@ -2797,22 +2714,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9cbca9424c482ee628fa549d9c812e2cd22f1180b9222c9200fdfa6eb31aecb2"
 
 [[package]]
-name = "ocw-weather"
-version = "2.0.0-rc3"
-dependencies = [
- "alt_serde",
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
- "parity-scale-codec",
- "parking_lot 0.10.2",
- "serde_json 1.0.44",
- "sp-core 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2847,17 +2748,17 @@ name = "pallet-aura"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "pallet-session",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde",
- "sp-application-crypto 2.0.0-rc3",
+ "sp-application-crypto",
  "sp-consensus-aura",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
  "sp-timestamp",
 ]
 
@@ -2867,27 +2768,27 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "frame-benchmarking",
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "parity-scale-codec",
  "serde",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
 name = "pallet-did"
 version = "2.0.0-rc3"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde",
- "sp-core 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -2895,15 +2796,15 @@ name = "pallet-finality-tracker"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "serde",
  "sp-finality-tracker",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -2911,32 +2812,61 @@ name = "pallet-grandpa"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "pallet-finality-tracker",
  "pallet-session",
  "parity-scale-codec",
  "serde",
- "sp-application-crypto 2.0.0-rc3",
- "sp-core 2.0.0-rc3",
+ "sp-application-crypto",
+ "sp-core",
  "sp-finality-grandpa",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-session",
  "sp-staking",
- "sp-std 2.0.0-rc3",
+ "sp-std",
+]
+
+[[package]]
+name = "pallet-ocw-weather"
+version = "2.0.0-rc3"
+dependencies = [
+ "alt_serde",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "parking_lot 0.10.2",
+ "serde_json 1.0.44",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
 name = "pallet-product-registry"
-version = "0.0.1"
+version = "2.0.0-rc3"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "pallet-timestamp",
  "parity-scale-codec",
- "sp-core 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
+name = "pallet-product-tracking"
+version = "2.0.0-rc3"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -2944,12 +2874,12 @@ name = "pallet-randomness-collective-flip"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "parity-scale-codec",
  "safe-mix",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -2957,17 +2887,17 @@ name = "pallet-session"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "impl-trait-for-tuples",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-session",
  "sp-staking",
- "sp-std 2.0.0-rc3",
- "sp-trie 2.0.0-rc3",
+ "sp-std",
+ "sp-trie",
 ]
 
 [[package]]
@@ -2975,25 +2905,13 @@ name = "pallet-sudo"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "parity-scale-codec",
  "serde",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "pallet-template"
-version = "2.0.0-alpha.8"
-dependencies = [
- "frame-support 2.0.0-alpha.8",
- "frame-system 2.0.0-alpha.8",
- "parity-scale-codec",
- "sp-core 2.0.0-alpha.8",
- "sp-io 2.0.0-alpha.8",
- "sp-runtime 2.0.0-alpha.8",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -3002,14 +2920,14 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "frame-benchmarking",
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "serde",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
  "sp-timestamp",
 ]
 
@@ -3018,13 +2936,13 @@ name = "pallet-transaction-payment"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
- "frame-system 2.0.0-rc3",
+ "frame-support",
+ "frame-system",
  "pallet-transaction-payment-rpc-runtime-api",
  "parity-scale-codec",
  "smallvec 1.4.0",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -3032,12 +2950,12 @@ name = "pallet-transaction-payment-rpc-runtime-api"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
- "frame-support 2.0.0-rc3",
+ "frame-support",
  "parity-scale-codec",
  "serde",
  "sp-api",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -3963,9 +3881,9 @@ dependencies = [
  "sp-api",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-inherents",
+ "sp-runtime",
  "sp-transaction-pool",
  "substrate-prometheus-endpoint",
  "tokio-executor 0.2.0-alpha.6",
@@ -3982,9 +3900,9 @@ dependencies = [
  "sp-block-builder",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
+ "sp-core",
+ "sp-runtime",
+ "sp-state-machine",
 ]
 
 [[package]]
@@ -3999,8 +3917,8 @@ dependencies = [
  "serde",
  "serde_json 1.0.55",
  "sp-chain-spec",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -4042,13 +3960,13 @@ dependencies = [
  "sc-tracing",
  "serde_json 1.0.55",
  "sp-blockchain",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-keyring",
- "sp-panic-handler 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
+ "sp-panic-handler",
+ "sp-runtime",
+ "sp-state-machine",
  "sp-utils",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "structopt",
  "substrate-prometheus-endpoint",
  "time",
@@ -4075,19 +3993,19 @@ dependencies = [
  "sp-api",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-database",
- "sp-externalities 0.8.0-rc3",
- "sp-inherents 2.0.0-rc3",
+ "sp-externalities",
+ "sp-inherents",
  "sp-keyring",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-storage 2.0.0-rc3",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-std",
+ "sp-storage",
  "sp-transaction-pool",
- "sp-trie 2.0.0-rc3",
+ "sp-trie",
  "sp-utils",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "substrate-prometheus-endpoint",
 ]
 
@@ -4112,11 +4030,11 @@ dependencies = [
  "sc-state-db",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-database",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-trie 2.0.0-rc3",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-trie",
  "substrate-prometheus-endpoint",
 ]
 
@@ -4128,7 +4046,7 @@ dependencies = [
  "sc-client-api",
  "sp-blockchain",
  "sp-consensus",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -4148,17 +4066,17 @@ dependencies = [
  "sc-keystore",
  "sc-telemetry",
  "sp-api",
- "sp-application-crypto 2.0.0-rc3",
+ "sp-application-crypto",
  "sp-block-builder",
  "sp-blockchain",
  "sp-consensus",
  "sp-consensus-aura",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-runtime",
  "sp-timestamp",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "substrate-prometheus-endpoint",
 ]
 
@@ -4175,13 +4093,13 @@ dependencies = [
  "sc-client-api",
  "sc-telemetry",
  "sp-api",
- "sp-application-crypto 2.0.0-rc3",
+ "sp-application-crypto",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
+ "sp-core",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-state-machine",
 ]
 
 [[package]]
@@ -4199,15 +4117,15 @@ dependencies = [
  "sc-executor-common",
  "sc-executor-wasmi",
  "sp-api",
- "sp-core 2.0.0-rc3",
- "sp-externalities 0.8.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-panic-handler 2.0.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
+ "sp-core",
+ "sp-externalities",
+ "sp-io",
+ "sp-panic-handler",
+ "sp-runtime-interface",
  "sp-serializer",
- "sp-trie 2.0.0-rc3",
- "sp-version 2.0.0-rc3",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-trie",
+ "sp-version",
+ "sp-wasm-interface",
  "wasmi",
 ]
 
@@ -4221,10 +4139,10 @@ dependencies = [
  "parity-scale-codec",
  "parity-wasm",
  "sp-allocator",
- "sp-core 2.0.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime-interface",
  "sp-serializer",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-wasm-interface",
  "wasmi",
 ]
 
@@ -4237,9 +4155,9 @@ dependencies = [
  "parity-scale-codec",
  "sc-executor-common",
  "sp-allocator",
- "sp-core 2.0.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime-interface",
+ "sp-wasm-interface",
  "wasmi",
 ]
 
@@ -4268,14 +4186,14 @@ dependencies = [
  "sc-telemetry",
  "serde_json 1.0.55",
  "sp-api",
- "sp-arithmetic 2.0.0-rc3",
+ "sp-arithmetic",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-finality-grandpa",
  "sp-finality-tracker",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
  "sp-utils",
  "substrate-prometheus-endpoint",
 ]
@@ -4293,7 +4211,7 @@ dependencies = [
  "sc-network",
  "sc-service",
  "sp-blockchain",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "wasm-timer",
 ]
 
@@ -4307,8 +4225,8 @@ dependencies = [
  "parking_lot 0.10.2",
  "rand 0.7.3",
  "serde_json 1.0.55",
- "sp-application-crypto 2.0.0-rc3",
- "sp-core 2.0.0-rc3",
+ "sp-application-crypto",
+ "sp-core",
  "subtle 2.2.3",
 ]
 
@@ -4350,11 +4268,11 @@ dependencies = [
  "slog",
  "slog_derive",
  "smallvec 0.6.13",
- "sp-arithmetic 2.0.0-rc3",
+ "sp-arithmetic",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
  "sp-utils",
  "substrate-prometheus-endpoint",
  "thiserror",
@@ -4375,7 +4293,7 @@ dependencies = [
  "log",
  "lru",
  "sc-network",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "wasm-timer",
 ]
 
@@ -4399,9 +4317,9 @@ dependencies = [
  "sc-keystore",
  "sc-network",
  "sp-api",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-offchain",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-utils",
  "threadpool",
 ]
@@ -4449,15 +4367,15 @@ dependencies = [
  "sp-api",
  "sp-blockchain",
  "sp-chain-spec",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-offchain",
  "sp-rpc",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-session",
- "sp-state-machine 0.8.0-rc3",
+ "sp-state-machine",
  "sp-transaction-pool",
  "sp-utils",
- "sp-version 2.0.0-rc3",
+ "sp-version",
 ]
 
 [[package]]
@@ -4477,11 +4395,11 @@ dependencies = [
  "serde",
  "serde_json 1.0.55",
  "sp-chain-spec",
- "sp-core 2.0.0-rc3",
+ "sp-core",
  "sp-rpc",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-transaction-pool",
- "sp-version 2.0.0-rc3",
+ "sp-version",
 ]
 
 [[package]]
@@ -4496,7 +4414,7 @@ dependencies = [
  "log",
  "serde",
  "serde_json 1.0.55",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -4538,20 +4456,20 @@ dependencies = [
  "serde_json 1.0.55",
  "slog",
  "sp-api",
- "sp-application-crypto 2.0.0-rc3",
+ "sp-application-crypto",
  "sp-block-builder",
  "sp-blockchain",
  "sp-consensus",
- "sp-core 2.0.0-rc3",
- "sp-externalities 0.8.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-externalities",
+ "sp-io",
+ "sp-runtime",
  "sp-session",
- "sp-state-machine 0.8.0-rc3",
+ "sp-state-machine",
  "sp-transaction-pool",
- "sp-trie 2.0.0-rc3",
+ "sp-trie",
  "sp-utils",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "substrate-prometheus-endpoint",
  "sysinfo",
  "tracing",
@@ -4569,7 +4487,7 @@ dependencies = [
  "parity-util-mem-derive",
  "parking_lot 0.10.2",
  "sc-client-api",
- "sp-core 2.0.0-rc3",
+ "sp-core",
 ]
 
 [[package]]
@@ -4622,8 +4540,8 @@ dependencies = [
  "parking_lot 0.10.2",
  "serde",
  "sp-blockchain",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
  "sp-transaction-pool",
  "sp-utils",
  "wasm-timer",
@@ -4646,9 +4564,9 @@ dependencies = [
  "sc-transaction-graph",
  "sp-api",
  "sp-blockchain",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-tracing 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
+ "sp-tracing",
  "sp-transaction-pool",
  "sp-utils",
  "substrate-prometheus-endpoint",
@@ -4965,9 +4883,9 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "derive_more",
  "log",
- "sp-core 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-core",
+ "sp-std",
+ "sp-wasm-interface",
 ]
 
 [[package]]
@@ -4978,11 +4896,11 @@ dependencies = [
  "hash-db",
  "parity-scale-codec",
  "sp-api-proc-macro",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-version 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-std",
+ "sp-version",
 ]
 
 [[package]]
@@ -4999,40 +4917,14 @@ dependencies = [
 
 [[package]]
 name = "sp-application-crypto"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "parity-scale-codec",
- "serde",
- "sp-core 2.0.0-alpha.8",
- "sp-io 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
-]
-
-[[package]]
-name = "sp-application-crypto"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "parity-scale-codec",
  "serde",
- "sp-core 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-arithmetic"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "integer-sqrt",
- "num-traits 0.2.11",
- "parity-scale-codec",
- "primitive-types",
- "serde",
- "sp-debug-derive 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
+ "sp-core",
+ "sp-io",
+ "sp-std",
 ]
 
 [[package]]
@@ -5044,8 +4936,8 @@ dependencies = [
  "num-traits 0.2.11",
  "parity-scale-codec",
  "serde",
- "sp-debug-derive 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-debug-derive",
+ "sp-std",
 ]
 
 [[package]]
@@ -5055,9 +4947,9 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "parity-scale-codec",
  "sp-api",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -5072,8 +4964,8 @@ dependencies = [
  "parking_lot 0.10.2",
  "sp-block-builder",
  "sp-consensus",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
+ "sp-runtime",
+ "sp-state-machine",
 ]
 
 [[package]]
@@ -5098,13 +4990,13 @@ dependencies = [
  "parity-scale-codec",
  "parking_lot 0.10.2",
  "serde",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-core",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-state-machine",
+ "sp-std",
  "sp-utils",
- "sp-version 2.0.0-rc3",
+ "sp-version",
  "substrate-prometheus-endpoint",
 ]
 
@@ -5115,53 +5007,11 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "parity-scale-codec",
  "sp-api",
- "sp-application-crypto 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-application-crypto",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
  "sp-timestamp",
-]
-
-[[package]]
-name = "sp-core"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "base58",
- "blake2-rfc",
- "byteorder",
- "derive_more",
- "ed25519-dalek",
- "futures 0.3.5",
- "hash-db",
- "hash256-std-hasher",
- "hex",
- "impl-serde 0.3.1",
- "lazy_static",
- "libsecp256k1",
- "log",
- "merlin",
- "num-traits 0.2.11",
- "parity-scale-codec",
- "parity-util-mem",
- "parking_lot 0.10.2",
- "primitive-types",
- "rand 0.7.3",
- "regex",
- "schnorrkel",
- "serde",
- "sha2",
- "sp-debug-derive 2.0.0-alpha.8",
- "sp-externalities 0.8.0-alpha.8",
- "sp-runtime-interface 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "sp-storage 2.0.0-alpha.8",
- "substrate-bip39",
- "tiny-bip39",
- "tiny-keccak",
- "twox-hash",
- "wasmi",
- "zeroize",
 ]
 
 [[package]]
@@ -5193,11 +5043,11 @@ dependencies = [
  "schnorrkel",
  "serde",
  "sha2",
- "sp-debug-derive 2.0.0-rc3",
- "sp-externalities 0.8.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-storage 2.0.0-rc3",
+ "sp-debug-derive",
+ "sp-externalities",
+ "sp-runtime-interface",
+ "sp-std",
+ "sp-storage",
  "substrate-bip39",
  "tiny-bip39",
  "tiny-keccak",
@@ -5217,16 +5067,6 @@ dependencies = [
 
 [[package]]
 name = "sp-debug-derive"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.31",
-]
-
-[[package]]
-name = "sp-debug-derive"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
@@ -5237,24 +5077,13 @@ dependencies = [
 
 [[package]]
 name = "sp-externalities"
-version = "0.8.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "environmental",
- "parity-scale-codec",
- "sp-std 2.0.0-alpha.8",
- "sp-storage 2.0.0-alpha.8",
-]
-
-[[package]]
-name = "sp-externalities"
 version = "0.8.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "environmental",
  "parity-scale-codec",
- "sp-std 2.0.0-rc3",
- "sp-storage 2.0.0-rc3",
+ "sp-std",
+ "sp-storage",
 ]
 
 [[package]]
@@ -5267,10 +5096,10 @@ dependencies = [
  "parity-scale-codec",
  "serde",
  "sp-api",
- "sp-application-crypto 2.0.0-rc3",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -5279,20 +5108,8 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "parity-scale-codec",
- "sp-inherents 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-inherents"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "derive_more",
- "parity-scale-codec",
- "parking_lot 0.10.2",
- "sp-core 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
+ "sp-inherents",
+ "sp-std",
 ]
 
 [[package]]
@@ -5303,28 +5120,8 @@ dependencies = [
  "derive_more",
  "parity-scale-codec",
  "parking_lot 0.10.2",
- "sp-core 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-io"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "futures 0.3.5",
- "hash-db",
- "libsecp256k1",
- "log",
- "parity-scale-codec",
- "parking_lot 0.10.2",
- "sp-core 2.0.0-alpha.8",
- "sp-externalities 0.8.0-alpha.8",
- "sp-runtime-interface 2.0.0-alpha.8",
- "sp-state-machine 0.8.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "sp-trie 2.0.0-alpha.8",
- "sp-wasm-interface 2.0.0-alpha.8",
+ "sp-core",
+ "sp-std",
 ]
 
 [[package]]
@@ -5338,13 +5135,13 @@ dependencies = [
  "log",
  "parity-scale-codec",
  "parking_lot 0.10.2",
- "sp-core 2.0.0-rc3",
- "sp-externalities 0.8.0-rc3",
- "sp-runtime-interface 2.0.0-rc3",
- "sp-state-machine 0.8.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-trie 2.0.0-rc3",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-core",
+ "sp-externalities",
+ "sp-runtime-interface",
+ "sp-state-machine",
+ "sp-std",
+ "sp-trie",
+ "sp-wasm-interface",
 ]
 
 [[package]]
@@ -5353,8 +5150,8 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "lazy_static",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
  "strum",
 ]
 
@@ -5364,17 +5161,8 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "sp-api",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-panic-handler"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "backtrace",
- "log",
+ "sp-core",
+ "sp-runtime",
 ]
 
 [[package]]
@@ -5392,28 +5180,7 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "serde",
- "sp-core 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-runtime"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "hash256-std-hasher",
- "impl-trait-for-tuples",
- "log",
- "parity-scale-codec",
- "parity-util-mem",
- "paste",
- "rand 0.7.3",
- "serde",
- "sp-application-crypto 2.0.0-alpha.8",
- "sp-arithmetic 2.0.0-alpha.8",
- "sp-core 2.0.0-alpha.8",
- "sp-inherents 2.0.0-alpha.8",
- "sp-io 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
+ "sp-core",
 ]
 
 [[package]]
@@ -5429,27 +5196,12 @@ dependencies = [
  "paste",
  "rand 0.7.3",
  "serde",
- "sp-application-crypto 2.0.0-rc3",
- "sp-arithmetic 2.0.0-rc3",
- "sp-core 2.0.0-rc3",
- "sp-inherents 2.0.0-rc3",
- "sp-io 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-runtime-interface"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "parity-scale-codec",
- "primitive-types",
- "sp-externalities 0.8.0-alpha.8",
- "sp-runtime-interface-proc-macro 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "sp-tracing 2.0.0-alpha.8",
- "sp-wasm-interface 2.0.0-alpha.8",
- "static_assertions",
+ "sp-application-crypto",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-std",
 ]
 
 [[package]]
@@ -5459,24 +5211,12 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "parity-scale-codec",
  "primitive-types",
- "sp-externalities 0.8.0-rc3",
- "sp-runtime-interface-proc-macro 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
- "sp-tracing 2.0.0-rc3",
- "sp-wasm-interface 2.0.0-rc3",
+ "sp-externalities",
+ "sp-runtime-interface-proc-macro",
+ "sp-std",
+ "sp-tracing",
+ "sp-wasm-interface",
  "static_assertions",
-]
-
-[[package]]
-name = "sp-runtime-interface-proc-macro"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "Inflector",
- "proc-macro-crate",
- "proc-macro2",
- "quote 1.0.7",
- "syn 1.0.31",
 ]
 
 [[package]]
@@ -5507,10 +5247,10 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "parity-scale-codec",
  "sp-api",
- "sp-core 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
+ "sp-core",
+ "sp-runtime",
  "sp-staking",
- "sp-std 2.0.0-rc3",
+ "sp-std",
 ]
 
 [[package]]
@@ -5519,27 +5259,8 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "parity-scale-codec",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-state-machine"
-version = "0.8.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "hash-db",
- "log",
- "num-traits 0.2.11",
- "parity-scale-codec",
- "parking_lot 0.10.2",
- "rand 0.7.3",
- "sp-core 2.0.0-alpha.8",
- "sp-externalities 0.8.0-alpha.8",
- "sp-panic-handler 2.0.0-alpha.8",
- "sp-trie 2.0.0-alpha.8",
- "trie-db",
- "trie-root",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -5553,35 +5274,18 @@ dependencies = [
  "parity-scale-codec",
  "parking_lot 0.10.2",
  "rand 0.7.3",
- "sp-core 2.0.0-rc3",
- "sp-externalities 0.8.0-rc3",
- "sp-panic-handler 2.0.0-rc3",
- "sp-trie 2.0.0-rc3",
+ "sp-core",
+ "sp-externalities",
+ "sp-panic-handler",
+ "sp-trie",
  "trie-db",
  "trie-root",
 ]
 
 [[package]]
 name = "sp-std"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-
-[[package]]
-name = "sp-std"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
-
-[[package]]
-name = "sp-storage"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "impl-serde 0.2.3",
- "ref-cast",
- "serde",
- "sp-debug-derive 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
-]
 
 [[package]]
 name = "sp-storage"
@@ -5591,8 +5295,8 @@ dependencies = [
  "impl-serde 0.2.3",
  "ref-cast",
  "serde",
- "sp-debug-derive 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-debug-derive",
+ "sp-std",
 ]
 
 [[package]]
@@ -5603,18 +5307,10 @@ dependencies = [
  "impl-trait-for-tuples",
  "parity-scale-codec",
  "sp-api",
- "sp-inherents 2.0.0-rc3",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-inherents",
+ "sp-runtime",
+ "sp-std",
  "wasm-timer",
-]
-
-[[package]]
-name = "sp-tracing"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "tracing",
 ]
 
 [[package]]
@@ -5637,22 +5333,8 @@ dependencies = [
  "serde",
  "sp-api",
  "sp-blockchain",
- "sp-runtime 2.0.0-rc3",
+ "sp-runtime",
  "sp-utils",
-]
-
-[[package]]
-name = "sp-trie"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "hash-db",
- "memory-db",
- "parity-scale-codec",
- "sp-core 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
- "trie-db",
- "trie-root",
 ]
 
 [[package]]
@@ -5663,8 +5345,8 @@ dependencies = [
  "hash-db",
  "memory-db",
  "parity-scale-codec",
- "sp-core 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
+ "sp-core",
+ "sp-std",
  "trie-db",
  "trie-root",
 ]
@@ -5682,37 +5364,14 @@ dependencies = [
 
 [[package]]
 name = "sp-version"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "impl-serde 0.2.3",
- "parity-scale-codec",
- "serde",
- "sp-runtime 2.0.0-alpha.8",
- "sp-std 2.0.0-alpha.8",
-]
-
-[[package]]
-name = "sp-version"
 version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "impl-serde 0.2.3",
  "parity-scale-codec",
  "serde",
- "sp-runtime 2.0.0-rc3",
- "sp-std 2.0.0-rc3",
-]
-
-[[package]]
-name = "sp-wasm-interface"
-version = "2.0.0-alpha.8"
-source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-alpha.8#7e9a2ae78d27cc56e053fbec3b34a1a258b89561"
-dependencies = [
- "impl-trait-for-tuples",
- "parity-scale-codec",
- "sp-std 2.0.0-alpha.8",
- "wasmi",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -5722,7 +5381,7 @@ source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a8
 dependencies = [
  "impl-trait-for-tuples",
  "parity-scale-codec",
- "sp-std 2.0.0-rc3",
+ "sp-std",
  "wasmi",
 ]
 

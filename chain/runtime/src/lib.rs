@@ -42,9 +42,6 @@ pub use frame_support::{
 	StorageValue,
 };
 
-/// Importing pallets
-pub use ocw_weather;
-
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -260,7 +257,7 @@ impl sudo::Trait for Runtime {
 	type Call = Call;
 }
 
-impl product_registry::Trait for Runtime {
+impl pallet_product_registry::Trait for Runtime {
 	type Event = Event;
 }
 
@@ -270,8 +267,8 @@ parameter_types! {
 	pub const UnsignedPriority: u64 = 100;
 }
 
-impl ocw_weather::Trait for Runtime {
-	type AuthorityId = ocw_weather::crypto::TestAuthId;
+impl pallet_ocw_weather::Trait for Runtime {
+	type AuthorityId = pallet_ocw_weather::crypto::TestAuthId;
 	type Call = Call;
 	type Event = Event;
 	type UnsignedPriority = UnsignedPriority;
@@ -349,8 +346,8 @@ construct_runtime!(
 		PalletDID: pallet_did::{Module, Call, Storage, Event<T>},
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
-		ProductRegistry: product_registry::{Module, Call, Storage, Event<T>},
-		OcwWeather: ocw_weather::{Module, Call, Storage, Event<T>},
+		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
+		OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
 
