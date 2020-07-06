@@ -1,3 +1,16 @@
+[package]
+name = 'node-template-runtime'
+version = '2.0.0-rc3'
+description = 'Node Template Runtime'
+edition = '2018'
+authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
+homepage = 'https://substrate.dev'
+repository = 'https://github.com/paritytech/substrate/'
+license = 'Unlicense'
+
+[package.metadata.docs.rs]
+targets = ['x86_64-unknown-linux-gnu']
+
 [dependencies.aura]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -36,19 +49,6 @@ git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-grandpa'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
-
-[dependencies.pallet-did]
-default-features = false
-git = 'https://github.com/substrate-developer-hub/pallet-did'
-package = 'pallet-did'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
-
-[dependencies.product-registry]
-default-features = false
-git = 'https://github.com/stiiifff/pallet-product-registry'
-package = 'pallet-product-registry'
-version = '0.0.1'
 
 [dependencies.randomness-collective-flip]
 default-features = false
@@ -148,18 +148,6 @@ package = 'frame-system'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
-[dependencies.template]
-default-features = false
-package = 'pallet-template'
-path = '../pallets/template'
-version = '2.0.0-rc3'
-
-[dependencies.ocw-weather]
-default-features = false
-package = 'ocw-weather'
-path = '../pallets/ocw-weather'
-version = '2.0.0-rc3'
-
 [dependencies.timestamp]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -174,52 +162,65 @@ package = 'pallet-transaction-payment'
 tag = 'v2.0.0-rc3'
 version = '2.0.0-rc3'
 
+# -- Pallets specific for this runtime --
+
+[dependencies.pallet-did]
+default-features = false
+path = '../pallets/pallet-did'
+version = '2.0.0-rc3'
+
+[dependencies.pallet-product-registry]
+default-features = false
+path = '../pallets/pallet-product-registry'
+version = '2.0.0-rc3'
+
+[dependencies.pallet-product-tracking]
+default-features = false
+path = '../pallets/pallet-product-tracking'
+version = '2.0.0-rc3'
+
+[dependencies.pallet-ocw-weather]
+default-features = false
+path = '../pallets/ocw-weather'
+version = '2.0.0-rc3'
+
+# -- End of Pallets specific for this runtime --
+
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-wasm-builder-runner'
 tag = 'v2.0.0-rc3'
 version = '1.0.5'
 
-[package]
-authors = ['Anonymous']
-edition = '2018'
-homepage = 'https://substrate.dev'
-license = 'Unlicense'
-name = 'node-template-runtime'
-repository = 'https://github.com/paritytech/substrate/'
-version = '2.0.0-rc3'
-
-[package.metadata.docs.rs]
-targets = ['x86_64-unknown-linux-gnu']
-
 [features]
 default = ['std']
 std = [
-    'aura/std',
-    'balances/std',
-    'codec/std',
-    'frame-executive/std',
-    'frame-support/std',
-    'grandpa/std',
-    'pallet-did/std',
-    'randomness-collective-flip/std',
-    'serde',
-    'sp-api/std',
-    'sp-block-builder/std',
-    'sp-consensus-aura/std',
-    'sp-core/std',
-    'sp-inherents/std',
-    'sp-io/std',
-    'sp-offchain/std',
-    'sp-runtime/std',
-    'sp-session/std',
-    'sp-std/std',
-    'sp-transaction-pool/std',
-    'sp-version/std',
-    'sudo/std',
-    'system/std',
-    'timestamp/std',
-    'transaction-payment/std',
-    'template/std',
-    'product-registry/std',
+	'aura/std',
+	'balances/std',
+	'codec/std',
+	'frame-executive/std',
+	'frame-support/std',
+	'grandpa/std',
+	'randomness-collective-flip/std',
+	'serde',
+	'sp-api/std',
+	'sp-block-builder/std',
+	'sp-consensus-aura/std',
+	'sp-core/std',
+	'sp-inherents/std',
+	'sp-io/std',
+	'sp-offchain/std',
+	'sp-runtime/std',
+	'sp-session/std',
+	'sp-std/std',
+	'sp-transaction-pool/std',
+	'sp-version/std',
+	'sudo/std',
+	'system/std',
+	'timestamp/std',
+	'transaction-payment/std',
+	'pallet-did/std',
+	'pallet-ocw-weather/std',
+	'pallet-product-registry/std',
+	'pallet-product-tracking/std',
 ]

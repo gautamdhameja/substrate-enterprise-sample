@@ -1,36 +1,3 @@
 {
-  "CUSTOM_TYPES": {
-    "Address": "AccountId",
-    "LookupSource": "AccountId",
-    "Signature": "Vec<u8>",
-    "Attribute": {
-      "name": "Vec<u8>",
-      "value": "Vec<u8>",
-      "validity": "BlockNumber",
-      "creation": "Moment",
-      "nonce": "u64"
-    },
-    "AttributeTransaction": {
-      "signature": "Signature",
-      "name": "Vec<u8>",
-      "value": "Vec<u8>",
-      "validity": "u32",
-      "signer": "AccountId",
-      "identity": "AccountId"
-    },
-    "ProductId":"Vec<u8>",
-    "PropName":"Vec<u8>",
-    "PropValue":"Vec<u8>",
-    "ProductProperty": {
-      "PropName": "PropName",
-      "PropValue": "PropValue"
-    },
-    "Product": {
-      "id": "ProductId",
-      "owner": "AccountId",
-      "props": "Option<Vec<ProductProperty>>",
-      "registered": "Moment"
-    }
-  },
   "PROVIDER_SOCKET": "ws://127.0.0.1:9944"
 }

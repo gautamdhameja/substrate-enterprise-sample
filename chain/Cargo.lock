@@ -2576,15 +2576,15 @@ dependencies = [
  "frame-executive",
  "frame-support",
  "frame-system",
- "ocw-weather",
  "pallet-aura",
  "pallet-balances",
  "pallet-did",
  "pallet-grandpa",
+ "pallet-ocw-weather",
  "pallet-product-registry",
+ "pallet-product-tracking",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
- "pallet-template",
  "pallet-timestamp",
  "pallet-transaction-payment",
  "parity-scale-codec",
@@ -2714,23 +2714,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9cbca9424c482ee628fa549d9c812e2cd22f1180b9222c9200fdfa6eb31aecb2"
 
 [[package]]
-name = "ocw-weather"
-version = "2.0.0-rc3"
-dependencies = [
- "alt_serde",
- "frame-support",
- "frame-system",
- "pallet-template",
- "parity-scale-codec",
- "parking_lot 0.10.2",
- "serde_json 1.0.44",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2796,7 +2779,6 @@ dependencies = [
 [[package]]
 name = "pallet-did"
 version = "2.0.0-rc3"
-source = "git+https://github.com/substrate-developer-hub/pallet-did?tag=v2.0.0-rc3#a77b782257d28a62bdccd204eb94e6f3d8fbc47d"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -2846,14 +2828,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "pallet-ocw-weather"
+version = "2.0.0-rc3"
+dependencies = [
+ "alt_serde",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "parking_lot 0.10.2",
+ "serde_json 1.0.44",
+ "sp-application-crypto",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-product-registry"
-version = "0.0.1"
-source = "git+https://github.com/stiiifff/pallet-product-registry#5fa6e4e2bbbbc06120f1c7292028ba1a7488f720"
+version = "2.0.0-rc3"
 dependencies = [
  "frame-support",
  "frame-system",
  "pallet-timestamp",
  "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+]
+
+[[package]]
+name = "pallet-product-tracking"
+version = "2.0.0-rc3"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-product-registry",
+ "pallet-timestamp",
+ "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]
@@ -2899,18 +2915,6 @@ dependencies = [
  "sp-io",
  "sp-runtime",
  "sp-std",
-]
-
-[[package]]
-name = "pallet-template"
-version = "2.0.0-rc3"
-dependencies = [
- "frame-support",
- "frame-system",
- "parity-scale-codec",
- "sp-core",
- "sp-io",
- "sp-runtime",
 ]
 
 [[package]]

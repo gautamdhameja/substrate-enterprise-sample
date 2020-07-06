@@ -48,10 +48,10 @@ pub mod crypto {
 	use crate::KEY_TYPE;
 	use sp_core::sr25519::Signature as Sr25519Signature;
 	use sp_runtime::{
-		app_crypto::{app_crypto, sr25519},
 		traits::Verify,
 		MultiSignature, MultiSigner,
 	};
+	use sp_application_crypto::{ app_crypto, sr25519 };
 
 	app_crypto!(sr25519, KEY_TYPE);
 
@@ -144,7 +144,7 @@ impl fmt::Debug for WeatherInfo {
 }
 
 /// This is the pallet's configuration trait
-pub trait Trait: system::Trait + CreateSignedTransaction<Call<Self>>  + pallet_template::Trait {
+pub trait Trait: system::Trait + CreateSignedTransaction<Call<Self>> {
 	/// The identifier type for an offchain worker.
 	type AuthorityId: AppCrypto<Self::Public, Self::Signature>;
 	/// The overarching dispatch call type.
@@ -200,7 +200,6 @@ decl_module! {
 		pub fn submit_number_signed(origin, number: u32) -> DispatchResult {
 			debug::info!("submit_number_signed: {:?}", number);
 			let who = ensure_signed(origin.clone())?;
-			<pallet_template::Module<T>>::do_something(origin, number.clone())?;
 			Self::append_or_replace_number(Some(who), number)
 		}
 
