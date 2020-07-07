@@ -2581,7 +2581,7 @@ dependencies = [
  "pallet-did",
  "pallet-grandpa",
  "pallet-ocw-weather",
- "pallet-product-registry",
+ "pallet-product-registry 2.0.0-rc3",
  "pallet-product-tracking",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
@@ -2847,6 +2847,17 @@ dependencies = [
 [[package]]
 name = "pallet-product-registry"
 version = "2.0.0-rc3"
+source = "git+https://github.com/jimmychu0807/pallet-product-registry?tag=v2.0.0-rc3#f262b7fa5bf3fbd78d6be18c20a088d8d22370de"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "pallet-timestamp",
+ "parity-scale-codec",
+]
+
+[[package]]
+name = "pallet-product-registry"
+version = "2.0.0-rc3"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -2863,13 +2874,13 @@ version = "2.0.0-rc3"
 dependencies = [
  "frame-support",
  "frame-system",
- "pallet-product-registry",
+ "pallet-product-registry 2.0.0-rc3 (git+https://github.com/jimmychu0807/pallet-product-registry?tag=v2.0.0-rc3)",
  "pallet-timestamp",
  "parity-scale-codec",
  "sp-core",
  "sp-io",
  "sp-runtime",
- "sp-std",
+ "substrate-fixed",
 ]
 
 [[package]]
@@ -5493,6 +5504,15 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "platforms",
+]
+
+[[package]]
+name = "substrate-fixed"
+version = "0.5.4"
+source = "git+https://github.com/encointer/substrate-fixed?tag=v0.5.4+sub_v0.1#2c52170fa02507dc5b52c516061302670860869a"
+dependencies = [
+ "parity-scale-codec",
+ "typenum",
 ]
 
 [[package]]
