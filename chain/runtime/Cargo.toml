@@ -166,18 +166,19 @@ version = '2.0.0-rc3'
 
 [dependencies.pallet-did]
 default-features = false
-path = '../pallets/pallet-did'
+git = 'https://github.com/substrate-developer-hub/pallet-did'
+package = 'pallet-did'
 version = '2.0.0-rc3'
 
 [dependencies.pallet-product-registry]
 default-features = false
-path = '../pallets/pallet-product-registry'
-version = '2.0.0-rc3'
+git = 'https://github.com/stiiifff/pallet-product-registry'
+package = 'pallet-product-registry'
 
 [dependencies.pallet-product-tracking]
 default-features = false
-path = '../pallets/pallet-product-tracking'
-version = '2.0.0-rc3'
+git = 'https://github.com/stiiifff/pallet-product-tracking'
+package = 'pallet-product-tracking'
 
 [dependencies.pallet-ocw-weather]
 default-features = false
