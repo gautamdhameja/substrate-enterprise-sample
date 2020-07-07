@@ -33,36 +33,79 @@
       "props": "Option<Vec<ProductProperty>>",
       "registered": "Moment"
     },
-    "EventId": "Vec<u8>",
-    "EventIndex": "u64",
-    "EventType": "Vec<u8>",
-    "ShipmentId": "Vec<u8>",
-    "ShipmentIndex": "u64",
-    "DeviceId": "Vec<u8>",
-    "ReadingType": "Vec<u8>",
-    "ReadingValue": "Vec<u8>",
+    "Identifier": "Vec<u8>",
+    "Decimal": "u32",
+    "ProductId": "Identifier",
+    "ShipmentId": "Identifier",
+    "ShipmentStatus": {
+      "_enum": [
+        "Pending",
+        "InTransit",
+        "Delivered"
+      ]
+    },
     "Shipment": {
       "id": "ShipmentId",
       "owner": "AccountId",
-      "registered": "Moment"
+      "status": "ShipmentStatus",
+      "products": "Vec<ProductId>",
+      "registered": "Moment",
+      "delivered": "Option<Moment>"
     },
-    "EventRecord": {
-      "event_id": "EventId",
-      "event_type": "EventType",
-      "shipment_id": "ShipmentId",
-      "location": "Option<ReadPoint>",
-      "readings": "Vec<Reading<Moment>>",
-      "timestamp": "Moment"
+    "ShippingEventId": "Identifier",
+    "ShippingEventIndex": "u64",
+    "DeviceId": "Identifier",
+    "ShippingEventType": {
+      "_enum": [
+        "ShipmentPickup",
+        "SensorReading",
+        "ShipmentDelivery"
+      ]
+    },
+    "ReadingType": {
+      "_enum": [
+        "Humidity",
+        "Pressure",
+        "Shock",
+        "Tilt",
+        "Temperature",
+        "Vibration"
+      ]
     },
     "ReadPoint": {
-      "latitude": "Vec<u8>",
-      "longitude": "Vec<u8>"
+      "latitude": "Decimal",
+      "longitude": "Decimal"
     },
     "Reading": {
       "device_id": "DeviceId",
       "reading_type": "ReadingType",
       "timestamp": "Moment",
-      "value": "ReadingValue"
+      "value": "Decimal"
+    },
+    "ShippingEvent": {
+      "event_id": "ShippingEventId",
+      "event_type": "ShippingEventType",
+      "shipment_id": "ShipmentId",
+      "location": "Option<ReadPoint>",
+      "readings": "Vec<Reading<Moment>>",
+      "timestamp": "Moment"
+    },
+    "OcwTaskType": {
+      "_enum": [
+        "ShipmentRegistration",
+        "ShipmentPickup",
+        "ShipmentDelivery"
+      ]
+    },
+    "OcwTaskPayload": {
+      "_enum": [
+        "Shipment(Shipment<AccountId, Moment>)",
+        "ShippingEvent(ShippingEvent<Moment>)"
+      ]
+    },
+    "OcwTask": {
+      "type": "OcwTaskType",
+      "payload": "OcwTaskPayload<AccountId, Moment>"
     }
   },
   "RPC": {}
