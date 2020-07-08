@@ -326,13 +326,13 @@ impl pallet_product_tracking::Trait for Runtime {
 // 	type Signature = Signature;
 // }
 
-// impl<C> system::offchain::SendTransactionTypes<C> for Runtime
-// where
-// 	Call: From<C>,
-// {
-// 	type OverarchingCall = Call;
-// 	type Extrinsic = UncheckedExtrinsic;
-// }
+impl<C> system::offchain::SendTransactionTypes<C> for Runtime
+where
+	Call: From<C>,
+{
+	type OverarchingCall = Call;
+	type Extrinsic = UncheckedExtrinsic;
+}
 
 construct_runtime!(
 	pub enum Runtime where
@@ -350,7 +350,7 @@ construct_runtime!(
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
-		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
+		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>, ValidateUnsigned},
 		// OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
