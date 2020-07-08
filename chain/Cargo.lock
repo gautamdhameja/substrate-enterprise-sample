@@ -3063,11 +3063,15 @@ dependencies = [
 [[package]]
 name = "pallet-product-tracking"
 version = "2.0.0-rc3"
-source = "git+https://github.com/stiiifff/pallet-product-tracking#25b84f89d6a20644f8fddf33d9cc42606700029e"
+source = "git+https://github.com/stiiifff/pallet-product-tracking?branch=track-events#4a42b122cd1fd3f61020e78fa126a992cf2a5700"
 dependencies = [
  "frame-support",
  "frame-system",
+ "pallet-product-registry",
+ "pallet-timestamp",
  "parity-scale-codec",
+ "sp-core",
+ "substrate-fixed",
 ]
 
 [[package]]
@@ -5736,6 +5740,15 @@ version = "2.0.0-rc3"
 source = "git+https://github.com/paritytech/substrate.git?tag=v2.0.0-rc3#34695a85650b58bcd7d7e2a677cafc2921251d68"
 dependencies = [
  "platforms",
+]
+
+[[package]]
+name = "substrate-fixed"
+version = "0.5.4"
+source = "git+https://github.com/encointer/substrate-fixed?tag=v0.5.4+sub_v0.1#2c52170fa02507dc5b52c516061302670860869a"
+dependencies = [
+ "parity-scale-codec",
+ "typenum",
 ]
 
 [[package]]
