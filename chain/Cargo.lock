@@ -2872,11 +2872,13 @@ dependencies = [
 name = "pallet-product-tracking"
 version = "2.0.0-rc3"
 dependencies = [
+ "alt_serde",
  "frame-support",
  "frame-system",
  "pallet-product-registry 2.0.0-rc3 (git+https://github.com/stiiifff/pallet-product-registry)",
  "pallet-timestamp",
  "parity-scale-codec",
+ "serde_json 1.0.44",
  "sp-core",
  "sp-io",
  "sp-runtime",
