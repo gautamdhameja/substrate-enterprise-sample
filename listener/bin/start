@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+require('dotenv').config();
+
+const app = require('../src');
+
+let port = process.env.PORT || 3005;
+
+let server = app.listen(port, () => {
+  console.log(`Listening on port:${server.address().port} with pid:${process.pid}`);
+});
