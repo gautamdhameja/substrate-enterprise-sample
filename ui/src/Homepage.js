@@ -46,7 +46,7 @@ const HomepageHeading = ({ mobile }) => (
       }}
     />
     <Button
-      as={Link} to='/ChainData'
+      as={Link} to='/demo'
       primary size='huge'
     >
       Get Started
@@ -92,7 +92,7 @@ class DesktopContainer extends Component {
                 <Menu.Item as='a' active>
                   Home
                 </Menu.Item>
-                <Menu.Item as={Link} to='/ChainData'>Demo</Menu.Item>
+                <Menu.Item as={Link} to='/demo'>Demo</Menu.Item>
                 <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
                 <Menu.Item href="https://parity.io">Parity</Menu.Item>
               </Container>

@@ -20,9 +20,21 @@
       "signer": "AccountId",
       "identity": "AccountId"
     },
+    "PropName": "Vec<u8>",
+    "PropValue": "Vec<u8>",
+    "ProductProperty": {
+        "name": "PropName",
+        "value": "PropValue"
+    },
+    "ProductId": "Vec<u8>",
+    "Product": {
+        "id": "ProductId",
+        "owner": "AccountId",
+        "props": "Option<Vec<ProductProperty>>",
+        "registered": "Moment"
+    },
     "Identifier": "Vec<u8>",
     "Decimal": "u32",
-    "ProductId": "Identifier",
     "ShipmentId": "Identifier",
     "ShipmentStatus": {
         "_enum": [
@@ -70,24 +82,12 @@
         "value": "Decimal"
     },
     "ShippingEvent": {
-        "event_id": "ShippingEventId",
+        "id": "ShippingEventId",
         "event_type": "ShippingEventType",
         "shipment_id": "ShipmentId",
         "location": "Option<ReadPoint>",
         "readings": "Vec<Reading<Moment>>",
         "timestamp": "Moment"
-    },
-    "PropName":"Vec<u8>",
-    "PropValue":"Vec<u8>",
-    "ProductProperty": {
-      "PropName": "PropName",
-      "PropValue": "PropValue"
-    },
-    "Product": {
-      "id": "ProductId",
-      "owner": "AccountId",
-      "props": "Option<Vec<ProductProperty>>",
-      "registered": "Moment"
     }
   },
   "RPC": {}

@@ -4,7 +4,6 @@ import { useSubstrate } from './substrate-lib';
 
 function Main (props) {
   const { api } = useSubstrate();
-  const [currentValue, setCurrentValue] = useState(0);
   const [storageFunctions, setStorageFunctionList] = useState([]);
   const [trackMap, setTrack] = useState({});
   const { accountPair } = props;
@@ -24,39 +23,25 @@ function Main (props) {
 
   useEffect(() => {
     let unsubscribe;
-    console.log(accountPair);
-    let selectedAddress = accountPair.address;
-    async function anyNameFunction(selectedAddress) {
-      await api.query.productTracking.shipmentsOfOrganization(selectedAddress, newValue => {
-        if (newValue) {
-          setCurrentValue(newValue);
-          const trackMap = newValue.reduce((acc, shipmentId, index) => ({
+
+    async function orgShipments (accountPair) {
+      await api.query.productTracking.shipmentsOfOrganization(accountPair.address, logs => {
+        if (logs) {
+          const trackMap = logs.reduce((acc, shipmentId, index) => ({
             ...acc, [shipmentId]: trackMap[index]
           }), {});
           setTrack(trackMap);
         } else {
-          setCurrentValue('<None>');
+          setTrack({});
         }
-      })
+      });
     }
 
-    anyNameFunction(accountPair);
-
-    //  api.query.productTracking.shipmentsOfOrganization(accountPair.address, newValue => {
-    //   if (newValue) {
-    //     setCurrentValue(newValue);
-    //     const trackMap = newValue.reduce((acc, shipmentId, index) => ({
-    //       ...acc, [shipmentId]: trackMap[index]
-    //     }), {});
-    //     setTrack(trackMap);
-    //   } else {
-    //     setCurrentValue('<None>');
-    //   }
-    // }).then(unsub => {
-    //   unsubscribe = unsub;
-    // }).catch(console.error);
-
-    return () => unsubscribe && unsubscribe();
+    if (accountPair) {
+      orgShipments(accountPair);
+    } else {
+      return () => unsubscribe && unsubscribe();
+    }
   }, [api.query.productTracking, accountPair]);
 
   return (
@@ -79,7 +64,7 @@ function Main (props) {
   );
 }
 
-export default function ProductTrack (props) {
+export default function ProductLog (props) {
   const { api } = useSubstrate();
   return api.tx ? <Main {...props} /> : null;
 }

@@ -11,7 +11,7 @@ import Events from './Events';
 import Identifiers from './Identifiers';
 import Products from './Products';
 import ProductTracking from './ProductTracking';
-import ProductHistory from './ProductHistory';
+import ProductLog from './ProductLog';
 import Transfer from './Transfer';
 
 const ChainData = () => {
@@ -76,7 +76,7 @@ const ChainData = () => {
             <ProductTracking accountPair={accountPair} />
           </Grid.Row>
           <Grid.Row stretched>
-            <ProductHistory accountPair={accountPair} />
+            <ProductLog accountPair={accountPair} />
           </Grid.Row>
           <Grid.Row>
             <Transfer accountPair={accountPair} />

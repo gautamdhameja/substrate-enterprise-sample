@@ -180,7 +180,6 @@ version = '2.0.0-rc4'
 [dependencies.pallet-product-tracking]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
-branch = 'track-events'
 package = 'pallet-product-tracking'
 version = '2.0.0-rc4'
 
