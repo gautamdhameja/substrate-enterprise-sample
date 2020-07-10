@@ -1,6 +1,6 @@
 [package]
 name = 'node-template-runtime'
-version = '2.0.0-rc3'
+version = '2.0.0-rc4'
 description = 'Node Template Runtime'
 edition = '2018'
 authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
@@ -15,47 +15,47 @@ targets = ['x86_64-unknown-linux-gnu']
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-aura'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.balances]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-balances'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.codec]
 default-features = false
 features = ['derive']
 package = 'parity-scale-codec'
-version = '1.3.0'
+version = '1.3.1'
 
 [dependencies.frame-executive]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.frame-support]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.grandpa]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-grandpa'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.randomness-collective-flip]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-randomness-collective-flip'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.serde]
 features = ['derive']
@@ -65,102 +65,102 @@ version = '1.0.101'
 [dependencies.sp-api]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-block-builder]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-consensus-aura]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '0.8.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '0.8.0-rc4'
 
 [dependencies.sp-core]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-inherents]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-io]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-offchain]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-runtime]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-session]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-std]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-transaction-pool]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sp-version]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.sudo]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-sudo'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.system]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'frame-system'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.timestamp]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-timestamp'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.transaction-payment]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 package = 'pallet-transaction-payment'
-tag = 'v2.0.0-rc3'
-version = '2.0.0-rc3'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 # -- Pallets specific for this runtime --
 
@@ -168,29 +168,32 @@ version = '2.0.0-rc3'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-version = '2.0.0-rc3'
+tag = '2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [dependencies.pallet-product-registry]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-registry'
 package = 'pallet-product-registry'
+version = '2.0.0-rc4'
 
 [dependencies.pallet-product-tracking]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
 package = 'pallet-product-tracking'
+version = '2.0.0-rc4'
 
 [dependencies.pallet-ocw-weather]
 default-features = false
 path = '../pallets/ocw-weather'
-version = '2.0.0-rc3'
+version = '2.0.0-rc4'
 
 # -- End of Pallets specific for this runtime --
 
 [build-dependencies.wasm-builder-runner]
 git = 'https://github.com/paritytech/substrate.git'
 package = 'substrate-wasm-builder-runner'
-tag = 'v2.0.0-rc3'
+tag = 'v2.0.0-rc4'
 version = '1.0.5'
 
 [features]
