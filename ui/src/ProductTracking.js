@@ -4,11 +4,12 @@ import { Grid, Form, Dropdown, Input } from 'semantic-ui-react';
 import { useSubstrate } from './substrate-lib';
 import { TxButton } from './substrate-lib/components';
 
-function Main (props) {
+function ProductTracking (props) {
   const { api } = useSubstrate();
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [callableFunctionList, setCallableFunctionList] = useState([]);
+  const [storageFunctions, setStorageFunctionList] = useState([]);
   const { accountPair } = props;
 
   const [formState, setFormState] = useState({
@@ -18,11 +19,11 @@ function Main (props) {
   const { callableFunction, input } = formState;
 
   const updateParamFields = () => {
-    if (callableFunction === '' || !api.tx.productRegistry) {
+    if (callableFunction === '' || !api.tx.productTracking) {
       return;
     }
 
-    const paramFields = api.tx.productRegistry[callableFunction].meta.args.map(arg => ({
+    const paramFields = api.tx.productTracking[callableFunction].meta.args.map(arg => ({
       name: arg.name.toString(),
       type: arg.type.toString()
     }));
@@ -31,7 +32,7 @@ function Main (props) {
   };
 
   useEffect(() => {
-    const section = api.tx.productRegistry;
+    const section = api.tx.productTracking;
     const callableFunctions = Object.keys(section)
       .sort()
       .map(callable => ({
@@ -42,6 +43,20 @@ function Main (props) {
       }));
     console.log(callableFunctions);
     setCallableFunctionList(callableFunctions);
+  }, [api]);
+
+  useEffect(() => {
+    const section = api.query.productTracking;
+    const storageFunctions = Object.keys(section)
+      .sort()
+      .map(data => ({
+        key: data,
+        value: data,
+        text: data,
+        data: JSON.stringify(section[data])
+      }));
+    console.log(storageFunctions);
+    setStorageFunctionList(storageFunctions);
   }, [api]);
 
   useEffect(updateParamFields, [api, callableFunction]);
@@ -61,7 +76,7 @@ function Main (props) {
 
   return (
     <Grid.Column>
-      <h1>Products</h1>
+      <h1>Product Tracking</h1>
       <Form>
         <Form.Field>
           <Dropdown
@@ -95,7 +110,7 @@ function Main (props) {
             type='SIGNED-TX'
             attrs={{
               params: input,
-              tx: api.tx.productRegistry && api.tx.productRegistry[callableFunction]
+              tx: api.tx.productTracking && api.tx.productTracking[callableFunction]
             }}
           />
         </Form.Field>
@@ -107,5 +122,5 @@ function Main (props) {
 
 export default function Identifiers (props) {
   const { api } = useSubstrate();
-  return api.tx ? <Main {...props} /> : null;
+  return api.tx ? <ProductTracking {...props} /> : null;
 }

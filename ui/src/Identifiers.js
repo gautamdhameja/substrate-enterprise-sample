@@ -33,7 +33,7 @@ function Main (props) {
 
   useEffect(() => {
     const section = api.tx.palletDid;
-    const callableFunctions = Object.keys(api.tx.palletDid)
+    const callableFunctions = Object.keys(section)
       .sort()
       .map(callable => ({
         key: callable,
@@ -47,7 +47,7 @@ function Main (props) {
 
   useEffect(() => {
     const section = api.query.palletDid;
-    const storageFunctions = Object.keys(api.query.palletDid)
+    const storageFunctions = Object.keys(section)
       .sort()
       .map(data => ({
         key: data,
