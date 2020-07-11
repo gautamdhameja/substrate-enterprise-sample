@@ -9,6 +9,7 @@ function Main (props) {
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [storageFunctions, setStorageFunctionList] = useState([]);
+  const [formValue, setFormValue] = useState(0);
   const [callableFunctionList, setCallableFunctionList] = useState([]);
   const { accountPair } = props;
 
@@ -107,8 +108,10 @@ function Main (props) {
             setStatus={setStatus}
             type='SIGNED-TX'
             attrs={{
-              params: input,
-              tx: api.tx.palletDid && api.tx.palletDid[callableFunction]
+              palletRpc: 'palletDid',
+              callable: callableFunction,
+              inputParams: [input],
+              paramFields: [true]
             }}
           />
         </Form.Field>

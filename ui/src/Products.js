@@ -93,8 +93,10 @@ function Main (props) {
             setStatus={setStatus}
             type='SIGNED-TX'
             attrs={{
-              params: input,
-              tx: api.tx.productRegistry && api.tx.productRegistry[callableFunction]
+              palletRpc: 'productRegistry',
+              callable: callableFunction,
+              inputParams: [input],
+              paramFields: [true]
             }}
           />
         </Form.Field>

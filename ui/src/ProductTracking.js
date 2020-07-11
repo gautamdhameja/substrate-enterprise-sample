@@ -107,8 +107,10 @@ function ProductTracking (props) {
             setStatus={setStatus}
             type='SIGNED-TX'
             attrs={{
-              params: input,
-              tx: api.tx.productTracking && api.tx.productTracking[callableFunction]
+              palletRpc: 'productTracking',
+              callable: callableFunction,
+              inputParams: [input],
+              paramFields: [true]
             }}
           />
         </Form.Field>
