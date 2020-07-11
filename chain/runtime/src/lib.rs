@@ -9,13 +9,13 @@
 include!(concat!(env!("OUT_DIR"), "/wasm_binary.rs"));
 
 use sp_std::prelude::*;
-use sp_core::{crypto::KeyTypeId, Encode, OpaqueMetadata};
+use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::{
 	ApplyExtrinsicResult, generic, create_runtime_str, impl_opaque_keys, MultiSignature, MultiSigner,
 	transaction_validity::{TransactionValidity, TransactionSource},
 };
 use sp_runtime::traits::{
-	BlakeTwo256, Block as BlockT, NumberFor, IdentifyAccount, IdentityLookup, SaturatedConversion, Saturating,
+	BlakeTwo256, Block as BlockT, NumberFor, IdentifyAccount, IdentityLookup, Saturating,
 	Verify,
 };
 use sp_api::impl_runtime_apis;

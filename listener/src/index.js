@@ -1,4 +1,6 @@
 const express = require('express');
+const util = require('util');
+const utils = require('./utils');
 
 const app = express();
 app.use(express.json());
@@ -13,7 +15,8 @@ app.use(function(req, res, next) {
 });
 
 app.post('/', (req, res) => {
-  console.log(`req body:`, req.body);
+  console.log('req body:');
+  console.dir(utils.translateJSON(req.body), { depth: null});
   res.json({
     status: "acknowledged"
   });
