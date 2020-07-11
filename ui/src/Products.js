@@ -40,7 +40,6 @@ function Main (props) {
         text: callable,
         data: JSON.stringify(section[callable])
       }));
-    console.log(callableFunctions);
     setCallableFunctionList(callableFunctions);
   }, [api]);
 

@@ -4,22 +4,8 @@ import { useSubstrate } from './substrate-lib';
 
 function Main (props) {
   const { api } = useSubstrate();
-  const [storageFunctions, setStorageFunctionList] = useState([]);
-  const [trackMap, setTrack] = useState({});
+  const [shipmentIdList, setTrack] = useState([]);
   const { accountPair } = props;
-
-  useEffect(() => {
-    const section = api.query.productTracking;
-    const storageFunctions = Object.keys(section)
-      .sort()
-      .map(data => ({
-        key: data,
-        value: data,
-        text: data,
-        data: JSON.stringify(section[data])
-      }));
-    setStorageFunctionList(storageFunctions);
-  }, [api]);
 
   useEffect(() => {
     let unsubscribe;
@@ -27,10 +13,16 @@ function Main (props) {
     async function orgShipments (accountPair) {
       await api.query.productTracking.shipmentsOfOrganization(accountPair.address, logs => {
         if (logs) {
-          const trackMap = logs.reduce((acc, shipmentId, index) => ({
-            ...acc, [shipmentId]: trackMap[index]
+          const ids = logs.reduce((id, shipmentId, index) => ({
+            ...id, [shipmentId]: index
           }), {});
-          setTrack(trackMap);
+          const map = Object.keys(ids)
+            .sort()
+            .map((data, index) => ({
+              key: index,
+              value: data
+            }));
+          setTrack(map);
         } else {
           setTrack({});
         }
@@ -48,9 +40,9 @@ function Main (props) {
     <Grid.Column>
       <h1>Products from Org</h1>
       <Table celled striped size='small'>
-        <Table.Body>{storageFunctions.map(data =>
+        <Table.Body>{shipmentIdList.map(data =>
           <Table.Row key={data.key}>
-            <Table.Cell width={3} textAlign='right'>{data.value}</Table.Cell>
+            <Table.Cell width={3} textAlign='right'>{data.key}</Table.Cell>
             <Table.Cell width={10}>
               <span style={{ display: 'inline-block', minWidth: '31em' }}>
                 {data.value}

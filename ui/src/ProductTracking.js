@@ -41,7 +41,6 @@ function ProductTracking (props) {
         text: callable,
         data: JSON.stringify(section[callable])
       }));
-    console.log(callableFunctions);
     setCallableFunctionList(callableFunctions);
   }, [api]);
 
@@ -55,7 +54,6 @@ function ProductTracking (props) {
         text: data,
         data: JSON.stringify(section[data])
       }));
-    console.log(storageFunctions);
     setStorageFunctionList(storageFunctions);
   }, [api]);
 
