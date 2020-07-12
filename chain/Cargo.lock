@@ -2623,11 +2623,11 @@ dependencies = [
  "frame-system",
  "pallet-aura",
  "pallet-balances",
- "pallet-did 2.0.0-rc4 (git+https://github.com/substrate-developer-hub/pallet-did?tag=v2.0.0-rc4)",
+ "pallet-did",
  "pallet-grandpa",
  "pallet-ocw-weather",
- "pallet-product-registry 2.0.0-rc4 (git+https://github.com/stiiifff/pallet-product-registry)",
- "pallet-product-tracking 2.0.0-rc4 (git+https://github.com/stiiifff/pallet-product-tracking)",
+ "pallet-product-registry",
+ "pallet-product-tracking",
  "pallet-randomness-collective-flip",
  "pallet-sudo",
  "pallet-timestamp",
@@ -2824,22 +2824,7 @@ dependencies = [
 [[package]]
 name = "pallet-did"
 version = "2.0.0-rc4"
-source = "git+https://github.com/substrate-developer-hub/pallet-did?tag=v2.0.0-rc4#9d851aafddd85a2dfdda2f72ee74b179e3e3d8d6"
-dependencies = [
- "frame-support",
- "frame-system",
- "pallet-timestamp",
- "parity-scale-codec",
- "serde",
- "sp-core",
- "sp-io",
- "sp-runtime",
- "sp-std",
-]
-
-[[package]]
-name = "pallet-did"
-version = "2.0.0-rc4"
+source = "git+https://github.com/substrate-developer-hub/pallet-did#9d851aafddd85a2dfdda2f72ee74b179e3e3d8d6"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -2917,41 +2902,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "pallet-product-registry"
-version = "2.0.0-rc4"
-dependencies = [
- "frame-support",
- "frame-system",
- "pallet-timestamp",
- "parity-scale-codec",
- "sp-core",
- "sp-io",
- "sp-runtime",
-]
-
-[[package]]
 name = "pallet-product-tracking"
 version = "2.0.0-rc4"
-source = "git+https://github.com/stiiifff/pallet-product-tracking#4284c5dc3a5dbd36b32e7d1b187c2d17fcf7f05c"
-dependencies = [
- "frame-support",
- "frame-system",
- "pallet-product-registry 2.0.0-rc4 (git+https://github.com/stiiifff/pallet-product-registry)",
- "pallet-timestamp",
- "parity-scale-codec",
- "sp-core",
- "substrate-fixed",
-]
-
-[[package]]
-name = "pallet-product-tracking"
-version = "2.0.0-rc4"
+source = "git+https://github.com/stiiifff/pallet-product-tracking?branch=jimmy/dev/ocw#ac8989c12c65347c8bff8cd38a4829bfac4e8cb3"
 dependencies = [
  "alt_serde",
  "frame-support",
  "frame-system",
- "hex",
- "pallet-product-registry 2.0.0-rc4 (git+https://github.com/stiiifff/pallet-product-registry)",
+ "pallet-product-registry",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde_json 1.0.44",

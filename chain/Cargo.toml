@@ -2,10 +2,7 @@
 members = [
 	'node',
 	'runtime',
-	'pallets/pallet-did',
 	'pallets/ocw-weather',
-	'pallets/pallet-product-registry',
-	'pallets/pallet-product-tracking',
 ]
 [profile.release]
 panic = 'unwind'

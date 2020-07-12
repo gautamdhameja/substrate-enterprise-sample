@@ -168,7 +168,6 @@ version = '2.0.0-rc4'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-tag = 'v2.0.0-rc4'
 version = '2.0.0-rc4'
 
 [dependencies.pallet-product-registry]
@@ -181,6 +180,9 @@ version = '2.0.0-rc4'
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
 package = 'pallet-product-tracking'
+# TODO: Remove the following line when PR(https://github.com/stiiifff/pallet-product-tracking/pull/7)
+#   is merged
+branch = 'jimmy/dev/ocw'
 version = '2.0.0-rc4'
 
 [dependencies.pallet-ocw-weather]
