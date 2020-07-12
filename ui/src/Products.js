@@ -32,7 +32,7 @@ function Main (props) {
 
   useEffect(() => {
     const section = api.tx.productRegistry;
-    const callableFunctions = Object.keys(api.tx.productRegistry)
+    const callableFunctions = Object.keys(section)
       .sort()
       .map(callable => ({
         key: callable,
@@ -40,7 +40,6 @@ function Main (props) {
         text: callable,
         data: JSON.stringify(section[callable])
       }));
-    console.log(callableFunctions);
     setCallableFunctionList(callableFunctions);
   }, [api]);
 
@@ -94,8 +93,10 @@ function Main (props) {
             setStatus={setStatus}
             type='SIGNED-TX'
             attrs={{
-              params: input,
-              tx: api.tx.productRegistry && api.tx.productRegistry[callableFunction]
+              palletRpc: 'productRegistry',
+              callable: callableFunction,
+              inputParams: [input],
+              paramFields: [true]
             }}
           />
         </Form.Field>

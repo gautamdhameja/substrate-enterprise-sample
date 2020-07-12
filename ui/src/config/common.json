@@ -20,75 +20,74 @@
       "signer": "AccountId",
       "identity": "AccountId"
     },
-    "ProductId":"Vec<u8>",
-    "PropName":"Vec<u8>",
-    "PropValue":"Vec<u8>",
+    "PropName": "Vec<u8>",
+    "PropValue": "Vec<u8>",
     "ProductProperty": {
-      "PropName": "PropName",
-      "PropValue": "PropValue"
+        "name": "PropName",
+        "value": "PropValue"
     },
+    "ProductId": "Vec<u8>",
     "Product": {
-      "id": "ProductId",
-      "owner": "AccountId",
-      "props": "Option<Vec<ProductProperty>>",
-      "registered": "Moment"
+        "id": "ProductId",
+        "owner": "AccountId",
+        "props": "Option<Vec<ProductProperty>>",
+        "registered": "Moment"
     },
     "Identifier": "Vec<u8>",
     "Decimal": "u32",
-    "ProductId": "Identifier",
     "ShipmentId": "Identifier",
     "ShipmentStatus": {
-      "_enum": [
-        "Pending",
-        "InTransit",
-        "Delivered"
-      ]
+        "_enum": [
+            "Pending",
+            "InTransit",
+            "Delivered"
+        ]
     },
     "Shipment": {
-      "id": "ShipmentId",
-      "owner": "AccountId",
-      "status": "ShipmentStatus",
-      "products": "Vec<ProductId>",
-      "registered": "Moment",
-      "delivered": "Option<Moment>"
+        "id": "ShipmentId",
+        "owner": "AccountId",
+        "status": "ShipmentStatus",
+        "products": "Vec<ProductId>",
+        "registered": "Moment",
+        "delivered": "Option<Moment>"
     },
     "ShippingEventId": "Identifier",
     "ShippingEventIndex": "u64",
     "DeviceId": "Identifier",
     "ShippingEventType": {
-      "_enum": [
-        "ShipmentPickup",
-        "SensorReading",
-        "ShipmentDelivery"
-      ]
+        "_enum": [
+            "ShipmentPickup",
+            "SensorReading",
+            "ShipmentDelivery"
+        ]
     },
     "ReadingType": {
-      "_enum": [
-        "Humidity",
-        "Pressure",
-        "Shock",
-        "Tilt",
-        "Temperature",
-        "Vibration"
-      ]
+        "_enum": [
+            "Humidity",
+            "Pressure",
+            "Shock",
+            "Tilt",
+            "Temperature",
+            "Vibration"
+        ]
     },
     "ReadPoint": {
-      "latitude": "Decimal",
-      "longitude": "Decimal"
+        "latitude": "Decimal",
+        "longitude": "Decimal"
     },
     "Reading": {
-      "device_id": "DeviceId",
-      "reading_type": "ReadingType",
-      "timestamp": "Moment",
-      "value": "Decimal"
+        "device_id": "DeviceId",
+        "reading_type": "ReadingType",
+        "timestamp": "Moment",
+        "value": "Decimal"
     },
     "ShippingEvent": {
-      "event_id": "ShippingEventId",
-      "event_type": "ShippingEventType",
-      "shipment_id": "ShipmentId",
-      "location": "Option<ReadPoint>",
-      "readings": "Vec<Reading<Moment>>",
-      "timestamp": "Moment"
+        "id": "ShippingEventId",
+        "event_type": "ShippingEventType",
+        "shipment_id": "ShipmentId",
+        "location": "Option<ReadPoint>",
+        "readings": "Vec<Reading<Moment>>",
+        "timestamp": "Moment"
     },
     "OcwTaskType": {
       "_enum": [

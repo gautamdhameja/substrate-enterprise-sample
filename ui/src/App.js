@@ -13,7 +13,7 @@ function Main () {
   return (
     <Router>
       <Switch>
-        <Route path="/ChainData">
+        <Route path="/demo">
           <ChainData />
         </Route>
         <Route path="/">

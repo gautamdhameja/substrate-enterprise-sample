@@ -62,43 +62,43 @@ function Main (props) {
             </Menu.Item>
             <BlockNumber />
             <BlockNumber finalized />
+            <Menu.Menu style={{ alignItems: 'center' }}>
+              { !accountSelected
+                ? <span>
+                  Add your account with the{' '}
+                  <a
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    href='https://github.com/polkadot-js/extension'
+                  >
+                    Polkadot JS Extension
+                  </a>
+                </span>
+                : null }
+              <CopyToClipboard text={accountSelected}>
+                <Button
+                  basic
+                  circular
+                  size='large'
+                  icon='user'
+                  color={accountSelected ? 'green' : 'red'}
+                />
+              </CopyToClipboard>
+              <Dropdown
+                search
+                selection
+                clearable
+                placeholder='Select an account'
+                options={keyringOptions}
+                onChange={(_, dropdown) => {
+                  onChange(dropdown.value);
+                }}
+                value={accountSelected}
+              />
+              <BalanceAnnotation accountSelected={accountSelected} />
+            </Menu.Menu>
           </Grid.Row>
         </Grid>
-        <Menu.Menu position='right' style={{ alignItems: 'center' }}>
-          { !accountSelected
-            ? <span>
-              Add your account with the{' '}
-              <a
-                target='_blank'
-                rel='noopener noreferrer'
-                href='https://github.com/polkadot-js/extension'
-              >
-                Polkadot JS Extension
-              </a>
-            </span>
-            : null }
-          <CopyToClipboard text={accountSelected}>
-            <Button
-              basic
-              circular
-              size='large'
-              icon='user'
-              color={accountSelected ? 'green' : 'red'}
-            />
-          </CopyToClipboard>
-          <Dropdown
-            search
-            selection
-            clearable
-            placeholder='Select an account'
-            options={keyringOptions}
-            onChange={(_, dropdown) => {
-              onChange(dropdown.value);
-            }}
-            value={accountSelected}
-          />
-          <BalanceAnnotation accountSelected={accountSelected} />
-        </Menu.Menu>
       </Container>
     </Menu>
   );
