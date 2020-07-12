@@ -1,9 +1,0 @@
-[submodule "chain/pallets/pallet-did"]
-	path = chain/pallets/pallet-did
-	url = https://github.com/substrate-developer-hub/pallet-did
-[submodule "chain/pallets/pallet-product-tracking"]
-	path = chain/pallets/pallet-product-tracking
-	url = https://github.com/stiiifff/pallet-product-tracking
-[submodule "chain/pallets/pallet-product-registry"]
-	path = chain/pallets/pallet-product-registry
-	url = https://github.com/jimmychu0807/pallet-product-registry
