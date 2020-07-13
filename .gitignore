@@ -9,3 +9,7 @@
 node_modules
 .vscode
 build
+
+# These pallets maybe placed inside for ease of compilation, but shouldn't be committed
+chain/pallets/pallet-*
+Cargo.toml.me

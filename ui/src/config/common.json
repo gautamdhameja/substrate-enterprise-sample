@@ -88,6 +88,23 @@
         "location": "Option<ReadPoint>",
         "readings": "Vec<Reading<Moment>>",
         "timestamp": "Moment"
+    },
+    "OcwTaskType": {
+      "_enum": [
+        "ShipmentRegistration",
+        "ShipmentPickup",
+        "ShipmentDelivery"
+      ]
+    },
+    "OcwTaskPayload": {
+      "_enum": [
+        "Shipment(Shipment<AccountId, Moment>)",
+        "ShippingEvent(ShippingEvent<Moment>)"
+      ]
+    },
+    "OcwTask": {
+      "type": "OcwTaskType",
+      "payload": "OcwTaskPayload<AccountId, Moment>"
     }
   },
   "RPC": {}
