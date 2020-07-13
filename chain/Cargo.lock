@@ -2904,15 +2904,13 @@ dependencies = [
 [[package]]
 name = "pallet-product-tracking"
 version = "2.0.0-rc4"
-source = "git+https://github.com/stiiifff/pallet-product-tracking?branch=jimmy/dev/ocw#ac8989c12c65347c8bff8cd38a4829bfac4e8cb3"
 dependencies = [
- "alt_serde",
  "frame-support",
  "frame-system",
+ "hex",
  "pallet-product-registry",
  "pallet-timestamp",
  "parity-scale-codec",
- "serde_json 1.0.44",
  "sp-core",
  "sp-io",
  "sp-runtime",
