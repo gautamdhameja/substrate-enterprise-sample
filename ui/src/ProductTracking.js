@@ -64,8 +64,9 @@ function ProductTracking (props) {
       let res;
       if (Number.isInteger(data.state)) {
         formState.input[data.state] = data.value;
-        res = formState;
-      } else if (data.state === 'callableFunction') {
+        res = {...formState };
+        console.log(res)
+      } else {
         res = { ...formState, [data.state]: data.value, input: [] };
       }
       return res;
@@ -109,8 +110,8 @@ function ProductTracking (props) {
             attrs={{
               palletRpc: 'productTracking',
               callable: callableFunction,
-              inputParams: [input],
-              paramFields: [true]
+              inputParams: input,
+              paramFields: new Array(paramFields.length).fill(true)
             }}
           />
         </Form.Field>

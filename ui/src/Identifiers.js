@@ -23,7 +23,6 @@ function Main (props) {
     if (callableFunction === '' || !api.tx.palletDid) {
       return;
     }
-
     const paramFields = api.tx.palletDid[callableFunction].meta.args.map(arg => ({
       name: arg.name.toString(),
       type: arg.type.toString()
@@ -65,8 +64,9 @@ function Main (props) {
       let res;
       if (Number.isInteger(data.state)) {
         formState.input[data.state] = data.value;
-        res = formState;
-      } else if (data.state === 'callableFunction') {
+        res = {...formState };
+        console.log(res)
+      } else {
         res = { ...formState, [data.state]: data.value, input: [] };
       }
       return res;
@@ -110,8 +110,8 @@ function Main (props) {
             attrs={{
               palletRpc: 'palletDid',
               callable: callableFunction,
-              inputParams: [input],
-              paramFields: [true]
+              inputParams: input,
+              paramFields: new Array(paramFields.length).fill(true)
             }}
           />
         </Form.Field>
