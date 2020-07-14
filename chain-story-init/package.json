@@ -1,0 +1,23 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "Client for Substrate",
+  "main": "src/script.js",
+  "license": "Unlicense",
+  "scripts": {
+    "submitDocInfo": "babel-node src/script.js submitDocInfo",
+    "getUserDocs": "babel-node src/script.js getUserDocs",
+    "clean": "rimraf lib",
+    "build": "yarn clean; yarn babel src -d lib"
+  },
+  "dependencies": {
+    "@polkadot/api": "^1.18.1",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2"
+  }
+}
