@@ -5,19 +5,25 @@
   "main": "src/script.js",
   "license": "Unlicense",
   "scripts": {
-    "submitDocInfo": "babel-node src/script.js submitDocInfo",
-    "getUserDocs": "babel-node src/script.js getUserDocs",
-    "clean": "rimraf lib",
-    "build": "yarn clean; yarn babel src -d lib"
+    "start": "yarn chain-story-init",
+    "chain-story-init": "babel-node src/script.js"
   },
   "dependencies": {
-    "@polkadot/api": "^1.18.1",
+    "@polkadot/api": "^1.23.1",
+    "dotenv": "^8.2.0",
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
     "@babel/node": "^7.10.1",
-    "@babel/preset-env": "^7.10.2"
+    "@babel/preset-env": "^7.10.2",
+    "babel-plugin-inline-json-import": "^0.3.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": []
   }
 }
