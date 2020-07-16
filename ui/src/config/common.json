@@ -34,7 +34,7 @@
         "registered": "Moment"
     },
     "Identifier": "Vec<u8>",
-    "Decimal": "u32",
+    "Decimal": "i32",
     "ShipmentId": "Identifier",
     "ShipmentStatus": {
         "_enum": [
@@ -57,8 +57,9 @@
     "ShippingEventType": {
         "_enum": [
             "ShipmentPickup",
-            "SensorReading",
-            "ShipmentDelivery"
+            "ShipmentInTransit",
+            "ShipmentDelivered",
+            "SensorReading"
         ]
     },
     "ReadingType": {

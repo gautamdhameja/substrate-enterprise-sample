@@ -1,0 +1,29 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "Client for Substrate",
+  "main": "src/script.js",
+  "license": "Unlicense",
+  "scripts": {
+    "start": "yarn chain-story-init",
+    "chain-story-init": "babel-node src/script.js"
+  },
+  "dependencies": {
+    "@polkadot/api": "^1.23.1",
+    "dotenv": "^8.2.0",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.1",
+    "@babel/preset-env": "^7.10.2",
+    "babel-plugin-inline-json-import": "^0.3.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env"
+    ],
+    "plugins": []
+  }
+}
