@@ -351,7 +351,7 @@ construct_runtime!(
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
-		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>, ValidateUnsigned},
+		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
 		// OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
