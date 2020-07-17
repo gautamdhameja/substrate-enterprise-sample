@@ -35,55 +35,51 @@ const NEW_SHIPMENTS = {
 
 const SHIPMENT_EVS = {
   PICKUP: {
-    id: "0x534530303031", // "SE0001"
-    event_type: "ShipmentPickup",
-    shipment_id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+    id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+    operation: "Pickup",
+    timestamp: 1593586800, // 20200701-15:00:00 GMT+8
     location: {
       latitude: 5250186,
       longitude: 5250186,
     },
     readings: null,
-    timestamp: 1593586800, // 20200701-15:00:00 GMT+8
   },
-  TRANSIT_01: {
-    id: "0x534530303032", // "SE0002"
-    event_type: "ShipmentInTransit",
-    shipment_id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+  SCAN_01: {
+    id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+    operation: "Scan",
+    timestamp: 1593673200, // 20200702-15:00:00 GMT+8
     location: {
       latitude: 7777777,
       longitude: 7777777,
     },
     readings: null,
-    timestamp: 1593673200, // 20200702-15:00:00 GMT+8
   },
-  TRANSIT_02: {
-    id: "0x534530303033", // "SE0003"
-    event_type: "ShipmentInTransit",
-    shipment_id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+  SCAN_02: {
+    id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+    operation: "Scan",
+    timestamp: 1593689400, // 20200702-19:30:00 GMT+8
     location: {
       latitude: 8888888,
       longitude: 8888888,
     },
     readings: null,
-    timestamp: 1593689400, // 20200702-19:30:00 GMT+8
   },
-  DELIVERED: {
-    id: "0x534530303034", // "SE0004"
-    event_type: "ShipmentDelivered",
-    shipment_id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+  DELIVER: {
+    id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
+    operation: "Deliver",
+    timestamp: 1593736200, // 20200703-08:30:00 GMT+8
     location: {
       latitude: 9999999,
       longitude: 9999999,
     },
     readings: null,
-    timestamp: 1593736200, // 20200703-08:30:00 GMT+8
   }
 };
 
 const SENSOR_READINGS = {};
 
-const SLEEP_SEC = 8;
-const LAST_SLEEP_SEC = SLEEP_SEC + 5;
+const SLEEP_SEC = 1;
+const LAST_SLEEP_SEC = SLEEP_SEC + 9;
 
 function sleep(sec) {
   console.log(`sleep for ${sec} sec...`);
@@ -136,10 +132,8 @@ async function initChainStory() {
 
     // Register all shipping events
     for (const k in SHIPMENT_EVS) {
-      const ev = api.createType('ShippingEvent', SHIPMENT_EVS[k]);
-
       await sendTx(`Shipment Event ${k}`,
-        api.tx.productTracking.recordEvent, ev, { wrapAndSpread: false });
+        api.tx.productTracking.trackShipment, SHIPMENT_EVS[k]);
     }
 
   } catch (err) {
