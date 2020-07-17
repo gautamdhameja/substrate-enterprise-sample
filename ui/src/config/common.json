@@ -23,89 +23,78 @@
     "PropName": "Vec<u8>",
     "PropValue": "Vec<u8>",
     "ProductProperty": {
-        "name": "PropName",
-        "value": "PropValue"
+      "name": "PropName",
+      "value": "PropValue"
     },
     "ProductId": "Vec<u8>",
     "Product": {
-        "id": "ProductId",
-        "owner": "AccountId",
-        "props": "Option<Vec<ProductProperty>>",
-        "registered": "Moment"
+      "id": "ProductId",
+      "owner": "AccountId",
+      "props": "Option<Vec<ProductProperty>>",
+      "registered": "Moment"
     },
     "Identifier": "Vec<u8>",
     "Decimal": "i32",
     "ShipmentId": "Identifier",
+    "ShippingEventIndex": "u128",
+    "DeviceId": "Identifier",
+
     "ShipmentStatus": {
-        "_enum": [
-            "Pending",
-            "InTransit",
-            "Delivered"
-        ]
+      "_enum": [
+        "Pending",
+        "InTransit",
+        "Delivered"
+      ]
     },
     "Shipment": {
-        "id": "ShipmentId",
-        "owner": "AccountId",
-        "status": "ShipmentStatus",
-        "products": "Vec<ProductId>",
-        "registered": "Moment",
-        "delivered": "Option<Moment>"
+      "id": "ShipmentId",
+      "owner": "AccountId",
+      "status": "ShipmentStatus",
+      "products": "Vec<ProductId>",
+      "registered": "Moment",
+      "delivered": "Option<Moment>"
     },
-    "ShippingEventId": "Identifier",
-    "ShippingEventIndex": "u64",
-    "DeviceId": "Identifier",
+    "ShippingOperation": {
+      "_enum": [
+        "Pickup",
+        "Scan",
+        "Deliver"
+      ]
+    },
     "ShippingEventType": {
-        "_enum": [
-            "ShipmentPickup",
-            "ShipmentInTransit",
-            "ShipmentDelivered",
-            "SensorReading"
-        ]
-    },
-    "ReadingType": {
-        "_enum": [
-            "Humidity",
-            "Pressure",
-            "Shock",
-            "Tilt",
-            "Temperature",
-            "Vibration"
-        ]
-    },
-    "ReadPoint": {
-        "latitude": "Decimal",
-        "longitude": "Decimal"
-    },
-    "Reading": {
-        "device_id": "DeviceId",
-        "reading_type": "ReadingType",
-        "timestamp": "Moment",
-        "value": "Decimal"
-    },
-    "ShippingEvent": {
-        "id": "ShippingEventId",
-        "event_type": "ShippingEventType",
-        "shipment_id": "ShipmentId",
-        "location": "Option<ReadPoint>",
-        "readings": "Vec<Reading<Moment>>",
-        "timestamp": "Moment"
-    },
-    "OcwTaskType": {
       "_enum": [
         "ShipmentRegistration",
         "ShipmentPickup",
-        "ShipmentDelivery"
+        "ShipmentScan",
+        "ShipmentDeliver"
       ]
     },
-    "OcwTaskPayload": {
+    "ShippingEvent": {
+      "event_type": "ShippingEventType",
+      "shipment_id": "ShipmentId",
+      "location": "Option<ReadPoint>",
+      "readings": "Vec<Reading<Moment>>",
+      "timestamp": "Moment"
+    },
+    "ReadPoint": {
+      "latitude": "Decimal",
+      "longitude": "Decimal"
+    },
+    "ReadingType": {
       "_enum": [
-        "Shipment(Shipment<AccountId, Moment>)",
-        "ShippingEvent(ShippingEvent<Moment>)"
+        "Humidity",
+        "Pressure",
+        "Shock",
+        "Tilt",
+        "Temperature",
+        "Vibration"
       ]
     },
-    "OcwTask": {
-      "type": "OcwTaskType",
-      "payload": "OcwTaskPayload<AccountId, Moment>"
+    "Reading": {
+      "device_id": "DeviceId",
+      "reading_type": "ReadingType",
+      "timestamp": "Moment",
+      "value": "Decimal"
     }
   },
   "RPC": {}
