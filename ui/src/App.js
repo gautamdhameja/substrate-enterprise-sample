@@ -8,6 +8,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import ShipmentTrackingPage from './ShipmentTrackingPage';
 
 function Main () {
   return (
@@ -15,6 +16,9 @@ function Main () {
       <Switch>
         <Route path="/demo">
           <ChainData />
+        </Route>
+        <Route path="/ShipmentTracking">
+          <ShipmentTrackingPage />
         </Route>
         <Route path="/">
           <Homepage/>

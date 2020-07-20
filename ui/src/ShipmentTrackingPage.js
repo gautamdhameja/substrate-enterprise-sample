@@ -1,5 +1,5 @@
-import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Divider, Loader, Grid, Sticky, Message, Menu } from 'semantic-ui-react';
+import React, { useEffect, useState, createRef } from 'react';
+import { Container, Dimmer, Divider, Loader, Header, Grid, Segment, Sticky, Message, Menu } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import { Link } from 'react-router-dom';
 
@@ -7,16 +7,9 @@ import { useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
 
 import AccountSelector from './AccountSelector';
-import Events from './Events';
-import Identifiers from './Identifiers';
-import Products from './Products';
-import ProductTracking from './ProductTracking';
-import ProductLog from './ProductLog';
-import Transfer from './Transfer';
-import RegisterProductForm from './RegisterProductForm';
-import ShipmentTrackingPage from './ShipmentTrackingPage';
+import ShipmentDetails from './ShipmentDetails';
 
-const ChainData = () => {
+function ShipmentTrackingComponent (props) {
   const [accountAddress, setAccountAddress] = useState(null);
   const { apiState, keyring, keyringState, apiError } = useSubstrate();
   const accountPair =
@@ -65,38 +58,16 @@ const ChainData = () => {
       <Container>
         <Grid stackable columns='equal'>
           <Grid.Row stretched>
-          </Grid.Row>
-          <Divider horizontal>Organizations</Divider>
-          <Grid.Row stretched>
-            <Identifiers accountPair={accountPair} />
-          </Grid.Row>
-          <Divider horizontal>Products</Divider>
-          <Grid.Row stretched>
-            <Products accountPair={accountPair} />
-          </Grid.Row>
-          <Divider horizontal>Product Tracking</Divider>
-          <Grid.Row stretched>
-            <ProductTracking accountPair={accountPair} />
-          </Grid.Row>
-          <Grid.Row stretched>
-            <ProductLog accountPair={accountPair} />
-          </Grid.Row>
-          <Grid.Row>
-            <Transfer accountPair={accountPair} />
-            <Events />
-          </Grid.Row>
-          <Divider horizontal>Register product</Divider>
-          <Grid.Row stretched>
-            <RegisterProductForm accountPair={accountPair} />
+            <ShipmentDetails shipmentId='S0001'/>
           </Grid.Row>
         </Grid>
       </Container>
       <DeveloperConsole />
     </div>
   );
-  // return (
-  //   <h2>chain data</h2>
-  // );
-};
+}
 
-export default ChainData;
+export default function ShipmentTrackingPage (props) {
+  const { api } = useSubstrate();
+  return api ? <ShipmentTrackingComponent {...props} /> : null;
+}
