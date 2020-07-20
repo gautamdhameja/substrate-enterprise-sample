@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Grid, Button } from 'semantic-ui-react';
+import { Table, Grid } from 'semantic-ui-react';
 import { useSubstrate } from './substrate-lib';
 
 function Main (props) {
