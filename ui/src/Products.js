@@ -50,8 +50,7 @@ function Main (props) {
       let res;
       if (Number.isInteger(data.state)) {
         formState.input[data.state] = data.value;
-        res = {...formState };
-        console.log(res)
+        res = { ...formState };
       } else {
         res = { ...formState, [data.state]: data.value, input: [] };
       }

@@ -14,7 +14,8 @@ use sp_api::impl_runtime_apis;
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_core::{crypto::KeyTypeId, OpaqueMetadata};
 use sp_runtime::traits::{
-	BlakeTwo256, Block as BlockT, IdentifyAccount, IdentityLookup, NumberFor, Saturating, Verify,
+	BlakeTwo256, Block as BlockT, NumberFor, IdentifyAccount, IdentityLookup, Saturating,
+	Verify, OpaqueKeys
 };
 use sp_runtime::{
 	create_runtime_str, generic, impl_opaque_keys,
@@ -41,6 +42,8 @@ pub use frame_support::{
 pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 pub use timestamp::Call as TimestampCall;
+
+pub use validatorset;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -266,6 +269,22 @@ impl pallet_product_tracking::Trait for Runtime {
 	type Event = Event;
 }
 
+impl validatorset::Trait for Runtime {
+	type Event = Event;
+}
+
+impl session::Trait for Runtime {
+	type SessionHandler = <opaque::SessionKeys as OpaqueKeys>::KeyTypeIdProviders;
+	type ShouldEndSession = ValidatorSet;
+	type SessionManager = ValidatorSet;
+	type Event = Event;
+	type Keys = opaque::SessionKeys;
+	type NextSessionRotation = ValidatorSet;
+	type ValidatorId = <Self as system::Trait>::AccountId;
+	type ValidatorIdOf = validatorset::ValidatorOf<Self>;
+	type DisabledValidatorsThreshold = ();
+}
+
 // pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
 
 // parameter_types! {
@@ -344,6 +363,8 @@ construct_runtime!(
 		System: system::{Module, Call, Config, Storage, Event<T>},
 		RandomnessCollectiveFlip: randomness_collective_flip::{Module, Call, Storage},
 		Timestamp: timestamp::{Module, Call, Storage, Inherent},
+		Session: session::{Module, Call, Storage, Event, Config<T>},
+		ValidatorSet: validatorset::{Module, Call, Storage, Event<T>, Config<T>},
 		Aura: aura::{Module, Config<T>, Inherent(Timestamp)},
 		Grandpa: grandpa::{Module, Call, Storage, Config, Event},
 		Balances: balances::{Module, Call, Storage, Config<T>, Event<T>},
