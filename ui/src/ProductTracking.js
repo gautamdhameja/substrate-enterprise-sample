@@ -9,7 +9,6 @@ function ProductTracking (props) {
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [callableFunctionList, setCallableFunctionList] = useState([]);
-  const [storageFunctions, setStorageFunctionList] = useState([]);
   const { accountPair } = props;
 
   const [formState, setFormState] = useState({
@@ -44,19 +43,6 @@ function ProductTracking (props) {
     setCallableFunctionList(callableFunctions);
   }, [api]);
 
-  useEffect(() => {
-    const section = api.query.productTracking;
-    const storageFunctions = Object.keys(section)
-      .sort()
-      .map(data => ({
-        key: data,
-        value: data,
-        text: data,
-        data: JSON.stringify(section[data])
-      }));
-    setStorageFunctionList(storageFunctions);
-  }, [api]);
-
   useEffect(updateParamFields, [api, callableFunction]);
 
   const onChange = (_, data) => {
@@ -64,8 +50,8 @@ function ProductTracking (props) {
       let res;
       if (Number.isInteger(data.state)) {
         formState.input[data.state] = data.value;
-        res = {...formState };
-        console.log(res)
+        res = { ...formState };
+        console.log(res);
       } else {
         res = { ...formState, [data.state]: data.value, input: [] };
       }
