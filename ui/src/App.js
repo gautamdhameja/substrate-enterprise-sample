@@ -4,6 +4,7 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
+import ShipmentTrackingPage from './ShipmentTrackingPage';
 
 import Dashboard from './Dashboard';
 import Homepage from './Homepage';
@@ -15,6 +16,9 @@ export default function App () {
       <Switch>
         <Route path="/demo">
           <Dashboard />
+        </Route>
+        <Route path="/ShipmentTracking">
+          <ShipmentTrackingPage />
         </Route>
         <Route path="/">
           <Homepage/>

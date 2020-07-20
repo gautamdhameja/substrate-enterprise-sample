@@ -6,7 +6,17 @@ import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
 import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMenu } from './components';
 
-const Dashboard = () => {
+import AccountSelector from './AccountSelector';
+import Events from './Events';
+import Identifiers from './Identifiers';
+import Products from './Products';
+import ProductTracking from './ProductTracking';
+import ProductLog from './ProductLog';
+import Transfer from './Transfer';
+import RegisterProductForm from './RegisterProductForm';
+import ShipmentTrackingPage from './ShipmentTrackingPage';
+
+const ChainData = () => {
   const [accountAddress, setAccountAddress] = useState(null);
   const { apiState, keyring, keyringState, apiError } = useSubstrate();
   const accountPair =
@@ -47,13 +57,47 @@ const Dashboard = () => {
 
   return (
     <div ref={contextRef}>
-      <TopNavMenu />
+      <Menu>
+        <Container>
+          <Menu.Item as={Link} to='/'>Home</Menu.Item>
+          <Menu.Item as={Link} to='/ChainData' active>Demo</Menu.Item>
+          <Menu.Item as={Link} to='/ShipmentTracking'>Shipment</Menu.Item>
+          <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
+          <Menu.Item href="https://parity.io">Parity</Menu.Item>
+        </Container>
+      </Menu>
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
       </Sticky>
 
       <Container>
-        <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
+        <Grid stackable columns='equal'>
+          <Grid.Row stretched>
+          </Grid.Row>
+          <Divider horizontal>Organizations</Divider>
+          <Grid.Row stretched>
+            <Identifiers accountPair={accountPair} />
+          </Grid.Row>
+          <Divider horizontal>Products</Divider>
+          <Grid.Row stretched>
+            <Products accountPair={accountPair} />
+          </Grid.Row>
+          <Divider horizontal>Product Tracking</Divider>
+          <Grid.Row stretched>
+            <ProductTracking accountPair={accountPair} />
+          </Grid.Row>
+          <Grid.Row stretched>
+            <ProductLog accountPair={accountPair} />
+          </Grid.Row>
+          <Grid.Row>
+            <Transfer accountPair={accountPair} />
+            <Events />
+          </Grid.Row>
+          <Divider horizontal>Register product</Divider>
+          <Grid.Row stretched>
+            <RegisterProductForm accountPair={accountPair} />
+          </Grid.Row>
+        </Grid>
       </Container>
 
       <DeveloperConsole />
