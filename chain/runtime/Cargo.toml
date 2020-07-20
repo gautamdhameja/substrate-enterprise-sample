@@ -62,6 +62,13 @@ features = ['derive']
 optional = true
 version = '1.0.101'
 
+[dependencies.session]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+package = 'pallet-session'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
+
 [dependencies.sp-api]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
@@ -187,6 +194,12 @@ default-features = false
 path = '../pallets/ocw-weather'
 version = '2.0.0-rc4'
 
+[dependencies.validatorset]
+package = 'substrate-validator-set'
+git = 'https://github.com/gautamdhameja/substrate-validator-set'
+default-features = false
+version = '0.2.0'
+
 # -- End of Pallets specific for this runtime --
 
 [build-dependencies.wasm-builder-runner]
@@ -226,4 +239,6 @@ std = [
 	'pallet-ocw-weather/std',
 	'pallet-product-registry/std',
 	'pallet-product-tracking/std',
+	'validatorset/std',
+	'session/std'
 ]
