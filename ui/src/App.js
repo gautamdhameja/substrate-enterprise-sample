@@ -1,14 +1,14 @@
 import React from 'react';
-import Homepage from './Homepage';
-import 'semantic-ui-css/semantic.min.css';
-import { SubstrateContextProvider } from './substrate-lib';
-import ChainData from './ChainData';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
-import ShipmentTrackingPage from './ShipmentTrackingPage';
+import { SubstrateContextProvider } from './substrate-lib';
+
+import ChainData from './ChainData';
+import Homepage from './Homepage';
+import 'semantic-ui-css/semantic.min.css';
 
 function Main () {
   return (
@@ -16,9 +16,6 @@ function Main () {
       <Switch>
         <Route path="/demo">
           <ChainData />
-        </Route>
-        <Route path="/ShipmentTracking">
-          <ShipmentTrackingPage />
         </Route>
         <Route path="/">
           <Homepage/>
