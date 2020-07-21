@@ -10,6 +10,7 @@ import AccountSelector from './AccountSelector';
 import Events from './Events';
 import Identifiers from './Identifiers';
 import Products from './Products';
+import Permissions from './Permissions';
 import ProductTracking from './ProductTracking';
 import ProductLog from './ProductLog';
 import Transfer from './Transfer';
@@ -69,6 +70,9 @@ const ChainData = () => {
           <Divider horizontal>Organizations</Divider>
           <Grid.Row stretched>
             <Identifiers accountPair={accountPair} />
+          </Grid.Row>
+          <Grid.Row stretched>
+            <Permissions accountPair={accountPair} />
           </Grid.Row>
           <Divider horizontal>Products</Divider>
           <Grid.Row stretched>
