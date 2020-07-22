@@ -189,11 +189,6 @@ git = 'https://github.com/stiiifff/pallet-product-tracking'
 package = 'pallet-product-tracking'
 version = '2.0.0-rc4'
 
-[dependencies.pallet-ocw-weather]
-default-features = false
-path = '../pallets/ocw-weather'
-version = '2.0.0-rc4'
-
 [dependencies.validatorset]
 package = 'substrate-validator-set'
 git = 'https://github.com/gautamdhameja/substrate-validator-set'
@@ -242,7 +237,6 @@ std = [
 	'timestamp/std',
 	'transaction-payment/std',
 	'pallet-did/std',
-	'pallet-ocw-weather/std',
 	'pallet-product-registry/std',
 	'pallet-product-tracking/std',
 	'validatorset/std',
