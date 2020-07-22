@@ -4,11 +4,6 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import { SubstrateContextProvider } from './substrate-lib';
-
-import ChainData from './ChainData';
-import Homepage from './Homepage';
-import 'semantic-ui-css/semantic.min.css';
 
 import Dashboard from './Dashboard';
 import Homepage from './Homepage';
