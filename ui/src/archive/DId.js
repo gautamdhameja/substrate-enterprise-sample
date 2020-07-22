@@ -18,11 +18,10 @@ function Main (props) {
   const { callableFunction, input } = formState;
 
   const updateParamFields = () => {
-    if (callableFunction === '' || !api.tx.productRegistry) {
+    if (callableFunction === '' || !api.tx.palletDid) {
       return;
     }
-
-    const paramFields = api.tx.productRegistry[callableFunction].meta.args.map(arg => ({
+    const paramFields = api.tx.palletDid[callableFunction].meta.args.map(arg => ({
       name: arg.name.toString(),
       type: arg.type.toString()
     }));
@@ -31,7 +30,7 @@ function Main (props) {
   };
 
   useEffect(() => {
-    const section = api.tx.productRegistry;
+    const section = api.tx.palletDid;
     const callableFunctions = Object.keys(section)
       .sort()
       .map(callable => ({
@@ -51,15 +50,17 @@ function Main (props) {
       if (Number.isInteger(data.state)) {
         formState.input[data.state] = data.value;
         res = { ...formState };
+        console.log(res);
       } else {
         res = { ...formState, [data.state]: data.value, input: [] };
       }
       return res;
     });
   };
+
   return (
     <Grid.Column>
-      <h1>Products</h1>
+      <h1>DIDs</h1>
       <Form>
         <Form.Field>
           <Dropdown
@@ -92,7 +93,7 @@ function Main (props) {
             setStatus={setStatus}
             type='SIGNED-TX'
             attrs={{
-              palletRpc: 'productRegistry',
+              palletRpc: 'palletDid',
               callable: callableFunction,
               inputParams: input,
               paramFields: new Array(paramFields.length).fill(true)
@@ -105,7 +106,7 @@ function Main (props) {
   );
 }
 
-export default function Identifiers (props) {
+export default function DId (props) {
   const { api } = useSubstrate();
   return api.tx ? <Main {...props} /> : null;
 }

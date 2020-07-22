@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Feed, Grid, Button } from 'semantic-ui-react';
 
-import { useSubstrate } from './substrate-lib';
+import { useSubstrate } from '../substrate-lib';
 
 function Main (props) {
   const { api } = useSubstrate();

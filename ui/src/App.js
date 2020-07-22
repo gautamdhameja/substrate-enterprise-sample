@@ -4,31 +4,22 @@ import {
   Switch,
   Route
 } from 'react-router-dom';
-import { SubstrateContextProvider } from './substrate-lib';
 
-import ChainData from './ChainData';
+import Dashboard from './Dashboard';
 import Homepage from './Homepage';
 import 'semantic-ui-css/semantic.min.css';
 
-function Main () {
+export default function App () {
   return (
     <Router>
       <Switch>
         <Route path="/demo">
-          <ChainData />
+          <Dashboard />
         </Route>
         <Route path="/">
           <Homepage/>
         </Route>
       </Switch>
     </Router>
-  );
-}
-
-export default function App () {
-  return (
-    <SubstrateContextProvider>
-      <Main />
-    </SubstrateContextProvider>
   );
 }
