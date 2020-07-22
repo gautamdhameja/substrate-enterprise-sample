@@ -43,6 +43,7 @@ pub use frame_support::{
 };
 
 pub use validatorset;
+pub use rbac;
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -284,6 +285,10 @@ impl session::Trait for Runtime {
 	type DisabledValidatorsThreshold = ();
 }
 
+impl rbac::Trait for Runtime {
+	type Event = Event;
+}
+
 // pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
 
 // parameter_types! {
@@ -372,6 +377,7 @@ construct_runtime!(
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
 		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
+		RBAC: rbac::{Module, Call, Storage, Event<T>, Config<T>},
 		// OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
@@ -394,7 +400,8 @@ pub type SignedExtra = (
 	system::CheckEra<Runtime>,
 	system::CheckNonce<Runtime>,
 	system::CheckWeight<Runtime>,
-	transaction_payment::ChargeTransactionPayment<Runtime>
+	transaction_payment::ChargeTransactionPayment<Runtime>,
+	rbac::Authorize<Runtime>
 );
 /// Unchecked extrinsic type as expected by this runtime.
 pub type UncheckedExtrinsic = generic::UncheckedExtrinsic<Address, Call, Signature, SignedExtra>;

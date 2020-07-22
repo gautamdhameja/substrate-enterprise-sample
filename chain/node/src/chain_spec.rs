@@ -2,7 +2,7 @@ use sp_core::{Pair, Public, sr25519};
 use node_template_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig,
 	SudoConfig, SystemConfig, WASM_BINARY, Signature, 
-	ValidatorSetConfig, SessionConfig, opaque::SessionKeys
+	ValidatorSetConfig, SessionConfig, opaque::SessionKeys, RBACConfig
 };
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_finality_grandpa::AuthorityId as GrandpaId;
@@ -137,5 +137,8 @@ fn testnet_genesis(initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
 		sudo: Some(SudoConfig {
 			key: root_key,
 		}),
+		rbac: Some(RBACConfig {
+			super_admins: vec![get_account_id_from_seed::<sr25519::Public>("Alice")]
+		})
 	}
 }

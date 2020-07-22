@@ -2819,6 +2819,7 @@ dependencies = [
  "sp-std",
  "sp-transaction-pool",
  "sp-version",
+ "substrate-rbac",
  "substrate-validator-set",
  "substrate-wasm-builder-runner",
 ]
@@ -5860,6 +5861,21 @@ dependencies = [
  "log",
  "prometheus",
  "tokio 0.2.21",
+]
+
+[[package]]
+name = "substrate-rbac"
+version = "0.1.0"
+source = "git+https://github.com/gautamdhameja/substrate-rbac#c2df07ca6ab0385102fb1f024653dccb064e5126"
+dependencies = [
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "serde",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
 ]
 
 [[package]]

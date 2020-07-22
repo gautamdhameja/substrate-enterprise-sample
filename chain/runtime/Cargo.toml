@@ -200,6 +200,12 @@ git = 'https://github.com/gautamdhameja/substrate-validator-set'
 default-features = false
 version = '0.2.0'
 
+[dependencies.rbac]
+package = 'substrate-rbac'
+git = 'https://github.com/gautamdhameja/substrate-rbac'
+default-features = false
+version = '0.1.0'
+
 # -- End of Pallets specific for this runtime --
 
 [build-dependencies.wasm-builder-runner]
@@ -240,5 +246,6 @@ std = [
 	'pallet-product-registry/std',
 	'pallet-product-tracking/std',
 	'validatorset/std',
-	'session/std'
+	'session/std',
+	'rbac/std'
 ]
