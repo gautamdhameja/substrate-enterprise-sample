@@ -1,18 +1,14 @@
 import React, { useState, createRef } from 'react';
-import { Container, Dimmer, Loader, Grid, Sticky, Message } from 'semantic-ui-react';
+import { Tab, Container, Dimmer, Loader, Grid, Message, Sticky } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
-import { AccountSelector, TopNavMenu } from './components';
+import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMenu } from './components';
 
 const Dashboard = () => {
   const [accountAddress, setAccountAddress] = useState(null);
-  const { apiState, keyring, keyringState, apiError } = useSubstrate();
-  const accountPair =
-    accountAddress &&
-    keyringState === 'READY' &&
-    keyring.getPair(accountAddress);
+  const { apiState, keyringState, apiError } = useSubstrate();
 
   const loader = text =>
     <Dimmer active>
@@ -36,6 +32,13 @@ const Dashboard = () => {
     return loader('Loading accounts (please review any extension\'s authorization)');
   }
 
+  const panes = [
+    { menuItem: 'Organizations', render: () => <Organizations account={accountAddress} /> },
+    { menuItem: 'Members', render: () => <Members account={accountAddress} /> },
+    { menuItem: 'Products', render: () => <Products account={accountAddress} /> },
+    { menuItem: 'Shipments', render: () => <Shipments account={accountAddress} /> }
+  ];
+
   const contextRef = createRef();
 
   return (
@@ -44,17 +47,20 @@ const Dashboard = () => {
       <Sticky context={contextRef}>
         <AccountSelector setAccountAddress={setAccountAddress} />
       </Sticky>
+
       <Container>
+        <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
       </Container>
+
       <DeveloperConsole />
     </div>
   );
 };
 
-export default function DashboardWithContext () {
+export default function DashboardWithContext (props) {
   return (
     <SubstrateContextProvider>
-      <Dashboard/>
+      <Dashboard {...props} />
     </SubstrateContextProvider>
   );
 }
