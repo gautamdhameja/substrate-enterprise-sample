@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, Icon, Grid, List, Step } from 'semantic-ui-react';
+import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import { useSubstrate } from '../substrate-lib';
+import { hexToString } from '@polkadot/util';
 
 function ShipmentDetailsComponent (props) {
   const { api } = useSubstrate();
-  const [shipment, setShipment] = useState({});
+  const [shipment, setShipment] = useState(null);
   const [eventIndices, setEventIndices] = useState([]);
   const [events, setEvents] = useState([]);
+  const [products, setProducts] = useState([]);
   const { shipmentId } = props;
 
   useEffect(() => {
@@ -15,7 +17,7 @@ function ShipmentDetailsComponent (props) {
 
     async function shipment (shipmentId) {
       await api.query.productTracking.shipments(shipmentId, data =>
-        setShipment(data ? data.value : {})
+        setShipment(data ? data.value : null)
       );
     }
 
@@ -69,52 +71,104 @@ function ShipmentDetailsComponent (props) {
     }
   }, [api.query.productTracking, eventIndices]);
 
+  useEffect(() => {
+    let unsubscribe;
+
+    async function products (shipment) {
+      const futures = shipment.products
+        .map(productId => api.query.productRegistry.products(productId.toString()));
+      Promise.all(futures)
+        .then(data => {
+          if (data) {
+            const products = data.map(p => {
+              const product = p.value;
+              const descProp = product.props ? product.props.value.find(prop => hexToString(prop.name.toString()) == 'desc') : {name: '', value: ''};
+              return {
+                id: hexToString(product.id.toString()),
+                desc: hexToString(descProp.value.toString())
+              };
+            });
+            setProducts(products);
+          } else {
+            setProducts([]);
+          }
+        })
+        .catch(e => console.log(e));
+    }
+
+    if (shipment && shipment.products) {
+      products(shipment);
+    } else {
+      return () => unsubscribe && unsubscribe();
+    }
+  }, [api.query.productTracking, shipment]);
+
   return (
+    shipment != null ? 
     <Container>
       <Header as="h2">Shipment {shipmentId}</Header>
-      <Grid stackable columns='equal'>
-        <Grid.Column>
-          <Header as="h3">Status: Delivered</Header>
-        </Grid.Column>
-      </Grid>
+      <Segment>
+        <Grid columns="2" rows="2">
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h4" floated="left">Owner: </Header>
+              <span>{shipment.owner.toString()}</span>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4" floated="left">Registered:</Header>
+              <span>{new Date(shipment.registered.toNumber()).toLocaleString()}</span>
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <Header as="h4" floated="left">Status: </Header>
+              <span>{shipment.status.toString()}</span>
+            </Grid.Column>
+            <Grid.Column>
+              <Header as="h4" floated="left">Delivered:</Header>
+              <span>{shipment.delivered ? new Date(shipment.delivered.value.toNumber()).toLocaleString() : ''}</span>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Segment>
       <Grid container columns={2} style={{ marginTop: '1em' }}>
-        <Grid.Column width={8}>
+        <Grid.Column width={10}>
           <Header as="h3">Shipping Events</Header>
           { events
             ? <Step.Group vertical size='small'> { events.map((event, idx) => {
-              const eventType = event.event_type.toString();
-              return (
-                <Step key={idx}>
-                  <Icon name={ eventType === 'ShipmentRegistration'
-                    ? 'tasks'
-                    : eventType === 'ShipmentPickup'
-                      ? 'truck'
-                      : eventType === 'ShipmentScan'
-                        ? 'barcode' : 'home'
-                  } />
-                  <Step.Content>
-                    <Step.Title>{event.event_type.toString().substring(8)}</Step.Title>
-                    <Step.Description>
-                      { new Date(event.timestamp.toNumber()).toLocaleString() }
-                    </Step.Description>
-                  </Step.Content>
-                </Step>
-              );
-            })} </Step.Group>
+                  const eventType = event.event_type.toString();
+                  return (
+                    <Step key={idx}>
+                      <Icon name={ eventType === 'ShipmentRegistration'
+                        ? 'tasks'
+                        : eventType === 'ShipmentPickup'
+                          ? 'truck'
+                          : eventType === 'ShipmentScan'
+                            ? 'barcode' : 'home'
+                      } />
+                      <Step.Content>
+                        <Step.Title>{event.event_type.toString().substring(8)}</Step.Title>
+                        <Step.Description>
+                          { new Date(event.timestamp.toNumber()).toLocaleString() }
+                        </Step.Description>
+                      </Step.Content>
+                    </Step>
+                  );
+              })} </Step.Group>
             : <div>No event found</div>
           }
         </Grid.Column>
-        <Grid.Column width={8}>
+        <Grid.Column width={6}>
           <Header as="h3">Products</Header>
-          { shipment && shipment.products
-            ? <List> { shipment.products.map((productId, idx) =>
-              <List.Item key={idx}>{ productId.toString() }</List.Item>
+          { products
+            ? <List> { products.map((product, idx) =>
+              <List.Item key={idx} header={product.id} description={product.desc} />
             ) } </List>
-            : <div>No event found</div>
+            : <div>No product found</div>
           }
         </Grid.Column>
       </Grid>
-    </Container>
+    </Container> : <div>No shipment info found</div>
   );
 }
 
