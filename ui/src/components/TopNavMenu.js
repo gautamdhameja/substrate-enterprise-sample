@@ -8,8 +8,8 @@ export default function main () {
       <Container>
         <Menu.Item as={Link} to='/'>Home</Menu.Item>
         <Menu.Item as={Link} to='/demo' active>Demo</Menu.Item>
-        <Menu.Item href="https://substrate.io">Substrate</Menu.Item>
-        <Menu.Item href="https://parity.io">Parity</Menu.Item>
+        <Menu.Item href='https://substrate.io' target='_blank'>Substrate</Menu.Item>
+        <Menu.Item href='https://parity.io' target='_blank'>Parity</Menu.Item>
       </Container>
     </Menu>
   );
