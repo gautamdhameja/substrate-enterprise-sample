@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import { useSubstrate } from '../substrate-lib';
-import { hexToString, isNull } from '@polkadot/util';
+import { hexToString } from '@polkadot/util';
 
 function ShipmentDetailsComponent (props) {
   const { api } = useSubstrate();
@@ -130,7 +130,7 @@ function ShipmentDetailsComponent (props) {
               </Grid.Column>
               <Grid.Column>
                 <Header as="h4" floated="left">Delivered:</Header>
-                <span>{  shipment.delivered.value.toString().length > 0
+                <span>{ shipment.delivered.value.toString().length > 0
                   ? new Date(shipment.delivered.value.toNumber()).toLocaleString() : ''
                 }</span>
               </Grid.Column>

@@ -1,28 +1,17 @@
-import React, {
-  useEffect,
-  useState
-} from 'react';
-import {
-  Form,
-  Header,
-  Dropdown
-} from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Form, Header } from 'semantic-ui-react';
 
-import {
-  useSubstrate
-} from '../substrate-lib';
-import {
-  TxButton
-} from '../substrate-lib/components';
+import { useSubstrate } from '../substrate-lib';
+import { TxButton } from '../substrate-lib/components';
 import { hexToString } from '@polkadot/util';
 
-function RegisterShipmentFormComponent(props) {
+function RegisterShipmentFormComponent (props) {
   const { api } = useSubstrate();
   const { accountPair } = props;
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [products, setProducts] = useState([]);
-  const [state, setState] = useState({ shipmentId: '', owner: accountPair.address, productId1: '', productId2: ''});
+  const [state, setState] = useState({ shipmentId: '', owner: accountPair.address, productId1: '', productId2: '' });
 
   const updateParamFields = () => {
     if (!api.tx.productTracking) {
@@ -40,14 +29,14 @@ function RegisterShipmentFormComponent(props) {
   useEffect(() => {
     let unsubscribe;
 
-    async function productsOfOrg(account) {
+    async function productsOfOrg (account) {
       await api.query.productRegistry.productsOfOrganization(account, data => setProducts(data));
     }
 
     if (accountPair) {
       productsOfOrg(accountPair.address);
     } else {
-      setEventIndices([]);
+      setProducts([]);
       return () => unsubscribe && unsubscribe();
     }
   }, [api.query.productRegistry, accountPair]);
@@ -85,7 +74,7 @@ function RegisterShipmentFormComponent(props) {
           state='productId1'
           options={products.map(p => {
             const productId = hexToString(p.toString());
-            return {value: productId, text: productId};
+            return { value: productId, text: productId };
           })}
           value={state.productId1}
           onChange={handleChange}
@@ -99,7 +88,7 @@ function RegisterShipmentFormComponent(props) {
           state='productId2'
           options={products.map(p => {
             const productId = hexToString(p.toString());
-            return {value: productId, text: productId};
+            return { value: productId, text: productId };
           })}
           value={state.productId2}
           onChange={handleChange}
@@ -124,7 +113,7 @@ function RegisterShipmentFormComponent(props) {
   );
 }
 
-export default function RegisterShipmentForm(props) {
+export default function RegisterShipmentForm (props) {
   const {
     api
   } = useSubstrate();
