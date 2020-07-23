@@ -43,9 +43,6 @@ pub use sp_runtime::BuildStorage;
 pub use sp_runtime::{Perbill, Permill};
 pub use timestamp::Call as TimestampCall;
 
-pub use validatorset;
-pub use rbac;
-
 /// An index to a block.
 pub type BlockNumber = u32;
 
@@ -378,13 +375,13 @@ construct_runtime!(
 		Aura: aura::{Module, Config<T>, Inherent(Timestamp)},
 		Grandpa: grandpa::{Module, Call, Storage, Config, Event},
 		Balances: balances::{Module, Call, Storage, Config<T>, Event<T>},
-		PalletDID: pallet_did::{Module, Call, Storage, Event<T>},
+		PalletDid: pallet_did::{Module, Call, Storage, Event<T>},
 		TransactionPayment: transaction_payment::{Module, Storage},
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
 		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
 		Registrar: registrar::{Module, Call, Event<T>},
-		RBAC: rbac::{Module, Call, Storage, Event<T>, Config<T>},
+		Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
 	}
 );
 
