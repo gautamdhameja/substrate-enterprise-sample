@@ -286,8 +286,13 @@ impl session::Trait for Runtime {
 	type DisabledValidatorsThreshold = ();
 }
 
+impl registrar::Trait for Runtime {
+	type Event = Event;
+}
+
 impl rbac::Trait for Runtime {
 	type Event = Event;
+	type EnsureOrgOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 // pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
@@ -378,8 +383,8 @@ construct_runtime!(
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
 		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
+		Registrar: registrar::{Module, Call, Event<T>},
 		RBAC: rbac::{Module, Call, Storage, Event<T>, Config<T>},
-		// OcwWeather: pallet_ocw_weather::{Module, Call, Storage, Event<T>},
 	}
 );
 

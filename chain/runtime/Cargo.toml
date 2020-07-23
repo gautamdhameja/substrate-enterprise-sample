@@ -197,9 +197,17 @@ version = '0.2.0'
 
 [dependencies.rbac]
 package = 'substrate-rbac'
+# path = '../../../rbac'
 git = 'https://github.com/gautamdhameja/substrate-rbac'
+branch = 'enterprise-sample'
 default-features = false
 version = '0.1.0'
+
+[dependencies.registrar]
+package = 'pallet-registrar'
+path = '../pallets/registrar'
+default-features = false
+version = '2.0.0-rc4'
 
 # -- End of Pallets specific for this runtime --
 
@@ -241,5 +249,6 @@ std = [
 	'pallet-product-tracking/std',
 	'validatorset/std',
 	'session/std',
-	'rbac/std'
+	'rbac/std',
+	'registrar/std'
 ]
