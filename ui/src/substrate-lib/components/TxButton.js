@@ -145,7 +145,7 @@ function TxButton ({
   const transformParams = (paramFields, inputParams, opts = { emptyAsNull: true }) => {
     // if `opts.emptyAsNull` is true, empty param value will be added to res as `null`.
     //   Otherwise, it will not be added
-    console.log("TxButton: ", paramFields, inputParams)
+    console.log('TxButton: ', paramFields, inputParams);
     const paramVal = inputParams.map(inputParam => typeof inputParam === 'object' ? inputParam.value.trim() : inputParam.trim());
     const params = paramFields.map((field, ind) => ({ ...field, value: paramVal[ind] || null }));
 

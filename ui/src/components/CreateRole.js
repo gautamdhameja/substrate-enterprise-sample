@@ -22,12 +22,12 @@ function Main (props) {
     {
       key: 'Execute',
       text: 'Execute',
-      value: 'Execute',
+      value: 'Execute'
     },
     {
       key: 'Manage',
       text: 'Manage',
-      value: 'Manage',
+      value: 'Manage'
     }
   ];
 
