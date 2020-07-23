@@ -28,7 +28,6 @@ function ShipmentListComponent (props) {
 
   const handleSelectionClick = (ev, { data }) => {
     const shipment = hexToString(shipments[data].toString());
-    console.log(shipment);
     setSelectedShipment(shipment);
     setSelected(shipment);
   };
