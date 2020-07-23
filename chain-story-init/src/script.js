@@ -1,6 +1,5 @@
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
-import { blake2AsHex } from '@polkadot/util-crypto';
-import config from './config/index';
+import config from './config';
 
 const ONE_HOUR = 60*60*1000;
 
@@ -35,7 +34,7 @@ const NEW_SHIPMENTS = {
   }
 };
 
-const SHIPMENT_EVS = {
+const SHIPMENT_EVENTS = {
   PICKUP: {
     id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
     operation: "Pickup",
@@ -133,9 +132,9 @@ async function initChainStory() {
       api.tx.productTracking.registerShipment, NEW_SHIPMENTS.TUNA_N_PINEAPPLE);
 
     // Register all shipping events
-    for (const k in SHIPMENT_EVS) {
+    for (const k in SHIPMENT_EVENTS) {
       await sendTx(`Shipment Event ${k}`,
-        api.tx.productTracking.trackShipment, SHIPMENT_EVS[k]);
+        api.tx.productTracking.trackShipment, SHIPMENT_EVENTS[k]);
     }
 
   } catch (err) {

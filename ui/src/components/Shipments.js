@@ -6,8 +6,8 @@ import RegisterShipmentForm from './RegisterShipmentForm';
 import ShipmentList from './ShipmentList';
 import ShipmentDetails from './ShipmentDetails';
 
-export default function Main(props) {
-  const { account } = props;
+export default function Main (props) {
+  const { accountPair } = props;
   const [selectedShipment, setSelectedShipment] = useState('');
 
   return (
@@ -15,10 +15,10 @@ export default function Main(props) {
       <Grid columns="2">
         <Grid.Column>
           {/* For testing only, to be moved to a popup */}
-          <RegisterShipmentForm accountPair={account} />
+          <RegisterShipmentForm accountPair={accountPair} />
         </Grid.Column>
         <Grid.Column>
-          <ShipmentList account={account} onShipmentSelected={shipment => setSelectedShipment(shipment)} />
+          <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
         </Grid.Column>
       </Grid>
       <Divider style={{ marginTop: '2em' }} />
