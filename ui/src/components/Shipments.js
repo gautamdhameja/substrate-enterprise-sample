@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Divider, Grid } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
 
 import RegisterShipmentForm from './RegisterShipmentForm';
 import ShipmentList from './ShipmentList';
