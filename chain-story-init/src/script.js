@@ -1,6 +1,7 @@
 import { ApiPromise, WsProvider, Keyring } from '@polkadot/api';
-import { blake2AsHex } from '@polkadot/util-crypto';
-import config from './config/index';
+import config from './config';
+
+const ONE_HOUR = 60*60*1000;
 
 // App constant
 const ALICE = '//Alice'
@@ -33,11 +34,11 @@ const NEW_SHIPMENTS = {
   }
 };
 
-const SHIPMENT_EVS = {
+const SHIPMENT_EVENTS = {
   PICKUP: {
     id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
     operation: "Pickup",
-    timestamp: 1593586800, // 20200701-15:00:00 GMT+8
+    timestamp: Date.now() + (1 * ONE_HOUR),
     location: {
       latitude: 5250186,
       longitude: 5250186,
@@ -47,7 +48,7 @@ const SHIPMENT_EVS = {
   SCAN_01: {
     id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
     operation: "Scan",
-    timestamp: 1593673200, // 20200702-15:00:00 GMT+8
+    timestamp: Date.now() + (2 * ONE_HOUR),
     location: {
       latitude: 7777777,
       longitude: 7777777,
@@ -57,7 +58,7 @@ const SHIPMENT_EVS = {
   SCAN_02: {
     id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
     operation: "Scan",
-    timestamp: 1593689400, // 20200702-19:30:00 GMT+8
+    timestamp: Date.now() + (3 * ONE_HOUR),
     location: {
       latitude: 8888888,
       longitude: 8888888,
@@ -67,7 +68,7 @@ const SHIPMENT_EVS = {
   DELIVER: {
     id: NEW_SHIPMENTS.TUNA_N_PINEAPPLE.id,
     operation: "Deliver",
-    timestamp: 1593736200, // 20200703-08:30:00 GMT+8
+    timestamp: Date.now() + (4 * ONE_HOUR),
     location: {
       latitude: 9999999,
       longitude: 9999999,
@@ -131,9 +132,9 @@ async function initChainStory() {
       api.tx.productTracking.registerShipment, NEW_SHIPMENTS.TUNA_N_PINEAPPLE);
 
     // Register all shipping events
-    for (const k in SHIPMENT_EVS) {
+    for (const k in SHIPMENT_EVENTS) {
       await sendTx(`Shipment Event ${k}`,
-        api.tx.productTracking.trackShipment, SHIPMENT_EVS[k]);
+        api.tx.productTracking.trackShipment, SHIPMENT_EVENTS[k]);
     }
 
   } catch (err) {
