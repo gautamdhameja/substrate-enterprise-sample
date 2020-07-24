@@ -38,7 +38,6 @@
     "ShipmentId": "Identifier",
     "ShippingEventIndex": "u128",
     "DeviceId": "Identifier",
-
     "ShipmentStatus": {
       "_enum": [
         "Pending",
@@ -95,6 +94,16 @@
       "reading_type": "ReadingType",
       "timestamp": "Moment",
       "value": "Decimal"
+    },
+    "Permission": {
+      "_enum": [
+        "Execute",
+        "Manage"
+      ]
+    },
+    "Role": {
+      "pallet": "Vec<u8>",
+      "permission": "Permission"
     }
   },
   "RPC": {}

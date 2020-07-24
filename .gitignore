@@ -11,5 +11,5 @@ node_modules
 build
 
 # These pallets maybe placed inside for ease of compilation, but shouldn't be committed
-chain/pallets/pallet-*
+# chain/pallets/pallet-*
 Cargo.toml.me

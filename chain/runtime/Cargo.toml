@@ -175,6 +175,7 @@ version = '2.0.0-rc4'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
+tag = 'v2.0.0-rc4'
 version = '2.0.0-rc4'
 
 [dependencies.pallet-product-registry]
@@ -182,23 +183,31 @@ default-features = false
 git = 'https://github.com/stiiifff/pallet-product-registry'
 package = 'pallet-product-registry'
 version = '2.0.0-rc4'
+branch = 'master'
 
 [dependencies.pallet-product-tracking]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
 package = 'pallet-product-tracking'
 version = '2.0.0-rc4'
-
-[dependencies.pallet-ocw-weather]
-default-features = false
-path = '../pallets/ocw-weather'
-version = '2.0.0-rc4'
+branch = 'master'
 
 [dependencies.validatorset]
-package = 'substrate-validator-set'
-git = 'https://github.com/gautamdhameja/substrate-validator-set'
 default-features = false
-version = '0.2.0'
+git = 'https://github.com/gautamdhameja/substrate-validator-set'
+package = 'substrate-validator-set'
+branch = 'master'
+
+[dependencies.rbac]
+default-features = false
+git = 'https://github.com/gautamdhameja/substrate-rbac'
+package = 'substrate-rbac'
+branch = 'enterprise-sample'
+
+[dependencies.registrar]
+default-features = false
+path = '../pallets/registrar'
+package = 'pallet-registrar'
 
 # -- End of Pallets specific for this runtime --
 
@@ -236,9 +245,10 @@ std = [
 	'timestamp/std',
 	'transaction-payment/std',
 	'pallet-did/std',
-	'pallet-ocw-weather/std',
 	'pallet-product-registry/std',
 	'pallet-product-tracking/std',
 	'validatorset/std',
-	'session/std'
+	'session/std',
+	'rbac/std',
+	'registrar/std'
 ]

@@ -2,7 +2,7 @@
 members = [
 	'node',
 	'runtime',
-	'pallets/ocw-weather',
+	'pallets/registrar'
 ]
 [profile.release]
 panic = 'unwind'
