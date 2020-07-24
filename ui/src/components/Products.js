@@ -1,7 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { Header, Grid } from 'semantic-ui-react';
+
+import Events from './Events';
+import ProductList from './ProductList';
+import RegisterProductForm from './RegisterProductForm';
 
 export default function Main (props) {
+  const { accountPair } = props;
+
   return (
-    <h1>Products</h1>
+    <Fragment>
+      <Grid>
+        <Grid.Column width={8}>
+          <RegisterProductForm accountPair={accountPair} />
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <Events />
+        </Grid.Column>
+      </Grid>
+      <Header as='h2'>Product Listing</Header>
+      <ProductList accountPair={accountPair} />
+    </Fragment>
   );
 }
