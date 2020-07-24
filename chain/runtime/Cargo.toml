@@ -187,6 +187,7 @@ branch = 'master'
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
 # path = '../../../pallet-product-tracking'
+# path = '../pallets/pallet-product-tracking'
 package = 'pallet-product-tracking'
 branch = 'master'
 
