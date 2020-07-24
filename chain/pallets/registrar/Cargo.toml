@@ -60,7 +60,8 @@ version = '2.0.0-rc4'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-branch = 'master'
+tag = 'v2.0.0-rc4'
+version = '2.0.0-rc4'
 
 [features]
 default = ['std']

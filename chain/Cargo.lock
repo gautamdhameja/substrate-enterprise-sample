@@ -2985,7 +2985,7 @@ dependencies = [
 [[package]]
 name = "pallet-did"
 version = "2.0.0-rc4"
-source = "git+https://github.com/substrate-developer-hub/pallet-did#95124e1089776ba7fd120e9cc0e840df6f8da670"
+source = "git+https://github.com/substrate-developer-hub/pallet-did?tag=v2.0.0-rc4#95124e1089776ba7fd120e9cc0e840df6f8da670"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -3048,10 +3048,10 @@ dependencies = [
 [[package]]
 name = "pallet-product-tracking"
 version = "2.0.0-rc4"
+source = "git+https://github.com/stiiifff/pallet-product-tracking#8c6930848f047080da394ec5179c445c275f9db1"
 dependencies = [
  "frame-support",
  "frame-system",
- "hex",
  "pallet-product-registry",
  "pallet-timestamp",
  "parity-scale-codec",
