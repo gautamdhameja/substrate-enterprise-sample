@@ -8,11 +8,7 @@ import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMen
 
 const Dashboard = () => {
   const [accountAddress, setAccountAddress] = useState(null);
-  const { apiState, keyring, keyringState, apiError } = useSubstrate();
-  const accountPair =
-    accountAddress &&
-    keyringState === 'READY' &&
-    keyring.getPair(accountAddress);
+  const { apiState, keyringState, apiError } = useSubstrate();
 
   const loader = text =>
     <Dimmer active>
@@ -37,10 +33,10 @@ const Dashboard = () => {
   }
 
   const panes = [
-    { menuItem: 'Organizations', render: () => <Organizations accountPair={accountPair} /> },
-    { menuItem: 'Members', render: () => <Members accountPair={accountPair} /> },
-    { menuItem: 'Products', render: () => <Products accountPair={accountPair} /> },
-    { menuItem: 'Shipments', render: () => <Shipments accountPair={accountPair} /> }
+    { menuItem: 'Organizations', render: () => <Organizations account={accountAddress} /> },
+    { menuItem: 'Members', render: () => <Members account={accountAddress} /> },
+    { menuItem: 'Products', render: () => <Products account={accountAddress} /> },
+    { menuItem: 'Shipments', render: () => <Shipments account={accountAddress} /> }
   ];
 
   const contextRef = createRef();
