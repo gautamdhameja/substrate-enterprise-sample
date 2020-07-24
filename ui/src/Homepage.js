@@ -213,7 +213,7 @@ const Homepage = () => (
                 <List.Item content="Setup a shared platform among several organisations, as a permissioned Blockchain network."/>
                 <List.Item content="Manage decentralized identities for member organisations and their delegates."/>
                 <List.Item content="Register master data about products and their owning organisations."/>
-                <List.Item content="Register and track a shipment's journey through the value chain."/>
+                <List.Item content="Register a shipment and track its journey through the value chain."/>
                 <List.Item content="Monitor a shipment's storage and transportation conditions."/>
                 <List.Item content="Enable seamless data integration with existing ERP systems deployed within corporate walls." />
               </List>
