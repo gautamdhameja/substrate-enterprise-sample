@@ -102,7 +102,7 @@ function Main (props) {
   );
 }
 
-export default function Permissions (props) {
+export default function CreateRole (props) {
   const { api } = useSubstrate();
   return api.tx ? <Main {...props} /> : null;
 }
