@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, Header } from 'semantic-ui-react';
+import { Card, Form } from 'semantic-ui-react';
 
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
@@ -45,71 +45,75 @@ function RegisterShipmentFormComponent (props) {
     setState({ ...state, [data.state]: data.value });
 
   return (
-    <>
-      <Header as="h2">Register a shipment</Header>
-      <Form>
-        <Form.Input
-          name='shipmentId'
-          label='Shipment ID'
-          state='shipmentId'
-          required
-          value={state.shipmentId}
-          onChange={handleChange}
-        />
-        <Form.Input
-          name='owner'
-          label='Owner'
-          state='owner'
-          value={state.owner}
-          readOnly
-          required
-          onChange={handleChange}
-        />
-        <Form.Dropdown
-          placeholder='Select a product'
-          fluid
-          label='Product 1'
-          search
-          selection
-          state='productId1'
-          options={products.map(p => {
-            const productId = hexToString(p.toString());
-            return { value: productId, text: productId };
-          })}
-          value={state.productId1}
-          onChange={handleChange}
-        />
-        <Form.Dropdown
-          placeholder='Select a product'
-          fluid
-          label='Product 2'
-          search
-          selection
-          state='productId2'
-          options={products.map(p => {
-            const productId = hexToString(p.toString());
-            return { value: productId, text: productId };
-          })}
-          value={state.productId2}
-          onChange={handleChange}
-        />
-        <Form.Field>
-          <TxButton
-            accountPair={accountPair}
-            label='Submit'
-            setStatus={setStatus}
-            type='SIGNED-TX'
-            attrs={{
-              palletRpc: 'productTracking',
-              callable: 'registerShipment',
-              inputParams: [state.shipmentId, state.owner, [state.productId1 || '', state.productId2 || ''].join(',')],
-              paramFields: paramFields
-            }}
+    <Card fluid>
+    <Card.Content header='Register a New Shipment' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
+          <Form.Input
+            name='shipmentId'
+            label='Shipment ID'
+            state='shipmentId'
+            required
+            value={state.shipmentId}
+            onChange={handleChange}
           />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
-    </>
+          <Form.Input
+            name='owner'
+            label='Owner'
+            state='owner'
+            value={state.owner}
+            readOnly
+            required
+            onChange={handleChange}
+          />
+          <Form.Dropdown
+            placeholder='Select a product'
+            fluid
+            label='Product 1'
+            search
+            selection
+            state='productId1'
+            options={products.map(p => {
+              const productId = hexToString(p.toString());
+              return { value: productId, text: productId };
+            })}
+            value={state.productId1}
+            onChange={handleChange}
+          />
+          <Form.Dropdown
+            placeholder='Select a product'
+            fluid
+            label='Product 2'
+            search
+            selection
+            state='productId2'
+            options={products.map(p => {
+              const productId = hexToString(p.toString());
+              return { value: productId, text: productId };
+            })}
+            value={state.productId2}
+            onChange={handleChange}
+          />
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label='Submit'
+              setStatus={setStatus}
+              type='SIGNED-TX'
+              attrs={{
+                palletRpc: 'productTracking',
+                callable: 'registerShipment',
+                inputParams: [state.shipmentId, state.owner, [state.productId1 || '', state.productId2 || ''].join(',')],
+                paramFields: paramFields
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>
   );
 }
 

@@ -21,7 +21,7 @@ export default function RegisterProductForm (props) {
   };
 
   return <Card fluid>
-    <Card.Content header = 'Register a New Product' />
+    <Card.Content header='Register a New Product' />
     <Card.Content>
       <Card.Description>
         <Form>

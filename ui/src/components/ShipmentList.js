@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, List } from 'semantic-ui-react';
-import { useSubstrate } from '../substrate-lib';
-import { hexToString } from '@polkadot/util';
+import { Table, Message } from 'semantic-ui-react';
+import { u8aToString } from '@polkadot/util';
 
-function ShipmentListComponent (props) {
-  const { api } = useSubstrate();
+import { useSubstrate } from '../substrate-lib';
+
+export default function Main (props) {
   const { accountPair, setSelectedShipment } = props;
+  const { api } = useSubstrate();
   const [shipments, setShipments] = useState([]);
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
+    let unsub = null;
+
     async function shipments (accountPair) {
       const addr = accountPair.address;
-      await api.query.productTracking.shipmentsOfOrganization(addr, data => {
+      unsub = await api.query.productTracking.shipmentsOfOrganization(addr, data => {
         setShipments(data);
         setSelectedShipment('');
         setSelected('');
@@ -22,34 +25,41 @@ function ShipmentListComponent (props) {
     if (accountPair) {
       shipments(accountPair);
     }
+
+    return () => unsub && unsub();
   },
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [accountPair, api.query.productTracking]);
 
-  const handleSelectionClick = (ev, { data }) => {
-    const shipment = hexToString(shipments[data].toString());
-    setSelectedShipment(shipment);
-    setSelected(shipment);
+  const handleSelectionClick = (id) => {
+    setSelectedShipment(id);
+    setSelected(id);
   };
 
-  return (
-    <Container>
-      <Header as="h2">Shipments of Organization</Header>
-      { shipments
-        ? <List selection>
-          { shipments.map((shipment, idx) => {
-            const shipmentId = hexToString(shipment.toString());
-            return <List.Item key={idx} active={selected === shipmentId} header={shipmentId}
-              onClick={handleSelectionClick} data={idx}/>;
-          }) }
-        </List>
-        : <div>No shipment found</div>
-      }
-    </Container>
-  );
-}
+  if (!shipments || shipments.length === 0) {
+    return <Message warning>
+      <Message.Header>No shipment registered for your organisation.</Message.Header>
+      <p>Please create one using the above form.</p>
+    </Message>;
+  }
 
-export default function ShipmentList (props) {
-  const { api } = useSubstrate();
-  return api ? <ShipmentListComponent {...props} /> : null;
+  return (
+    <Table color='blue' selectable>
+      <Table.Header>
+        <Table.Row>
+          <Table.HeaderCell>ID</Table.HeaderCell>
+        </Table.Row>
+      </Table.Header>
+
+      <Table.Body>{ shipments.map(shipment => {
+        const id = u8aToString(shipment);
+        return <Table.Row key={id}>
+          <Table.Cell active={selected === id}
+            onClick={() => handleSelectionClick(id)}>
+            { id }
+          </Table.Cell>
+        </Table.Row>;
+      })}</Table.Body>
+    </Table>
+  );
 }

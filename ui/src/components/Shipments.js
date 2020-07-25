@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Divider, Grid } from 'semantic-ui-react';
+import { Container, Divider, Grid, Header } from 'semantic-ui-react';
 
+import Events from './Events';
 import RegisterShipmentForm from './RegisterShipmentForm';
 import ShipmentList from './ShipmentList';
 import ShipmentDetails from './ShipmentDetails';
@@ -17,9 +18,11 @@ export default function Main (props) {
           <RegisterShipmentForm accountPair={accountPair} />
         </Grid.Column>
         <Grid.Column>
-          <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
+          <Events />
         </Grid.Column>
       </Grid>
+      <Header as='h2'>Shipment Listing</Header>
+      <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
       <Divider style={{ marginTop: '2em' }} />
       <ShipmentDetails shipmentId={selectedShipment} />
     </Container>
