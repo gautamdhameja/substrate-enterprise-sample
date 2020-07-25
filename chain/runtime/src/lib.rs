@@ -289,7 +289,7 @@ impl registrar::Trait for Runtime {
 
 impl rbac::Trait for Runtime {
 	type Event = Event;
-	type EnsureOrgOrigin = registrar::EnsureOrg<Runtime>;
+	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 impl<C> system::offchain::SendTransactionTypes<C> for Runtime
@@ -343,6 +343,7 @@ pub type SignedExtra = (
 	system::CheckNonce<Runtime>,
 	system::CheckWeight<Runtime>,
 	transaction_payment::ChargeTransactionPayment<Runtime>,
+	rbac::Authorize<Runtime>
 );
 /// Unchecked extrinsic type as expected by this runtime.
 pub type UncheckedExtrinsic = generic::UncheckedExtrinsic<Address, Call, Signature, SignedExtra>;
