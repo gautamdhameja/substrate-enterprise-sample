@@ -30,7 +30,7 @@ export default function Main (props) {
           <TxButton
             accountPair={accountPair}
             label='Submit'
-            type='SIGNED-TX'
+            type='SUDO-TX'
             setStatus={setStatus}
             attrs={{
               palletRpc: 'rbac',

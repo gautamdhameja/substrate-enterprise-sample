@@ -292,67 +292,6 @@ impl rbac::Trait for Runtime {
 	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
-// pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
-
-// parameter_types! {
-// 	pub const UnsignedPriority: u64 = 100;
-// }
-
-// impl pallet_ocw_weather::Trait for Runtime {
-// 	type AuthorityId = pallet_ocw_weather::crypto::TestAuthId;
-// 	type Call = Call;
-// 	type Event = Event;
-// 	type UnsignedPriority = UnsignedPriority;
-// }
-
-// impl<LocalCall> system::offchain::CreateSignedTransaction<LocalCall> for Runtime
-// where
-// 	Call: From<LocalCall>,
-// {
-// 	fn create_transaction<C: system::offchain::AppCrypto<Self::Public, Self::Signature>>(
-// 		call: Call,
-// 		public: <Signature as sp_runtime::traits::Verify>::Signer,
-// 		account: AccountId,
-// 		index: Index,
-// 	) -> Option<(
-// 		Call,
-// 		<UncheckedExtrinsic as sp_runtime::traits::Extrinsic>::SignaturePayload,
-// 	)> {
-// 		let period = BlockHashCount::get() as u64;
-// 		let current_block = System::block_number()
-// 			.saturated_into::<u64>()
-// 			.saturating_sub(1);
-// 		let tip = 0;
-// 		let extra: SignedExtra = (
-// 			system::CheckSpecVersion::<Runtime>::new(),
-// 			system::CheckTxVersion::<Runtime>::new(),
-// 			system::CheckGenesis::<Runtime>::new(),
-// 			system::CheckEra::<Runtime>::from(generic::Era::mortal(period, current_block)),
-// 			system::CheckNonce::<Runtime>::from(index),
-// 			system::CheckWeight::<Runtime>::new(),
-// 			transaction_payment::ChargeTransactionPayment::<Runtime>::from(tip),
-// 		);
-
-// 		#[cfg_attr(not(feature = "std"), allow(unused_variables))]
-// 		let raw_payload = SignedPayload::new(call, extra)
-// 			.map_err(|e| {
-// 				debug::native::warn!("SignedPayload error: {:?}", e);
-// 			})
-// 			.ok()?;
-
-// 		let signature = raw_payload.using_encoded(|payload| C::sign(payload, public))?;
-
-// 		let address = account;
-// 		let (call, extra, _) = raw_payload.deconstruct();
-// 		Some((call, (address, signature, extra)))
-// 	}
-// }
-
-// impl system::offchain::SigningTypes for Runtime {
-// 	type Public = <Signature as sp_runtime::traits::Verify>::Signer;
-// 	type Signature = Signature;
-// }
-
 impl<C> system::offchain::SendTransactionTypes<C> for Runtime
 where
 	Call: From<C>,

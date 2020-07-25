@@ -1,80 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { Grid, Button, Form, Dropdown, Input, Message } from 'semantic-ui-react';
+import React, { useState } from 'react';
+import { Card, Form, Input } from 'semantic-ui-react';
+import { stringToHex } from '@polkadot/util';
 
-import { useSubstrate } from './substrate-lib';
-import { TxButton } from './substrate-lib/components';
-
-function RegisterProductFormComponent (props) {
-    const { api } = useSubstrate();
-    // const [shipmentIdList, setTrack] = useState([]);
-    const [status, setStatus] = useState(null);
-    const { accountPair } = props;
-
-    const [formState, setFormState] = useState({
-      callableFunction: '',
-      input: []
-    });
-    const { callableFunction, input } = formState;
-
-    const paramFields = api.tx.productRegistry['registerProduct'].meta.args.map(arg => ({
-        name: arg.name.toString(),
-        type: arg.type.toString()
-      }));
-    
-    const onChange = (_, data) => {
-      setFormState(formState => {
-        let res;
-        if (Number.isInteger(data.state)) {
-          formState.input[data.state] = data.value;
-          res = {...formState };
-          console.log(res)
-        } else {
-          res = { ...formState, [data.state]: data.value, input: [] };
-        }
-        return res;
-      });
-    };
-
-    return (<Form>
-      <Form.Input
-              name="productID"
-              label="Product ID"
-              required
-              onChange={onChange}
-          />
-      {/* <Message
-          success
-          header="Success !"
-          content="Thanks so much for giving us feedback!"
-      />
-      <Message
-          error
-          header="Error !"
-          content="An expected error has occured."
-      /> */}
-
-    <Form.Field>
-      <TxButton
-        accountPair={accountPair}
-        label='Submit'
-        setStatus={setStatus}
-        type='SIGNED-TX'
-        attrs={{
-          palletRpc: 'productRegistry',
-          callable: 'registerProduct',
-          inputParams: [
-            '00012345600012',
-            '5GrwvaEF5zXb26Fz9rcQpDWS57CtERHpNehXCPcNoHGKutQY',
-            '' // [{ desc: 'product:canned-tuna' }]
-          ],
-          paramFields: new Array(paramFields.length).fill(true)
-        }}
-      />
-    </Form.Field>
-  </Form>);
-}
+import { TxButton } from '../substrate-lib/components';
 
 export default function RegisterProductForm (props) {
-  const { api } = useSubstrate();
-  return api.tx ? <RegisterProductFormComponent {...props} /> : null;
+  const { accountPair } = props;
+  const [status, setStatus] = useState([]);
+  const [params, setParams] = useState({ id: null, props: null });
+  const addr = accountPair.address;
+
+  const onChange = (_, data) => {
+    const newParams = { ...params };
+    if (data.state === 'id') {
+      newParams.id = (data.value.length === 0 ? null : stringToHex(data.value));
+    } else if (data.state === 'desc') {
+      newParams.props = (data.value.length === 0 ? null : [['0x64657363', stringToHex(data.value)]]);
+    }
+    setParams(newParams);
+  };
+
+  return <Card fluid>
+    <Card.Content header = 'Register a New Product' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
+          <Form.Input
+            fluid required
+            label='Product ID'
+            name='productId'
+            state='id'
+            onChange={onChange}
+          />
+          <Form.Input
+            fluid required
+            label='Description'
+            name='productDesc'
+            state='desc'
+            onChange={onChange}
+          />
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label='Register'
+              type='SIGNED-TX'
+              style={{ display: 'block', margin: 'auto' }}
+              setStatus={setStatus}
+              attrs={{
+                palletRpc: 'productRegistry',
+                callable: 'registerProduct',
+                inputParams: [params.id, addr, params.props],
+                paramFields: [true, true, true]
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>;
 }
