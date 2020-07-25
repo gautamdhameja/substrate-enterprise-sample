@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, Form, Input } from 'semantic-ui-react';
+import { Card, Form } from 'semantic-ui-react';
 import { stringToHex } from '@polkadot/util';
 
 import { TxButton } from '../substrate-lib/components';
