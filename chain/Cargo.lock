@@ -5833,7 +5833,7 @@ dependencies = [
 [[package]]
 name = "substrate-rbac"
 version = "0.1.0"
-source = "git+https://github.com/gautamdhameja/substrate-rbac?branch=enterprise-sample#b51b5fe4df469ef48dc4e9cb0f45f2d708fc8fbe"
+source = "git+https://github.com/gautamdhameja/substrate-rbac?branch=enterprise-sample#0f24b25a93136abbf67c6093099d36b7b28bac58"
 dependencies = [
  "frame-support",
  "frame-system",

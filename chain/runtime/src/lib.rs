@@ -289,7 +289,7 @@ impl registrar::Trait for Runtime {
 
 impl rbac::Trait for Runtime {
 	type Event = Event;
-	type EnsureOrgOrigin = registrar::EnsureOrg<Runtime>;
+	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 // pub type SignedPayload = generic::SignedPayload<Call, SignedExtra>;
