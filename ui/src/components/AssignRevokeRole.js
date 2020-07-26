@@ -49,6 +49,14 @@ export default function Main (props) {
 
   const { assignRevoke, address, pallet, permission } = formState;
 
+  let rsRole = null;
+  if (pallet && permission) {
+    rsRole = api.createType('Role', {
+      pallet: pallet,
+      permission: api.createType('Permission', permission)
+    });
+  }
+
   return (
     <Grid.Column width={8}>
       <Header as="h3">Assign / Revoke Roles</Header>
@@ -89,7 +97,7 @@ export default function Main (props) {
             attrs={{
               palletRpc: 'rbac',
               callable: `${assignRevoke === 'revoke' ? 'revokeAccess' : 'assignRole'}`,
-              inputParams: [address, [pallet, permission]],
+              inputParams: [address, rsRole],
               paramFields: [true, true]
             }}
           />

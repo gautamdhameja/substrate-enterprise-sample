@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css';
 import CreateRole from './CreateRole';
 import AssignRevokeRole from './AssignRevokeRole';
 import AddSuperAdmin from './AddSuperAdmin';
+import Events from './Events';
 
 export default function Main (props) {
   const { accountPair } = props;
@@ -16,6 +17,9 @@ export default function Main (props) {
           <CreateRole accountPair={accountPair} />
           <AssignRevokeRole accountPair={accountPair} />
           <AddSuperAdmin accountPair={accountPair} />
+        </Grid.Column>
+        <Grid.Column>
+          <Events />
         </Grid.Column>
       </Grid>
       <Divider style={{ marginTop: '2em' }} />
