@@ -319,7 +319,7 @@ construct_runtime!(
 		Sudo: sudo::{Module, Call, Config<T>, Storage, Event<T>},
 		ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
 		ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
-		Registrar: registrar::{Module, Call, Event<T>},
+		Registrar: registrar::{Module, Call, Storage, Event<T>},
 		Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
 	}
 );
