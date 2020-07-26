@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Form, Header } from 'semantic-ui-react';
+import { Form, Card } from 'semantic-ui-react';
 import { hexToString } from '@polkadot/util';
 
 import { useSubstrate } from '../substrate-lib';
@@ -43,59 +43,70 @@ export default function Main (props) {
     { text: 'Revoke', value: 'revoke' }
   ];
 
-  const dropdownRoles = roles.map(r => ({
-    text: `${r.pallet} : ${r.permission}`, value: `${r.pallet}:${r.permission}`
-  }));
+  const dropdownRoles = roles
+    .map(r => ({ text: `${r.pallet} : ${r.permission}`, value: `${r.pallet}:${r.permission}` }))
+    .sort((a, b) => a.text.localeCompare(b.text));
 
   const { assignRevoke, address, pallet, permission } = formState;
 
-  return (
-    <Grid.Column width={8}>
-      <Header as="h3">Assign / Revoke Roles</Header>
-      <Form>
-        <Form.Dropdown
-          fluid
-          required
-          label='Assign or Revoke?'
-          selection
-          state='assignRevoke'
-          options={dropdownAssignRevoke}
-          onChange={onChange}
-        />
-        <Form.Input
-          fluid
-          required
-          label='To'
-          type='text'
-          placeholder='Address'
-          state='address'
-          onChange={onChange}
-        />
-        <Form.Dropdown
-          fluid
-          required
-          label={`${assignRevoke === 'revoke' ? 'Revoke' : 'Assign'} Role`}
-          selection
-          state='role'
-          options={dropdownRoles}
-          onChange={onChange}
-        />
-        <Form.Field>
-          <TxButton
-            accountPair={accountPair}
-            label={`${assignRevoke === 'revoke' ? 'Revoke' : 'Assign'}`}
-            setStatus={setStatus}
-            type='SIGNED-TX'
-            attrs={{
-              palletRpc: 'rbac',
-              callable: `${assignRevoke === 'revoke' ? 'revokeAccess' : 'assignRole'}`,
-              inputParams: [address, [pallet, permission]],
-              paramFields: [true, true]
-            }}
+  let rsRole = null;
+  if (pallet && permission) {
+    rsRole = api.createType('Role', {
+      pallet: pallet,
+      permission: api.createType('Permission', permission)
+    });
+  }
+
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header='Assign / Revoke Role' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
+          <Form.Dropdown
+            fluid
+            required
+            label='Assign or Revoke?'
+            selection
+            state='assignRevoke'
+            options={dropdownAssignRevoke}
+            onChange={onChange}
           />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
-    </Grid.Column>
-  );
+          <Form.Input
+            fluid
+            required
+            label='To'
+            type='text'
+            placeholder='Address'
+            state='address'
+            onChange={onChange}
+          />
+          <Form.Dropdown
+            fluid
+            required
+            label={`${assignRevoke === 'revoke' ? 'Revoke' : 'Assign'} Role`}
+            selection
+            state='role'
+            options={dropdownRoles}
+            onChange={onChange}
+          />
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label={`${assignRevoke === 'revoke' ? 'Revoke' : 'Assign'}`}
+              setStatus={setStatus}
+              style={{ display: 'block', margin: 'auto' }}
+              type='SIGNED-TX'
+              attrs={{
+                palletRpc: 'rbac',
+                callable: `${assignRevoke === 'revoke' ? 'revokeAccess' : 'assignRole'}`,
+                inputParams: [address, rsRole],
+                paramFields: [true, true]
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>;
 }

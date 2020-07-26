@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Form, Dropdown } from 'semantic-ui-react';
+import { Card, Form } from 'semantic-ui-react';
 
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
@@ -56,14 +56,13 @@ function Main (props) {
     });
   };
 
-  return (
-    <Grid.Column width={8}>
-      <h3>Create Role</h3>
-      <Form>
-        <Form.Field>
-          <Dropdown
-            placeholder='Pallets'
-            fluid
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header='Create Role' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
+          <Form.Dropdown
+            fluid required
             label='Pallet'
             onChange={onPalletCallableParamChange}
             search
@@ -72,34 +71,33 @@ function Main (props) {
             value={palletRpc}
             options={palletRPCs}
           />
-        </Form.Field>
-        <Form.Field>
-          <Dropdown
-            placeholder='Select Permission'
-            fluid
+          <Form.Dropdown
+            fluid required
+            label='Permission'
             selection
             options={permissionOptions}
             onChange={(_, { value }) => setPermission(value) }
           />
-        </Form.Field>
-        <Form.Field>
-          <TxButton
-            accountPair={accountPair}
-            label='Call'
-            setStatus={setStatus}
-            type='SIGNED-TX'
-            attrs={{
-              palletRpc: 'rbac',
-              callable: 'createRole',
-              inputParams: [capitalizeFirstLetter(palletRpc), permission],
-              paramFields: [true, true]
-            }}
-          />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
-    </Grid.Column>
-  );
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label='Create'
+              setStatus={setStatus}
+              style={{ display: 'block', margin: 'auto' }}
+              type='SIGNED-TX'
+              attrs={{
+                palletRpc: 'rbac',
+                callable: 'createRole',
+                inputParams: [capitalizeFirstLetter(palletRpc), permission],
+                paramFields: [true, true]
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>;
 }
 
 export default function CreateRole (props) {

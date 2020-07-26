@@ -20,8 +20,8 @@ export default function RegisterProductForm (props) {
     setParams(newParams);
   };
 
-  return <Card fluid>
-    <Card.Content header = 'Register a New Product' />
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header = 'Register a Product' />
     <Card.Content>
       <Card.Description>
         <Form>
