@@ -49,7 +49,9 @@ function Main (props) {
     return () => unsub && unsub();
   }, [api.query.system]);
 
-  return <Card fluid>
+  const maxHeight = props.maxHeight || 250;
+
+  return <Card fluid color = 'blue'>
     <Card.Content style={{ flexGrow: 0 }}>
       <Card.Header>
         Events
@@ -64,7 +66,7 @@ function Main (props) {
       </Card.Header>
     </Card.Content>
     <Card.Content>
-      <Feed style={{ clear: 'both', overflow: 'auto', maxHeight: 250 }} events={eventFeed} />
+      <Feed style={{ clear: 'both', overflow: 'auto', maxHeight }} events={eventFeed} />
     </Card.Content>
   </Card>;
 }

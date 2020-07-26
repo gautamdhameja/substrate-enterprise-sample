@@ -33,7 +33,7 @@ function ShipmentListComponent (props) {
     setSelected(shipment);
   };
 
-  return <Card fluid>
+  return <Card fluid color = 'blue'>
     <Card.Content style={{ flexGrow: 0 }} header = 'Shipment List' />
     <Card.Content>
       <Card.Description>{ shipments

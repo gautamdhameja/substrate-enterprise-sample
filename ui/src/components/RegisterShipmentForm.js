@@ -1,5 +1,5 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { Form, Header, Card } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Form, Card } from 'semantic-ui-react';
 
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
@@ -41,7 +41,7 @@ function RegisterShipmentFormComponent (props) {
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });
 
-  return <Card fluid>
+  return <Card fluid color = 'blue'>
     <Card.Content style={{ flexGrow: 0 }} header = 'Register a Shipment' />
     <Card.Content>
       <Card.Description>
