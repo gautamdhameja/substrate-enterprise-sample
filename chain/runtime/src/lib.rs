@@ -248,23 +248,34 @@ impl transaction_payment::Trait for Runtime {
 	type FeeMultiplierUpdate = ();
 }
 
+impl sudo::Trait for Runtime {
+	type Event = Event;
+	type Call = Call;
+}
+
 impl pallet_did::Trait for Runtime {
 	type Event = Event;
 	type Public = MultiSigner;
 	type Signature = Signature;
 }
 
-impl sudo::Trait for Runtime {
+impl registrar::Trait for Runtime {
 	type Event = Event;
-	type Call = Call;
 }
 
 impl pallet_product_registry::Trait for Runtime {
 	type Event = Event;
+	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 impl pallet_product_tracking::Trait for Runtime {
 	type Event = Event;
+	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
+}
+
+impl rbac::Trait for Runtime {
+	type Event = Event;
+	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 impl validatorset::Trait for Runtime {
@@ -281,15 +292,6 @@ impl session::Trait for Runtime {
 	type ValidatorId = <Self as system::Trait>::AccountId;
 	type ValidatorIdOf = validatorset::ValidatorOf<Self>;
 	type DisabledValidatorsThreshold = ();
-}
-
-impl registrar::Trait for Runtime {
-	type Event = Event;
-}
-
-impl rbac::Trait for Runtime {
-	type Event = Event;
-	type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
 impl<C> system::offchain::SendTransactionTypes<C> for Runtime

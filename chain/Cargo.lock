@@ -3037,7 +3037,7 @@ dependencies = [
 [[package]]
 name = "pallet-product-registry"
 version = "2.0.0-rc4"
-source = "git+https://github.com/stiiifff/pallet-product-registry#3685af7a45b0b79c9967a4de7b8573bb7a56fb3d"
+source = "git+https://github.com/stiiifff/pallet-product-registry#0d0f6d76b1745d9cd503baba622f405652e186ab"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -3048,7 +3048,7 @@ dependencies = [
 [[package]]
 name = "pallet-product-tracking"
 version = "2.0.0-rc4"
-source = "git+https://github.com/stiiifff/pallet-product-tracking#8c6930848f047080da394ec5179c445c275f9db1"
+source = "git+https://github.com/stiiifff/pallet-product-tracking#9a5eaece5d3b24ca3c1810dc5068f78b8cd5c3bc"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -5833,6 +5833,7 @@ dependencies = [
 [[package]]
 name = "substrate-rbac"
 version = "0.1.0"
+source = "git+https://github.com/jimmychu0807/substrate-rbac?branch=enterprise-sample#acbfdc4751099b2610d294210bb3e72bc9524a75"
 dependencies = [
  "frame-support",
  "frame-system",
