@@ -14,7 +14,7 @@ export default function Main (props) {
 
   return (
     <Grid.Column width={8}>
-      <h3>Create Organization</h3>
+      <h3>Join Organization</h3>
       <Form>
         <Form.Field>
           <Input
@@ -34,7 +34,7 @@ export default function Main (props) {
             setStatus={setStatus}
             attrs={{
               palletRpc: 'registrar',
-              callable: 'registerOrganization',
+              callable: 'joinOrganization',
               inputParams: [orgName],
               paramFields: [true]
             }}
