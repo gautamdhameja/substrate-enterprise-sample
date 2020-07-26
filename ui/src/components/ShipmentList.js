@@ -3,7 +3,7 @@ import { Card, List, Message } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
 import { hexToString } from '@polkadot/util';
 
-function ShipmentListComponent (props) {
+export default function Main (props) {
     const { api } = useSubstrate();
     const { accountPair, setSelectedShipment } = props;
     const [shipments, setShipments] = useState([]);
@@ -54,9 +54,4 @@ function ShipmentListComponent (props) {
         }</Card.Description>
       </Card.Content>
     </Card>;
-}
-
-export default function ShipmentList (props) {
-    const { api } = useSubstrate();
-    return api ? <ShipmentListComponent {...props} /> : null;
 }
