@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Header, Grid } from 'semantic-ui-react';
+import { Header, Grid, Divider } from 'semantic-ui-react';
 
 import Events from './Events';
 import ProductList from './ProductList';
@@ -18,6 +18,7 @@ export default function Main (props) {
           <Events />
         </Grid.Column>
       </Grid>
+      <Divider style={{ marginTop: '2em' }} />
       <Header as='h2'>Product Listing</Header>
       <ProductList accountPair={accountPair} />
     </Fragment>

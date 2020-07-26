@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Container, Divider, Grid } from 'semantic-ui-react';
 
 import RegisterShipmentForm from './RegisterShipmentForm';
@@ -20,8 +20,14 @@ export default function Main (props) {
           <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
         </Grid.Column>
       </Grid>
-      <Divider style={{ marginTop: '2em' }} />
-      <ShipmentDetails shipmentId={selectedShipment} />
+      { selectedShipment
+        ? <Fragment>
+          <Divider style={{ marginTop: '2em' }} />
+          <ShipmentDetails shipmentId={selectedShipment} />
+        </Fragment>
+        : null
+      }
+
     </Container>
   );
 }
