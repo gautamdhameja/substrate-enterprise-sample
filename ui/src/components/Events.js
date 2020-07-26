@@ -51,7 +51,7 @@ function Main (props) {
 
   return (
     <Grid.Column width={8}>
-      <h1 style={{ float: 'left' }}>Events</h1>
+      <h2 style={{ float: 'left' }}>Events</h2>
       <Button
         basic circular
         size='mini'
