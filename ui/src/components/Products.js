@@ -11,10 +11,10 @@ export default function Main (props) {
   return (
     <Fragment>
       <Grid>
-        <Grid.Column width={8}>
+        <Grid.Column width={8} style={{ display: 'flex' }}>
           <RegisterProductForm accountPair={accountPair} />
         </Grid.Column>
-        <Grid.Column width={8}>
+        <Grid.Column width={8} style={{ display: 'flex' }}>
           <Events />
         </Grid.Column>
       </Grid>

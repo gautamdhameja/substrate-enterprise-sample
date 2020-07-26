@@ -12,11 +12,11 @@ export default function Main (props) {
   return (
     <Container>
       <Grid columns="2">
-        <Grid.Column>
+        <Grid.Column style={{ display: 'flex' }}>
           {/* For testing only, to be moved to a popup */}
           <RegisterShipmentForm accountPair={accountPair} />
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column style={{ display: 'flex' }}>
           <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
         </Grid.Column>
       </Grid>

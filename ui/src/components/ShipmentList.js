@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Header, List } from 'semantic-ui-react';
+import { Card, List } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
 import { hexToString } from '@polkadot/util';
 
@@ -10,18 +10,19 @@ function ShipmentListComponent (props) {
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
+    let unsub = null;
+
     async function shipments (accountPair) {
       const addr = accountPair.address;
-      await api.query.productTracking.shipmentsOfOrganization(addr, data => {
+      unsub = await api.query.productTracking.shipmentsOfOrganization(addr, data => {
         setShipments(data);
         setSelectedShipment('');
         setSelected('');
       });
     }
 
-    if (accountPair) {
-      shipments(accountPair);
-    }
+    if (accountPair) shipments(accountPair);
+    return () => unsub && unsub();
   },
   // eslint-disable-next-line react-hooks/exhaustive-deps
   [accountPair, api.query.productTracking]);
@@ -32,21 +33,20 @@ function ShipmentListComponent (props) {
     setSelected(shipment);
   };
 
-  return (
-    <Container>
-      <Header as="h2">Shipments of Organization</Header>
-      { shipments
+  return <Card fluid>
+    <Card.Content style={{ flexGrow: 0 }} header = 'Shipment List' />
+    <Card.Content>
+      <Card.Description>{ shipments
         ? <List selection>
           { shipments.map((shipment, idx) => {
             const shipmentId = hexToString(shipment.toString());
             return <List.Item key={idx} active={selected === shipmentId} header={shipmentId}
               onClick={handleSelectionClick} data={idx}/>;
-          }) }
-        </List>
+          }) }</List>
         : <div>No shipment found</div>
-      }
-    </Container>
-  );
+      }</Card.Description>
+    </Card.Content>
+  </Card>;
 }
 
 export default function ShipmentList (props) {
