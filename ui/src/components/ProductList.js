@@ -17,8 +17,8 @@ export default function Main (props) {
       unsub = await api.query.productRegistry.productsOfOrganization(addr, productIds => {
         api.query.productRegistry.products.multi(productIds, products => {
           const validProducts = products
-            .map(product => product.unwrap())
-            .filter(product => !product.isEmpty);
+            .filter(product => !product.isNone)
+            .map(product => product.unwrap());
           setProducts(validProducts);
         });
       });
