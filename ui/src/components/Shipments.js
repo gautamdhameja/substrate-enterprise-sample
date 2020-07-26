@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Container, Divider, Grid, Header } from 'semantic-ui-react';
+import React, { useState, Fragment } from 'react';
+import { Container, Divider, Grid } from 'semantic-ui-react';
 
 import Events from './Events';
 import RegisterShipmentForm from './RegisterShipmentForm';
@@ -13,18 +13,23 @@ export default function Main (props) {
   return (
     <Container>
       <Grid columns="2">
-        <Grid.Column>
-          {/* For testing only, to be moved to a popup */}
+        <Grid.Column style={{ display: 'flex' }}>
           <RegisterShipmentForm accountPair={accountPair} />
         </Grid.Column>
-        <Grid.Column>
+        <Grid.Column style={{ display: 'flex' }}>
           <Events />
         </Grid.Column>
       </Grid>
       <Header as='h2'>Shipment Listing</Header>
       <ShipmentList accountPair={accountPair} setSelectedShipment={setSelectedShipment} />
-      <Divider style={{ marginTop: '2em' }} />
-      <ShipmentDetails shipmentId={selectedShipment} />
+      { selectedShipment
+        ? <Fragment>
+          <Divider style={{ marginTop: '2em' }} />
+          <ShipmentDetails shipmentId={selectedShipment} />
+        </Fragment>
+        : null
+      }
+
     </Container>
   );
 }

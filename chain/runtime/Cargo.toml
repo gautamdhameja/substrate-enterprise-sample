@@ -200,9 +200,10 @@ branch = 'master'
 
 [dependencies.rbac]
 default-features = false
-git = 'https://github.com/gautamdhameja/substrate-rbac'
-package = 'substrate-rbac'
+git = 'https://github.com/jimmychu0807/substrate-rbac'
 branch = 'enterprise-sample'
+# path = '../pallets/substrate-rbac'
+package = 'substrate-rbac'
 
 [dependencies.registrar]
 default-features = false

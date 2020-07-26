@@ -1,26 +1,31 @@
 import React from 'react';
-import { Container, Divider, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import CreateRole from './CreateRole';
+import AssignRevokeRole from './AssignRevokeRole';
 import AddSuperAdmin from './AddSuperAdmin';
-import AssignRole from './AssignRole';
-import RevokeAccess from './RevokeAccess';
+import Events from './Events';
 
 export default function Main (props) {
   const { accountPair } = props;
 
-  return (
-    <Container>
-      <Grid columns="2">
-        <Grid.Column>
-          <CreateRole accountPair={accountPair} />
-          <AssignRole accountPair={accountPair} />
-          <RevokeAccess accountPair={accountPair} />
-          <AddSuperAdmin accountPair={accountPair} />
-        </Grid.Column>
-      </Grid>
-      <Divider style={{ marginTop: '2em' }} />
-    </Container>
-  );
+  return <Grid columns="2">
+    <Grid.Row>
+      <Grid.Column style={{ display: 'flex' }}>
+        <CreateRole accountPair={accountPair} />
+      </Grid.Column>
+      <Grid.Column style={{ display: 'flex' }}>
+        <Events />
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column style={{ display: 'flex' }}>
+        <AssignRevokeRole accountPair={accountPair} />
+      </Grid.Column>
+      <Grid.Column style={{ display: 'flex' }}>
+        <AddSuperAdmin accountPair={accountPair} />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>;
 }

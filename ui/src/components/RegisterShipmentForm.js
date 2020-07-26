@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Form } from 'semantic-ui-react';
+import { Form, Card } from 'semantic-ui-react';
 
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
@@ -27,26 +27,22 @@ function RegisterShipmentFormComponent (props) {
   useEffect(updateParamFields, [api]);
 
   useEffect(() => {
-    let unsubscribe;
+    let unsub = null;
 
     async function productsOfOrg (account) {
-      await api.query.productRegistry.productsOfOrganization(account, data => setProducts(data));
+      unsub = await api.query.productRegistry.productsOfOrganization(account,
+        data => setProducts(data));
     }
 
-    if (accountPair) {
-      productsOfOrg(accountPair.address);
-    } else {
-      setProducts([]);
-      return () => unsubscribe && unsubscribe();
-    }
+    if (accountPair) productsOfOrg(accountPair.address);
+    return () => unsub && unsub();
   }, [api.query.productRegistry, accountPair]);
 
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });
 
-  return (
-    <Card fluid>
-    <Card.Content header='Register a New Shipment' />
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header = 'Register a Shipment' />
     <Card.Content>
       <Card.Description>
         <Form>
@@ -98,9 +94,10 @@ function RegisterShipmentFormComponent (props) {
           <Form.Field>
             <TxButton
               accountPair={accountPair}
-              label='Submit'
-              setStatus={setStatus}
+              label='Register'
               type='SIGNED-TX'
+              style={{ display: 'block', margin: 'auto' }}
+              setStatus={setStatus}
               attrs={{
                 palletRpc: 'productTracking',
                 callable: 'registerShipment',
@@ -113,16 +110,10 @@ function RegisterShipmentFormComponent (props) {
         </Form>
       </Card.Description>
     </Card.Content>
-  </Card>
-  );
+  </Card>;
 }
 
 export default function RegisterShipmentForm (props) {
-  const {
-    api
-  } = useSubstrate();
-  return api.tx ? < RegisterShipmentFormComponent {
-    ...props
-  }
-  /> : null;
+  const { api } = useSubstrate();
+  return api.tx ? <RegisterShipmentFormComponent {...props}/> : null;
 }
