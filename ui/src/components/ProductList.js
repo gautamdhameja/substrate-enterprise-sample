@@ -5,7 +5,7 @@ import { u8aToString } from '@polkadot/util';
 import { useSubstrate } from '../substrate-lib';
 
 export default function Main (props) {
-  const { accountPair } = props;
+  const { organization } = props;
   const { api } = useSubstrate();
   const [products, setProducts] = useState([]);
 
@@ -13,8 +13,7 @@ export default function Main (props) {
     let unsub = null;
 
     const getProducts = async () => {
-      const addr = accountPair.address;
-      unsub = await api.query.productRegistry.productsOfOrganization(addr, productIds => {
+      unsub = await api.query.productRegistry.productsOfOrganization(organization, productIds => {
         api.query.productRegistry.products.multi(productIds, products => {
           const validProducts = products
             .filter(product => !product.isNone)
@@ -24,12 +23,12 @@ export default function Main (props) {
       });
     };
 
-    if (accountPair) {
+    if (organization) {
       getProducts();
     }
 
     return () => unsub && unsub();
-  }, [accountPair, api, setProducts]);
+  }, [organization, api, setProducts]);
 
   if (!products || products.length === 0) {
     return <Message warning>
