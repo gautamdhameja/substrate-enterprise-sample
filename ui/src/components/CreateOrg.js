@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Grid } from 'semantic-ui-react';
+import { Form, Card } from 'semantic-ui-react';
 import { TxButton } from '../substrate-lib/components';
 
 export default function Main (props) {
@@ -12,36 +12,36 @@ export default function Main (props) {
 
   const { orgName } = formState;
 
-  return (
-    <Grid.Column width={8}>
-      <h3>Create Organization</h3>
-      <Form>
-        <Form.Field style={{ flexGrow: 1 }}>
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header='Create Organization' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
           <Form.Input
             fluid required
             label='Name'
             type='text'
-            placeholder='Organization'
             state='orgName'
             onChange={onChange}
           />
-        </Form.Field>
-        <Form.Field>
-          <TxButton
-            accountPair={accountPair}
-            label='Submit'
-            type='SIGNED-TX'
-            setStatus={setStatus}
-            attrs={{
-              palletRpc: 'registrar',
-              callable: 'createOrganization',
-              inputParams: [orgName],
-              paramFields: [true]
-            }}
-          />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
-    </Grid.Column>
-  );
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label='Submit'
+              type='SIGNED-TX'
+              setStatus={setStatus}
+              style={{ display: 'block', margin: 'auto' }}
+              attrs={{
+                palletRpc: 'registrar',
+                callable: 'createOrganization',
+                inputParams: [orgName],
+                paramFields: [true]
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>;
 }

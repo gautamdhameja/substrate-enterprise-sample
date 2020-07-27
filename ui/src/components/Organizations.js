@@ -1,23 +1,27 @@
 import React from 'react';
-import { Container, Grid } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
-import CreateOrg from './CreateOrg';
 import AddToOrg from './AddToOrg';
+import CreateOrg from './CreateOrg';
+import Events from './Events';
 
 export default function Main (props) {
   const { accountPair } = props;
 
-  return (
-    <Container>
-      <Grid columns="2">
-        <Grid.Column>
-          <CreateOrg accountPair={accountPair} />
-        </Grid.Column>
-        <Grid.Column>
-          <AddToOrg accountPair={accountPair} />
-        </Grid.Column>
-      </Grid>
-    </Container>
-  );
+  return <Grid columns="2">
+    <Grid.Row>
+      <Grid.Column style={{ display: 'flex' }} >
+        <CreateOrg accountPair={accountPair} />
+      </Grid.Column>
+      <Grid.Column style={{ display: 'flex' }}>
+        <Events />
+      </Grid.Column>
+    </Grid.Row>
+    <Grid.Row>
+      <Grid.Column>
+        <AddToOrg accountPair={accountPair} />
+      </Grid.Column>
+    </Grid.Row>
+  </Grid>;
 }
