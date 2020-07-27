@@ -5,10 +5,9 @@ import { stringToHex } from '@polkadot/util';
 import { TxButton } from '../substrate-lib/components';
 
 export default function RegisterProductForm (props) {
-  const { accountPair } = props;
+  const { accountPair, organization } = props;
   const [status, setStatus] = useState([]);
   const [params, setParams] = useState({ id: null, props: null });
-  const addr = accountPair.address;
 
   const onChange = (_, data) => {
     const newParams = { ...params };
@@ -49,7 +48,7 @@ export default function RegisterProductForm (props) {
               attrs={{
                 palletRpc: 'productRegistry',
                 callable: 'registerProduct',
-                inputParams: [params.id, addr, params.props],
+                inputParams: [params.id, organization, params.props],
                 paramFields: [true, true, true]
               }}
             />
