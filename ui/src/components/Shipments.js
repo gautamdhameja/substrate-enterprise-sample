@@ -17,7 +17,8 @@ export default function Main (props) {
       <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization}/>
       <Grid columns="2">
         <Grid.Column width={8} style={{ display: 'flex' }}>
-          <RegisterShipmentForm accountPair={accountPair} />
+          <RegisterShipmentForm accountPair={accountPair}
+            organization={selectedOrganization} />
         </Grid.Column>
         <Grid.Column width={8} style={{ display: 'flex' }}>
           <Events />
