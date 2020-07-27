@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Grid } from 'semantic-ui-react';
+import { Form, Card } from 'semantic-ui-react';
 import { TxButton } from '../substrate-lib/components';
 
 export default function Main (props) {
@@ -12,36 +12,37 @@ export default function Main (props) {
 
   const { addressTo } = formState;
 
-  return (
-    <Grid.Column width={8}>
-      <h3>Add To Organization</h3>
-      <Form>
-        <Form.Field style={{ flexGrow: 1 }}>
+  return <Card fluid color = 'blue'>
+    <Card.Content style={{ flexGrow: 0 }} header='Add To Organization' />
+    <Card.Content>
+      <Card.Description>
+        <Form>
           <Form.Input
             fluid required
-            label='For'
+            label='Who'
             type='text'
             placeholder='Address'
             state='addressTo'
             onChange={onChange}
           />
-        </Form.Field>
-        <Form.Field>
-          <TxButton
-            accountPair={accountPair}
-            label='Submit'
-            type='SIGNED-TX'
-            setStatus={setStatus}
-            attrs={{
-              palletRpc: 'registrar',
-              callable: 'addToOrganization',
-              inputParams: [addressTo],
-              paramFields: [true]
-            }}
-          />
-        </Form.Field>
-        <div style={{ overflowWrap: 'break-word' }}>{status}</div>
-      </Form>
-    </Grid.Column>
-  );
+          <Form.Field>
+            <TxButton
+              accountPair={accountPair}
+              label='Submit'
+              type='SIGNED-TX'
+              setStatus={setStatus}
+              style={{ display: 'block', margin: 'auto' }}
+              attrs={{
+                palletRpc: 'registrar',
+                callable: 'addToOrganization',
+                inputParams: [addressTo],
+                paramFields: [true]
+              }}
+            />
+          </Form.Field>
+          <div style={{ overflowWrap: 'break-word' }}>{status}</div>
+        </Form>
+      </Card.Description>
+    </Card.Content>
+  </Card>;
 }

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, List } from 'semantic-ui-react';
+import { Card, List, Message } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
 import { hexToString } from '@polkadot/util';
 
-function ShipmentListComponent (props) {
+export default function Main (props) {
   const { api } = useSubstrate();
   const { accountPair, setSelectedShipment } = props;
   const [shipments, setShipments] = useState([]);
@@ -23,15 +23,20 @@ function ShipmentListComponent (props) {
 
     if (accountPair) shipments(accountPair);
     return () => unsub && unsub();
-  },
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  [accountPair, api.query.productTracking]);
+  }, [accountPair, api.query.productTracking, setSelectedShipment]);
 
   const handleSelectionClick = (ev, { data }) => {
     const shipment = hexToString(shipments[data].toString());
     setSelectedShipment(shipment);
     setSelected(shipment);
   };
+
+  if (!shipments || shipments.length === 0) {
+    return <Message warning>
+      <Message.Header>No shipment registered for your organisation.</Message.Header>
+      <p>Please create one using the above form.</p>
+    </Message>;
+  }
 
   return <Card fluid color = 'blue'>
     <Card.Content style={{ flexGrow: 0 }} header = 'Shipment List' />
@@ -47,9 +52,4 @@ function ShipmentListComponent (props) {
       }</Card.Description>
     </Card.Content>
   </Card>;
-}
-
-export default function ShipmentList (props) {
-  const { api } = useSubstrate();
-  return api ? <ShipmentListComponent {...props} /> : null;
 }
