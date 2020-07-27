@@ -7,11 +7,11 @@ import { hexToString } from '@polkadot/util';
 
 function RegisterShipmentFormComponent (props) {
   const { api } = useSubstrate();
-  const { accountPair } = props;
+  const { accountPair, organization } = props;
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [products, setProducts] = useState([]);
-  const [state, setState] = useState({ shipmentId: '', owner: accountPair.address, productId1: '', productId2: '' });
+  const [state, setState] = useState({ shipmentId: '', owner: organization, productId1: '', productId2: '' });
 
   const updateParamFields = () => {
     if (!api.tx.productTracking) {
@@ -29,14 +29,14 @@ function RegisterShipmentFormComponent (props) {
   useEffect(() => {
     let unsub = null;
 
-    async function productsOfOrg (account) {
-      unsub = await api.query.productRegistry.productsOfOrganization(account,
+    async function productsOfOrg (organization) {
+      unsub = await api.query.productRegistry.productsOfOrganization(organization,
         data => setProducts(data));
     }
 
-    if (accountPair) productsOfOrg(accountPair.address);
+    if (organization) productsOfOrg(organization);
     return () => unsub && unsub();
-  }, [api.query.productRegistry, accountPair]);
+  }, [api.query.productRegistry, organization]);
 
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });
