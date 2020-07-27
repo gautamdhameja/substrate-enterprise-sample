@@ -29,8 +29,8 @@ decl_event!(
 
 decl_storage! {
 	trait Store for Module<T: Trait> as registrar {
-		pub Organizations get(fn organizations): Vec<T::AccountId>;
-		pub OrganizationsOf get(fn organizations_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
+			pub Organizations get(fn organizations): Vec<T::AccountId>;
+			pub AccountsOf get(fn accounts_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
 	}
 }
 
@@ -63,12 +63,12 @@ decl_module! {
 			ensure!(orgs.contains(&who), Error::<T>::InvalidOrganization);
 
 			// Accounts that belong to a certain organization.
-			let mut orgs_of = Self::organizations_of(&account);
+			let mut accounts = Self::accounts_of(&who);
 
 			// Validate organization and account should not be part.
-			if !orgs_of.contains(&who) {
-				orgs_of.push(who.clone());
-				OrganizationsOf::<T>::insert(&account, &orgs_of);
+			if !accounts.contains(&account) {
+				accounts.push(account.clone());
+				AccountsOf::<T>::insert(&who, &accounts);
 			} else {
 				return Err(Error::<T>::MemberOfOrganization.into());
 			}
