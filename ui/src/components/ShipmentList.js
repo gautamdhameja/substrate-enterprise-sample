@@ -5,25 +5,24 @@ import { hexToString } from '@polkadot/util';
 
 export default function Main (props) {
   const { api } = useSubstrate();
-  const { accountPair, setSelectedShipment } = props;
+  const { organization, setSelectedShipment } = props;
   const [shipments, setShipments] = useState([]);
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
     let unsub = null;
 
-    async function shipments (accountPair) {
-      const addr = accountPair.address;
-      unsub = await api.query.productTracking.shipmentsOfOrganization(addr, data => {
+    async function shipments (organization) {
+      unsub = await api.query.productTracking.shipmentsOfOrganization(organization, data => {
         setShipments(data);
         setSelectedShipment('');
         setSelected('');
       });
     }
 
-    if (accountPair) shipments(accountPair);
+    if (organization) shipments(organization);
     return () => unsub && unsub();
-  }, [accountPair, api.query.productTracking, setSelectedShipment]);
+  }, [organization, api.query.productTracking, setSelectedShipment]);
 
   const handleSelectionClick = (ev, { data }) => {
     const shipment = hexToString(shipments[data].toString());
