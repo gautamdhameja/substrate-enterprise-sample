@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown, Header, Segment } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
-import { hexToString } from '@polkadot/util';
 
 export default function Main (props) {
   const { api } = useSubstrate();
@@ -30,7 +29,7 @@ export default function Main (props) {
 
     if (accountPair) organizations(accountPair);
     return () => unsub && unsub();
-  }, [accountPair, api.query.registrar]);
+  }, [accountPair, api.query.registrar, setSelectedOrganization]);
 
   const onChange = org => {
     setSelected(org);
