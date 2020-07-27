@@ -14,17 +14,14 @@ pub trait Trait: system::Trait + did::Trait {
 
 decl_error! {
 	pub enum Error for Module<T: Trait> {
-			OrganizationExists,
-			InvalidOrganization,
-			MemberOfOrganization,
+		OrganizationExists,
+		InvalidOrganization,
+		MemberOfOrganization,
 	}
 }
 
 decl_event!(
-	pub enum Event<T>
-	where
-			AccountId = <T as system::Trait>::AccountId,
-	{
+	pub enum Event<T> where AccountId = <T as system::Trait>::AccountId {
 		CreatedOrganization(AccountId, Vec<u8>),
 		AddedToOrganization(AccountId, Vec<u8>),
 	}
@@ -32,8 +29,8 @@ decl_event!(
 
 decl_storage! {
 	trait Store for Module<T: Trait> as registrar {
-			pub Organizations get(fn organizations): Vec<T::AccountId>;
-			pub OrganizationsOf get(fn organizations_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
+		pub Organizations get(fn organizations): Vec<T::AccountId>;
+		pub OrganizationsOf get(fn organizations_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
 	}
 }
 
