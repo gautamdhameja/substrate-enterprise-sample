@@ -4,25 +4,25 @@ import { TxButton } from '../substrate-lib/components';
 
 export default function Main (props) {
   const [status, setStatus] = useState(null);
-  const [formState, setFormState] = useState({ orgName: null });
+  const [formState, setFormState] = useState({ addressTo: null });
   const { accountPair } = props;
 
   const onChange = (_, data) =>
     setFormState(prev => ({ ...prev, [data.state]: data.value }));
 
-  const { orgName } = formState;
+  const { addressTo } = formState;
 
   return (
     <Grid.Column width={8}>
-      <h3>Create Organization</h3>
+      <h3>Add To Organization</h3>
       <Form>
         <Form.Field style={{ flexGrow: 1 }}>
           <Form.Input
             fluid required
-            label='Name'
+            label='For'
             type='text'
-            placeholder='Organization'
-            state='orgName'
+            placeholder='Address'
+            state='addressTo'
             onChange={onChange}
           />
         </Form.Field>
@@ -34,8 +34,8 @@ export default function Main (props) {
             setStatus={setStatus}
             attrs={{
               palletRpc: 'registrar',
-              callable: 'createOrganization',
-              inputParams: [orgName],
+              callable: 'addToOrganization',
+              inputParams: [addressTo],
               paramFields: [true]
             }}
           />

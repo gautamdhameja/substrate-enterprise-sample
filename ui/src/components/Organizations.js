@@ -3,6 +3,7 @@ import { Container, Grid } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 import CreateOrg from './CreateOrg';
+import AddToOrg from './AddToOrg';
 
 export default function Main (props) {
   const { accountPair } = props;
@@ -12,6 +13,9 @@ export default function Main (props) {
       <Grid columns="2">
         <Grid.Column>
           <CreateOrg accountPair={accountPair} />
+        </Grid.Column>
+        <Grid.Column>
+          <AddToOrg accountPair={accountPair} />
         </Grid.Column>
       </Grid>
     </Container>
