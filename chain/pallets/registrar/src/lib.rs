@@ -83,16 +83,16 @@ decl_module! {
 }
 
 impl<T: Trait> Module<T> {
-		/// Valid if the account belongs to organization or is an organization.
-		pub fn part_of_organization(account: &T::AccountId) -> bool {
-			let orgs = <Module<T>>::organizations();
-			for org in orgs.iter() {
-				if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
-					return true
-				}
+	/// Valid if the account belongs to organization or is an organization.
+	pub fn part_of_organization(account: &T::AccountId) -> bool {
+		let orgs = <Module<T>>::organizations();
+		for org in orgs.iter() {
+			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
+				return true
 			}
-			false
 		}
+		false
+	}
 }
 
 pub struct EnsureOrg<T>(sp_std::marker::PhantomData<T>);

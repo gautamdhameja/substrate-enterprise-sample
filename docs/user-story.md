@@ -25,4 +25,4 @@
     - verify `Bob` can call ProductRegistry dispatchable on behalf of `ORG-C`
 
 ### Questions
-  - Can Alice add Bob as co-owner of ORG-A? 
+  - Can `Alice` add `Bob` as co-owner of `ORG-A`? 
