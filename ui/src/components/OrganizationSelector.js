@@ -13,17 +13,31 @@ export default function Main (props) {
 
     async function organizations (accountPair) {
       const addr = accountPair.address;
-      unsub = await api.query.registrar.organizationsOf(addr, data => {
-        const orgs = data.map(o => {
-          const org = o.toString();
-          return {
-            value: org,
-            text: org
-          };
+      unsub = await api.query.registrar.organizations(async data => {
+        if (data && data.map(o => o.toString()).includes(addr)) {
+          // Current account is an org
+          setOrganizations([{ value: addr, text: addr }]);
+          setSelectedOrganization(addr);
+          setSelected(addr);
+          return;
+        }
+
+        // Current account is not an org
+        // -> List orgs it is a delegate of (if any)
+        return api.query.registrar.organizationsOf(addr, data => {
+          const orgs = data.map(o => {
+            const org = o.toString();
+            return {
+              value: org,
+              text: org
+            };
+          });
+          setOrganizations(orgs);
+
+          const defaultOrg = (orgs[0] && orgs[0].value) || '';
+          setSelectedOrganization(defaultOrg);
+          setSelected(defaultOrg);
         });
-        setOrganizations(orgs);
-        setSelectedOrganization('');
-        setSelected('');
       });
     }
 

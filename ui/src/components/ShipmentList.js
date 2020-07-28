@@ -38,7 +38,7 @@ export default function Main (props) {
   }
 
   return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }} header = 'Shipment List' />
+    <Card.Content style={{ flexGrow: 0 }} header = 'Shipment ID' />
     <Card.Content>
       <Card.Description>{ shipments
         ? <List selection>
