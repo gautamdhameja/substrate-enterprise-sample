@@ -29,10 +29,11 @@ export default function Main (props) {
           <Events />
         </Grid.Column>
       </Grid.Row>
-      </Grid>
-      <Divider style={{ marginTop: '2em' }} />
-      <Header as='h2'>Shipment Listing</Header>
-      <ShipmentList accountPair={accountPair}
-        organization={selectedOrganization} />
-    </Container>;
+    </Grid>
+    <Divider style={{ marginTop: '2em' }} />
+    <Header as='h2'>Shipment Listing</Header>
+    <ShipmentList accountPair={accountPair}
+      organization={selectedOrganization}
+    />
+  </Container>;
 }

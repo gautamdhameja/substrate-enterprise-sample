@@ -57,7 +57,7 @@ export default function Main (props) {
         <Table.Cell>{ shipment.owner.toString() }</Table.Cell>
         <Table.Cell>{ shipment.status.toString() }</Table.Cell>
         <Table.Cell>{ products.map(p => {
-          return <div>{p}</div>;
+          return <div key={`${id}-${p}`}>{p}</div>;
         }) }</Table.Cell>
       </Table.Row>;
     })}</Table.Body>
