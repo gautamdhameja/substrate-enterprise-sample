@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Form, Segment } from 'semantic-ui-react';
+import { Form } from 'semantic-ui-react';
 
 import { TxButton } from '../substrate-lib/components';
 import { hexToString } from '@polkadot/util';
@@ -14,7 +14,9 @@ export default function Main (props) {
     sensorType: '',
     sensorValue: 0.0
   });
-  const sensorTypes = ['Humidity','Pressure','Shock','Tilt','Temperature','Vibration'].map(v => ({ value: v, text: v }));
+  const sensorTypes = [
+    'Humidity', 'Pressure', 'Shock', 'Tilt',
+    'Temperature', 'Vibration'].map(v => ({ value: v, text: v }));
 
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });
@@ -85,10 +87,10 @@ export default function Main (props) {
             palletRpc: 'productTracking',
             callable: 'trackShipment',
             inputParams: [shipment.id, 'Scan', Date.now(),
-              (state.latitude != 0.0 && state.longitude != 0.0 ? { latitude: state.latitude, longitude: state.longitude } : null),
-              (state.deviceId != '' && state.sensorType != '' && state.sensorValue != 0.0
-              ? [{deviceId: state.deviceId, readingType: state.sensorType, timestamp: Date.now(), value: state.sensorValue}]
-              : null)
+              (state.latitude !== 0.0 && state.longitude !== 0.0 ? { latitude: state.latitude, longitude: state.longitude } : null),
+              (state.deviceId !== '' && state.sensorType !== '' && state.sensorValue !== 0.0
+                ? [{ deviceId: state.deviceId, readingType: state.sensorType, timestamp: Date.now(), value: state.sensorValue }]
+                : null)
             ],
             paramFields: [{ optional: false }, { optional: false }, { optional: false }, { optional: true }, { optional: true }]
           }}
