@@ -1,34 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Card, List, Message } from 'semantic-ui-react';
+import { Table, Message } from 'semantic-ui-react';
+import { u8aToString } from '@polkadot/util';
+
 import { useSubstrate } from '../substrate-lib';
-import { hexToString } from '@polkadot/util';
 
 export default function Main (props) {
+  const { organization } = props;
   const { api } = useSubstrate();
-  const { organization, setSelectedShipment } = props;
   const [shipments, setShipments] = useState([]);
-  const [selected, setSelected] = useState('');
 
   useEffect(() => {
     let unsub = null;
 
     async function shipments (organization) {
-      unsub = await api.query.productTracking.shipmentsOfOrganization(organization, data => {
-        setShipments(data);
-        setSelectedShipment('');
-        setSelected('');
+      unsub = await api.query.productTracking.shipmentsOfOrganization(organization, shipmentIds => {
+        api.query.productTracking.shipments.multi(shipmentIds, shipments => {
+          const validShipments = shipments
+            .filter(shipment => !shipment.isNone)
+            .map(shipment => shipment.unwrap());
+          setShipments(validShipments);
+        });
       });
     }
 
-    if (organization) shipments(organization);
-    return () => unsub && unsub();
-  }, [organization, api.query.productTracking, setSelectedShipment]);
+    if (organization) {
+      shipments(organization);
+    } else {
+      setShipments([]);
+    }
 
-  const handleSelectionClick = (ev, { data }) => {
-    const shipment = hexToString(shipments[data].toString());
-    setSelectedShipment(shipment);
-    setSelected(shipment);
-  };
+    return () => unsub && unsub();
+  }, [organization, api.query.productTracking]);
 
   if (!shipments || shipments.length === 0) {
     return <Message warning>
@@ -37,18 +39,27 @@ export default function Main (props) {
     </Message>;
   }
 
-  return <Card fluid color = 'blue'>
-    <Card.Content style={{ flexGrow: 0 }} header = 'Shipment ID' />
-    <Card.Content>
-      <Card.Description>{ shipments
-        ? <List selection>
-          { shipments.map((shipment, idx) => {
-            const shipmentId = hexToString(shipment.toString());
-            return <List.Item key={idx} active={selected === shipmentId} header={shipmentId}
-              onClick={handleSelectionClick} data={idx}/>;
-          }) }</List>
-        : <div>No shipment found</div>
-      }</Card.Description>
-    </Card.Content>
-  </Card>;
+  return <Table color='blue'>
+    <Table.Header>
+      <Table.Row>
+        <Table.HeaderCell>ID</Table.HeaderCell>
+        <Table.HeaderCell>Owner</Table.HeaderCell>
+        <Table.HeaderCell>Status</Table.HeaderCell>
+        <Table.HeaderCell>Products</Table.HeaderCell>
+      </Table.Row>
+    </Table.Header>
+
+    <Table.Body>{ shipments.map(shipment => {
+      const id = u8aToString(shipment.id);
+      const products = shipment.products.map(p => u8aToString(p));
+      return <Table.Row key={id}>
+        <Table.Cell>{ id }</Table.Cell>
+        <Table.Cell>{ shipment.owner.toString() }</Table.Cell>
+        <Table.Cell>{ shipment.status.toString() }</Table.Cell>
+        <Table.Cell>{ products.map(p => {
+          return <div>{p}</div>;
+        }) }</Table.Cell>
+      </Table.Row>;
+    })}</Table.Body>
+  </Table>;
 }

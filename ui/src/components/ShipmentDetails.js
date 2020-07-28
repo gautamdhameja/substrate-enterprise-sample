@@ -3,13 +3,15 @@ import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-
 import { useSubstrate } from '../substrate-lib';
 import { hexToString } from '@polkadot/util';
 
+import ShipmentOperations from './ShipmentOperations';
+
 function ShipmentDetailsComponent (props) {
   const { api } = useSubstrate();
   const [shipment, setShipment] = useState(null);
   const [eventIndices, setEventIndices] = useState([]);
   const [events, setEvents] = useState([]);
   const [products, setProducts] = useState([]);
-  const { shipmentId } = props;
+  const { accountPair, shipmentId } = props;
 
   useEffect(() => {
     let unsubscribe;
@@ -115,7 +117,7 @@ function ShipmentDetailsComponent (props) {
             <Grid.Row>
               <Grid.Column>
                 <Header as="h4" floated="left">Owner: </Header>
-                <span>{shipment.owner.toString()}</span>
+                <span style={{ fontSize: '0.8em' }}>{shipment.owner.toString()}</span>
               </Grid.Column>
               <Grid.Column>
                 <Header as="h4" floated="left">Registered:</Header>
@@ -136,8 +138,8 @@ function ShipmentDetailsComponent (props) {
             </Grid.Row>
           </Grid>
         </Segment>
-        <Grid container columns={2} style={{ marginTop: '1em' }}>
-          <Grid.Column width={10}>
+        <Grid container columns={3} style={{ marginTop: '1em' }}>
+          <Grid.Column width={6}>
             <Header as="h3">Shipping Events</Header>
             { events
               ? <Step.Group vertical size='small'> { events.map((event, idx) => {
@@ -171,6 +173,10 @@ function ShipmentDetailsComponent (props) {
               ) } </List>
               : <div>No product found</div>
             }
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <Header as="h3">Shipping Operations</Header>
+            <ShipmentOperations accountPair={accountPair} shipment={shipment} />
           </Grid.Column>
         </Grid>
       </Container> : <div></div>

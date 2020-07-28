@@ -146,10 +146,12 @@ function TxButton ({
     // if `opts.emptyAsNull` is true, empty param value will be added to res as `null`.
     //   Otherwise, it will not be added
     const paramVal = inputParams.map(inputParam => {
-      if (typeof inputParam === 'object' && typeof inputParam.value === 'string') {
-        return inputParam.value.trim();
-      } else if (typeof inputParam === 'string') {
-        return inputParam.trim();
+      if (inputParam) {
+        if (typeof inputParam === 'object' && typeof inputParam.value === 'string') {
+          return inputParam.value.trim();
+        } else if (typeof inputParam === 'string') {
+          return inputParam.trim();
+        }
       }
       return inputParam;
     });

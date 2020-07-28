@@ -4,7 +4,7 @@ import 'semantic-ui-css/semantic.min.css';
 
 import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
-import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMenu } from './components';
+import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMenu, Tracking } from './components';
 
 const Dashboard = () => {
   const [accountAddress, setAccountAddress] = useState(null);
@@ -40,7 +40,8 @@ const Dashboard = () => {
     { menuItem: 'Organizations', render: () => <Organizations accountPair={accountPair} /> },
     { menuItem: 'Members', render: () => <Members accountPair={accountPair} /> },
     { menuItem: 'Products', render: () => <Products accountPair={accountPair} /> },
-    { menuItem: 'Shipments', render: () => <Shipments accountPair={accountPair} /> }
+    { menuItem: 'Shipments', render: () => <Shipments accountPair={accountPair} /> },
+    { menuItem: 'Tracking', render: () => <Tracking accountPair={accountPair} /> }
   ];
 
   const contextRef = createRef();

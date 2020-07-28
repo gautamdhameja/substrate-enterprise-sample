@@ -38,6 +38,11 @@ function RegisterShipmentFormComponent (props) {
     return () => unsub && unsub();
   }, [api.query.productRegistry, organization]);
 
+  useEffect(() => setState(s => {
+    s.owner = organization;
+    return s;
+  }), [organization]);
+
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });
 
@@ -59,7 +64,6 @@ function RegisterShipmentFormComponent (props) {
             label='Owner'
             state='owner'
             value={state.owner}
-            readOnly
             required
             onChange={handleChange}
           />
@@ -67,6 +71,7 @@ function RegisterShipmentFormComponent (props) {
             placeholder='Select a product'
             fluid
             label='Product 1'
+            clearable
             search
             selection
             state='productId1'
@@ -81,6 +86,7 @@ function RegisterShipmentFormComponent (props) {
             placeholder='Select a product'
             fluid
             label='Product 2'
+            clearable
             search
             selection
             state='productId2'
