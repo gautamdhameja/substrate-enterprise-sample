@@ -10,10 +10,17 @@ export default function Main (props) {
   const { accountPair } = props;
   const [selectedOrganization, setSelectedOrganization] = useState('');
 
-  return (
-    <Container>
-      <OrganizationSelector accountPair={accountPair} setSelectedOrganization={setSelectedOrganization}/>
-      <Grid columns="2">
+  return <Container>
+    <Grid columns="2">
+      <Grid.Row>
+        <Grid.Column width={16}>
+          <OrganizationSelector
+            accountPair={accountPair}
+            setSelectedOrganization={setSelectedOrganization}
+          />
+        </Grid.Column>
+      </Grid.Row>
+      <Grid.Row>
         <Grid.Column width={8} style={{ display: 'flex' }}>
           <RegisterShipmentForm accountPair={accountPair}
             organization={selectedOrganization} />
@@ -21,6 +28,7 @@ export default function Main (props) {
         <Grid.Column width={8} style={{ display: 'flex' }}>
           <Events />
         </Grid.Column>
+      </Grid.Row>
       </Grid>
       <Divider style={{ marginTop: '2em' }} />
       <Header as='h2'>Shipment Listing</Header>
