@@ -44,7 +44,7 @@ export default function Main (props) {
         />
         <TxButton
           accountPair={accountPair}
-          label='Pickup'
+          label='Scan'
           type='SIGNED-TX'
           style={{ display: 'block', margin: 'auto' }}
           setStatus={setStatus}
@@ -58,7 +58,7 @@ export default function Main (props) {
         />
         <TxButton
           accountPair={accountPair}
-          label='Pickup'
+          label='Deliver'
           type='SIGNED-TX'
           style={{ display: 'block', margin: 'auto' }}
           setStatus={setStatus}

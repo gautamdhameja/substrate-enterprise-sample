@@ -34,6 +34,5 @@ export default function Main (props) {
       <Header as='h2'>Shipment Listing</Header>
       <ShipmentList accountPair={accountPair}
         organization={selectedOrganization} />
-    </Container>
-  );
+    </Container>;
 }
