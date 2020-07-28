@@ -11,7 +11,12 @@ function RegisterShipmentFormComponent (props) {
   const [status, setStatus] = useState(null);
   const [paramFields, setParamFields] = useState([]);
   const [products, setProducts] = useState([]);
-  const [state, setState] = useState({ shipmentId: '', owner: organization, productId1: '', productId2: '' });
+  const [state, setState] = useState({
+    shipmentId: '',
+    owner: organization,
+    productId1: '',
+    productId2: ''
+  });
 
   const updateParamFields = () => {
     if (!api.tx.productTracking) {
@@ -37,6 +42,11 @@ function RegisterShipmentFormComponent (props) {
     if (organization) productsOfOrg(organization);
     return () => unsub && unsub();
   }, [api.query.productRegistry, organization]);
+
+  // For updating the Owner field
+  useEffect(() => {
+    setState(state => ({ ...state, owner: organization }));
+  }, [organization]);
 
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, Header, Segment } from 'semantic-ui-react';
+import { Segment, Form } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
 
 export default function Main (props) {
@@ -9,40 +9,41 @@ export default function Main (props) {
   const [selected, setSelected] = useState('');
 
   useEffect(() => {
-    let unsub = null;
+    let unsub1 = null;
+    let unsub2 = null;
+    const addr = accountPair ? accountPair.address : null;
 
-    async function organizations (accountPair) {
-      const addr = accountPair.address;
-      unsub = await api.query.registrar.organizations(async data => {
-        if (data && data.map(o => o.toString()).includes(addr)) {
+    async function organizationsOf (addr) {
+      unsub2 = await api.query.registrar.organizationsOf(addr, rawData => {
+        const orgs = rawData.map(r => ({ value: r.toString(), text: r.toString() }));
+
+        const defaultOrg = orgs.length > 0 ? orgs[0].value : '';
+        setOrganizations(orgs);
+        setSelectedOrganization(defaultOrg);
+        setSelected(defaultOrg);
+      });
+    }
+
+    async function organizations (addr) {
+      unsub1 = await api.query.registrar.organizations(rawData => {
+        const strData = rawData.map(r => r.toString());
+
+        if (strData.includes(addr)) {
           // Current account is an org
           setOrganizations([{ value: addr, text: addr }]);
           setSelectedOrganization(addr);
           setSelected(addr);
-          return;
+        } else {
+          organizationsOf(addr);
         }
-
-        // Current account is not an org
-        // -> List orgs it is a delegate of (if any)
-        return api.query.registrar.organizationsOf(addr, data => {
-          const orgs = data.map(o => {
-            const org = o.toString();
-            return {
-              value: org,
-              text: org
-            };
-          });
-          setOrganizations(orgs);
-
-          const defaultOrg = (orgs[0] && orgs[0].value) || '';
-          setSelectedOrganization(defaultOrg);
-          setSelected(defaultOrg);
-        });
       });
     }
 
-    if (accountPair) organizations(accountPair);
-    return () => unsub && unsub();
+    if (addr) organizations(addr);
+    return () => {
+      unsub1 && unsub1();
+      unsub2 && unsub2();
+    };
   }, [accountPair, api.query.registrar, setSelectedOrganization]);
 
   const onChange = org => {
@@ -50,18 +51,17 @@ export default function Main (props) {
     setSelectedOrganization(org);
   };
 
-  return (
-    <Segment compact>
-      <Header as="h2" content="Organization" floated="left" />
-      <Dropdown inline
-        selection
-        placeholder="Select an organization the current account is a delegate of"
-        options={organizations}
-        onChange={(_, dropdown) => {
-          onChange(dropdown.value);
-        }}
-        value={selected}
-      />
-    </Segment>
-  );
+  return <Segment>
+    <Form>
+      <Form.Field>
+        <h3>Organization</h3>
+        <Form.Dropdown selection fluid
+          placeholder='Select Organization'
+          options={organizations}
+          onChange={(_, dropdown) => onChange(dropdown.value)}
+          value={selected}
+        />
+      </Form.Field>
+    </Form>
+  </Segment>;
 }
