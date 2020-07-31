@@ -104,7 +104,8 @@
     "Role": {
       "pallet": "Vec<u8>",
       "permission": "Permission"
-    }
+    },
+    "Keys": "SessionKeys2"
   },
   "RPC": {}
 }
