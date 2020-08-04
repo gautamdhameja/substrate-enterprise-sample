@@ -6,7 +6,7 @@ import { SubstrateContextProvider, useSubstrate } from './substrate-lib';
 import { DeveloperConsole } from './substrate-lib/components';
 import { AccountSelector, Members, Organizations, Products, Shipments, TopNavMenu, Tracking } from './components';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
   const [accountAddress, setAccountAddress] = useState(null);
   const { apiState, keyring, keyringState, apiError } = useSubstrate();
   const accountPair =
@@ -56,8 +56,6 @@ const Dashboard = () => {
       <Container>
         <Tab menu={{ fluid: true, vertical: true, tabular: true }} panes={panes} />
       </Container>
-
-      <DeveloperConsole />
     </div>
   );
 };
@@ -66,6 +64,7 @@ export default function DashboardWithContext (props) {
   return (
     <SubstrateContextProvider>
       <Dashboard {...props} />
+      <DeveloperConsole />
     </SubstrateContextProvider>
   );
 }

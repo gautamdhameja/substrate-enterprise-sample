@@ -1,0 +1,21 @@
+#homepage p {
+  line-height: 1.5em;
+}
+
+#homepage .homepage-header {
+  font-size: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+#homepage .homepage-content {
+  font-size: 1.2em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+#homepage .homepage-list {
+  font-size: 1.08em;
+  line-height: 1.5em;
+}
