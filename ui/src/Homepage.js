@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   Button,
   Container,
-  Divider,
   Dropdown,
   Header,
   Icon,
@@ -37,7 +36,7 @@ const HomepageHeading = ({ mobile }) => (
     />
     <Header
       as='h2'
-      content='Track products at every step on your supply chain.'
+      content='A sample application that demonstrates a decentralized consortium managing a supply chain.'
       inverted
       style={{
         fontSize: mobile ? '1.5em' : '1.7em',
@@ -193,58 +192,59 @@ const Homepage = () => (
   <ResponsiveContainer>
     <Segment id='homepage' style={{ padding: '4em 0em' }} vertical>
       <Container text>
-        <Header as='h3' className='homepage-header'>
-          What is this sample about?
-        </Header>
         <p className='homepage-content'>
-          The <strong>Substate Enterprise Sample</strong> demonstrates how a software engineering team can quickly build an <strong>application-specific Blockchain</strong> and related applications, by leveraging the <strong>Parity Substrate framework</strong> and its standard <strong>FRAME library</strong>, as well as building composable runtime modules (known as pallets).
+          The <strong>Substate Enterprise Sample</strong> demonstrates how a software engineering team can leverage&nbsp;
+          <a href="https://www.substrate.io/">the Parity Substrate framework</a> and its standard&nbsp;
+          <a href="https://substrate.dev/docs/en/knowledgebase/runtime/frame">FRAME</a> library to quickly build an&nbsp;
+          application-specific blockchain by creating and composing runtime modules (known as "pallets").&nbsp;
+          Included in the sample is a custom front-end that was created using the helpful&nbsp;
+          <a href="https://github.com/substrate-developer-hub/substrate-front-end-template">Substrate front-end template</a>,&nbsp;
+          which itself makes use of the powerful <a href="https://polkadot.js.org/">Polkadot JS</a> API. The&nbsp;
+          <a href="https://github.com/substrate-developer-hub/substrate-enterprise-sample/tree/master/chain">chain</a> included&nbsp;
+          in this sample is a fork of the official&nbsp;
+          <a href="https://github.com/substrate-developer-hub/substrate-node-template">Substrate node template</a>.
         </p>
         <p className='homepage-content'>
-          The sample implements, in a simplified manner, a Blockchain-based solution for a collaborative supply-chain ecosystem.
+          The use case that this sample demonstrates is a collaborative supply-chain ecosystem. In order to&nbsp;
+          accomplish this, Substrate is used to implement existing standards, such as&nbsp;
+          <a href="https://en.wikipedia.org/wiki/Decentralized_identifiers">decentralized identifiers (DIDs)</a>.
         </p>
-        <p className='homepage-content'>Among others, it allows to:</p>
+        <p className='homepage-content'>Capabilities include:</p>
         <List bulleted className='homepage-list'>
-          <List.Item content="Setup a shared platform among several organisations, as a permissioned Blockchain network."/>
+          <List.Item content="Setup a shared platform (permissioned blockchain network) among several organisations."/>
           <List.Item content="Manage decentralized identities for member organisations and their delegates."/>
-          <List.Item content="Register master data about products and their owning organisations."/>
-          <List.Item content="Register a shipment and track its journey through the value chain."/>
+          <List.Item content="Register master data about products, including the organisation that owns them."/>
+          <List.Item content="Register a shipment and track its journey through the supply chain."/>
           <List.Item content="Monitor a shipment's storage and transportation conditions."/>
-          <List.Item content="Enable seamless data integration with existing ERP systems deployed within corporate walls." />
+          <List.Item content="Enable seamless data integration with existing ERP (enterprise resource planning) systems deployed within corporate walls." />
         </List>
-        <p className='homepage-content'>Specific features of the <strong>Parity Substrate framework</strong> exhibited:</p>
+        <p className='homepage-content'>
+          The sample demonstrates many features and capabilities of the <a href="https://github.com/paritytech/substrate">Parity Substrate framework</a>, including:
+        </p>
         <List bulleted className='homepage-list'>
-          <List.Item content="Consortium network with a Proof-of-Authority consensus (Aura for block production, GRANDPA for block finalization)."/>
+          <List.Item content="Consortium network with a proof-of-authority consensus (Aura for block production, GRANDPA for block finalization)."/>
           <List.Item content="Dynamic set of authority nodes."/>
-          <List.Item content="Enterprise-class role-based access control."/>
-          <List.Item content="W3C Decentralized Identifiers (DIDs) for organizations & delegates."/>
-          <List.Item content="Substrate Node & Frontend starter templates."/>
-          <List.Item content="Unrestricted flexibility for runtime logic & storage in custom pallets e.g. product registry & tracking pallets."/>
-          <List.Item content="Reliable off-chain data integration with Offchain workers."/>
+          <List.Item content="Role-based access control."/>
+          <List.Item content="Reliable data integration with off-chain workers."/>
+          <List.Item content="Flexible blockchain runtime development that uses FRAME pallets to encapsulate domain-specific logic (e.g. separate pallets for product registry and tracking)."/>
         </List>
 
         <Header as='h3' className='homepage-header'>
           Related Github Repositories
         </Header>
         <List bulleted className='homepage-list'>
-          <List.Item as='a' content="Parity Substrate framework" href="https://github.com/paritytech/substrate"/>
-          <List.Item content="Polkadot Javascript libraries" href="https://github.com/polkadot-js/"/>
-          <List.Item content="Substrate Enterprise sample" href="https://github.com/gautamdhameja/substrate-enterprise-sample" />
-          <List.Item content="Substrate Frontend template" href="https://github.com/substrate-developer-hub/substrate-front-end-template"/>
-          <List.Item content="Substrate Node template" href="https://github.com/substrate-developer-hub/substrate-node-template" />
-          <List.Item content="DID pallet" href="https://github.com/substrate-developer-hub/pallet-did"/>
-          <List.Item content="Product Registry pallet" href="https://github.com/stiiifff/pallet-product-registry"/>
-          <List.Item content="Product Tracking pallet" href="https://github.com/stiiifff/pallet-product-tracking"/>
-          <List.Item content="RBAC pallet" href="https://github.com/gautamdhameja/substrate-rbac"/>
-          <List.Item content="Validator Set pallet" href="https://github.com/gautamdhameja/substrate-validator-set"/>
+          <List.Item content="Decentralized Identifier Pallet" href="https://github.com/substrate-developer-hub/pallet-did"/>
+          <List.Item content="Role-Based Access Control Pallet" href="https://github.com/gautamdhameja/substrate-rbac"/>
+          <List.Item content="Validator Set Pallet" href="https://github.com/gautamdhameja/substrate-validator-set"/>
         </List>
 
-        <Header as='h3' className='homepage-header'>Get Started</Header>
+        <Header as='h3' className='homepage-header'>Learn More</Header>
 
         <List bulleted className='homepage-list'>
           <List.Item content="Substrate Developer Hub" href="https://substrate.dev"/>
           <List.Item
-            content="Ask Questions"
-            href="https://riot.im/app/#/room/!HzySYSaIhtyWrwiwEV:matrix.org"
+            content="Element Technical Chat"
+            href="https://app.element.io/#/room/!HzySYSaIhtyWrwiwEV:matrix.org"
           />
         </List>
       </Container>
