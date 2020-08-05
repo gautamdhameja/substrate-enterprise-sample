@@ -42,8 +42,9 @@ decl_event!(
 decl_storage! {
 	trait Store for Module<T: Trait> as registrar {
 			/// The list of organizations in the supply chain consortium.
+			/// Organizations are identified by the ID of the account that created them.
 			pub Organizations get(fn organizations): Vec<T::AccountId>;
-			/// Maps accounts to the organizations to which they belong.
+			/// Maps organizations to their members.
 			pub OrganizationsOf get(fn organizations_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
 	}
 }
