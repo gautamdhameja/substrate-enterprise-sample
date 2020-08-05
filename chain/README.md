@@ -21,9 +21,9 @@ Execute these commands to build and launch the node:
 ```shell
 cargo build --release
 # Purge existing chain state
-./target/release/node-template purge-chain --dev
+./target/release/enterprise-sample purge-chain --dev
 # Launch the node
-./target/release/node-template --dev
+./target/release/enterprise-sample --dev
 ```
 
 ## Upstream
