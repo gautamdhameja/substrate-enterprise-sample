@@ -1,5 +1,5 @@
 [package]
-name = 'node-template-runtime'
+name = 'enterprise-sample-runtime'
 version = '2.0.0-rc4'
 description = 'Node Template Runtime'
 edition = '2018'

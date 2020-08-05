@@ -1,12 +1,12 @@
 [package]
-name = 'node-template'
+name = 'enterprise-sample'
 version = '2.0.0-rc4'
-description = 'Substrate Node template'
+description = 'A supply chain platform for a decentralized consortium (sample project).'
 build = 'build.rs'
 edition = '2018'
 authors = ['Substrate DevHub <https://github.com/substrate-developer-hub>']
-homepage = 'https://substrate.dev'
-repository = 'https://github.com/paritytech/substrate/'
+homepage = 'https://github.com/substrate-developer-hub/substrate-enterprise-sample/blob/master/README.md'
+repository = 'https://github.com/substrate-developer-hub/substrate-enterprise-sample'
 license = 'Unlicense'
 
 [package.metadata.docs.rs]
@@ -103,7 +103,7 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc4'
 version = '2.0.0-rc4'
 
-[dependencies.node-template-runtime]
+[dependencies.enterprise-sample-runtime]
 path = '../runtime'
 version = '2.0.0-rc4'
 
@@ -113,4 +113,4 @@ tag = 'v2.0.0-rc4'
 version = '2.0.0-rc4'
 
 [[bin]]
-name = 'node-template'
+name = 'enterprise-sample'
