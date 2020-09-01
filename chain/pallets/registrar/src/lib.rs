@@ -113,7 +113,7 @@ impl<T: Trait> Module<T> {
 	pub fn part_of_organization(account: &T::AccountId) -> bool {
 		let orgs = <Module<T>>::organizations();
 		for org in orgs.iter() {
-			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
+			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account) {
 				return true
 			}
 		}
@@ -122,7 +122,7 @@ impl<T: Trait> Module<T> {
 }
 
 /// Ensure that a consortium member is invoking a dispatch.
-// https://substrate.dev/rustdocs/v2.0.0-rc4/frame_support/traits/trait.EnsureOrigin.html
+// https://substrate.dev/rustdocs/v2.0.0-rc6/frame_support/traits/trait.EnsureOrigin.html
 pub struct EnsureOrg<T>(sp_std::marker::PhantomData<T>);
 impl<T: Trait> EnsureOrigin<T::Origin> for EnsureOrg<T> {
 	type Success = T::AccountId;

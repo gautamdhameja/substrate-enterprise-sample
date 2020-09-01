@@ -29,7 +29,7 @@ cargo build --release
 ## Upstream
 
 This project was forked from the official
-[Substrate node template](https://github.com/substrate-developer-hub/substrate-node-template/tree/v2.0.0-rc4).
+[Substrate node template](https://github.com/substrate-developer-hub/substrate-node-template/tree/v2.0.0-rc6).
 Please refer to
-[its documentation](https://github.com/substrate-developer-hub/substrate-node-template/blob/v2.0.0-rc4/README.md)
+[its documentation](https://github.com/substrate-developer-hub/substrate-node-template/blob/v2.0.0-rc6/README.md)
 to learn about building and running the blockchain node.
