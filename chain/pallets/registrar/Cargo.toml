@@ -60,9 +60,8 @@ version = '2.0.0-rc6'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-# tag = 'v2.0.0-rc6'
+tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
-branch = 'jimmy/rm-register-did'
 
 [features]
 default = ['std']

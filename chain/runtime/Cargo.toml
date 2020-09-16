@@ -175,36 +175,34 @@ version = '2.0.0-rc6'
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-# tag = 'v2.0.0-rc6'
+tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
-branch = 'jimmy/rm-register-did'
 
 [dependencies.pallet-product-registry]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-registry'
 package = 'pallet-product-registry'
+tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
-branch = 'v2.0.0-rc6'
 
 [dependencies.pallet-product-tracking]
 default-features = false
 git = 'https://github.com/stiiifff/pallet-product-tracking'
 package = 'pallet-product-tracking'
+tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
-branch = 'v2.0.0-rc6'
 
 [dependencies.validatorset]
 default-features = false
-git = 'https://github.com/stiiifff/substrate-validator-set'
+git = 'https://github.com/gautamdhameja/substrate-validator-set'
 package = 'substrate-validator-set'
-branch = 'v2.0.0-rc6'
+branch = 'master'
 
 [dependencies.rbac]
 default-features = false
-git = 'https://github.com/stiiifff/substrate-rbac'
-branch = 'v2.0.0-rc6'
-# path = '../pallets/substrate-rbac'
+git = 'https://github.com/gautamdhameja/substrate-rbac'
 package = 'substrate-rbac'
+branch = 'enterprise-sample'
 
 [dependencies.registrar]
 default-features = false
