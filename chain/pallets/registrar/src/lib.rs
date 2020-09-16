@@ -45,7 +45,7 @@ decl_storage! {
 			/// Organizations are identified by the ID of the account that created them.
 			pub Organizations get(fn organizations): Vec<T::AccountId>;
 			/// Maps organizations to their members.
-			pub OrganizationsOf get(fn organizations_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
+			pub MembersOf get(fn members_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
 	}
 }
 
@@ -89,12 +89,12 @@ decl_module! {
 			ensure!(orgs.contains(&who), Error::<T>::InvalidOrganization);
 
 			// Accounts that belong to a certain organization.
-			let mut orgs = Self::organizations_of(&account);
+			let mut members = Self::members_of(&account);
 
 			// Validate organization and account should not be part.
-			if !orgs.contains(&who) {
-				orgs.push(who.clone());
-				OrganizationsOf::<T>::insert(&account, orgs);
+			if !members.contains(&who) {
+				members.push(who.clone());
+				MembersOf::<T>::insert(&account, members);
 			} else {
 				return Err(Error::<T>::MemberOfOrganization.into());
 			}
