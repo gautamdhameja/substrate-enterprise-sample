@@ -71,7 +71,7 @@ decl_module! {
 			<Organizations<T>>::put(orgs);
 
 			// DID add attribute
-			<did::Module<T>>::create_attribute(who.clone(), &who, b"Org", &org_name, None)?;
+			<did::Module<T>>::create_attribute(&who, &who, b"Org", &org_name, None)?;
 
 			Self::deposit_event(RawEvent::CreatedOrganization(who, org_name));
 			Ok(())
@@ -113,7 +113,7 @@ impl<T: Trait> Module<T> {
 	pub fn part_of_organization(account: &T::AccountId) -> bool {
 		let orgs = <Module<T>>::organizations();
 		for org in orgs.iter() {
-			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account) {
+			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
 				return true
 			}
 		}
