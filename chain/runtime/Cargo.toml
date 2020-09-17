@@ -11,20 +11,6 @@ license = 'Unlicense'
 [package.metadata.docs.rs]
 targets = ['x86_64-unknown-linux-gnu']
 
-[dependencies.aura]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-aura'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.balances]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-balances'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
 [dependencies.codec]
 default-features = false
 features = ['derive']
@@ -43,17 +29,69 @@ git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
-[dependencies.grandpa]
+[dependencies.frame-system]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-grandpa'
 tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
-[dependencies.randomness-collective-flip]
+[dependencies.frame-system-rpc-runtime-api]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-randomness-collective-flip'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-aura]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-balances]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-grandpa]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-randomness-collective-flip]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-session]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-sudo]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-timestamp]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-transaction-payment]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
+tag = 'v2.0.0-rc6'
+version = '2.0.0-rc6'
+
+[dependencies.pallet-transaction-payment-rpc-runtime-api]
+default-features = false
+git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
@@ -61,13 +99,6 @@ version = '2.0.0-rc6'
 features = ['derive']
 optional = true
 version = '1.0.101'
-
-[dependencies.session]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-session'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
 
 [dependencies.sp-api]
 default-features = false
@@ -94,12 +125,6 @@ tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
 [dependencies.sp-inherents]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.sp-io]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
 tag = 'v2.0.0-rc6'
@@ -138,34 +163,6 @@ version = '2.0.0-rc6'
 [dependencies.sp-version]
 default-features = false
 git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.sudo]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-sudo'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.system]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'frame-system'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.timestamp]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-timestamp'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.transaction-payment]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-package = 'pallet-transaction-payment'
 tag = 'v2.0.0-rc6'
 version = '2.0.0-rc6'
 
@@ -220,35 +217,36 @@ version = '1.0.5'
 [features]
 default = ['std']
 std = [
-	'aura/std',
-	'balances/std',
-	'codec/std',
-	'frame-executive/std',
-	'frame-support/std',
-	'grandpa/std',
-	'randomness-collective-flip/std',
-	'serde',
-	'sp-api/std',
-	'sp-block-builder/std',
-	'sp-consensus-aura/std',
-	'sp-core/std',
-	'sp-inherents/std',
-	'sp-io/std',
-	'sp-offchain/std',
-	'sp-runtime/std',
-	'sp-session/std',
-	'sp-std/std',
-	'sp-transaction-pool/std',
-	'sp-version/std',
-	'sudo/std',
-	'system/std',
-	'timestamp/std',
-	'transaction-payment/std',
+    'codec/std',
+    'frame-executive/std',
+    'frame-support/std',
+    'frame-system/std',
+    'frame-system-rpc-runtime-api/std',
+    'pallet-aura/std',
+    'pallet-balances/std',
+    'pallet-grandpa/std',
+    'pallet-randomness-collective-flip/std',
+    'pallet-session/std',
+    'pallet-sudo/std',
+    'pallet-timestamp/std',
+    'pallet-transaction-payment/std',
+    'pallet-transaction-payment-rpc-runtime-api/std',
+    'serde',
+    'sp-api/std',
+    'sp-block-builder/std',
+    'sp-consensus-aura/std',
+    'sp-core/std',
+    'sp-inherents/std',
+    'sp-offchain/std',
+    'sp-runtime/std',
+    'sp-session/std',
+    'sp-std/std',
+    'sp-transaction-pool/std',
+    'sp-version/std',
 	'pallet-did/std',
 	'pallet-product-registry/std',
 	'pallet-product-tracking/std',
 	'validatorset/std',
-	'session/std',
 	'rbac/std',
 	'registrar/std'
 ]
