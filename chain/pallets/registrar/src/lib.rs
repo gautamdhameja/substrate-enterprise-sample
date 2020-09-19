@@ -71,7 +71,7 @@ decl_module! {
 			<Organizations<T>>::put(orgs);
 
 			// DID add attribute
-			<did::Module<T>>::create_attribute(who.clone(), &who, b"Org", &org_name, None)?;
+			<did::Module<T>>::create_attribute(&who, &who, b"Org", &org_name, None)?;
 
 			Self::deposit_event(RawEvent::CreatedOrganization(who, org_name));
 			Ok(())
@@ -122,7 +122,7 @@ impl<T: Trait> Module<T> {
 }
 
 /// Ensure that a consortium member is invoking a dispatch.
-// https://substrate.dev/rustdocs/v2.0.0-rc4/frame_support/traits/trait.EnsureOrigin.html
+// https://substrate.dev/rustdocs/v2.0.0-rc6/frame_support/traits/trait.EnsureOrigin.html
 pub struct EnsureOrg<T>(sp_std::marker::PhantomData<T>);
 impl<T: Trait> EnsureOrigin<T::Origin> for EnsureOrg<T> {
 	type Success = T::AccountId;

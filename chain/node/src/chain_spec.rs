@@ -47,12 +47,15 @@ pub fn authority_keys_from_seed(s: &str) -> (AccountId, AuraId, GrandpaId) {
 	)
 }
 
-pub fn development_config() -> ChainSpec {
-	ChainSpec::from_genesis(
+pub fn development_config() -> Result<ChainSpec, String> {
+	let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+
+	Ok(ChainSpec::from_genesis(
 		"Development",
 		"dev",
 		ChainType::Development,
-		|| testnet_genesis(
+		move || testnet_genesis(
+			wasm_binary,
 			vec![
 				authority_keys_from_seed("Alice"),
 			],
@@ -70,15 +73,18 @@ pub fn development_config() -> ChainSpec {
 		None,
 		None,
 		None,
-	)
+	))
 }
 
-pub fn local_testnet_config() -> ChainSpec {
-	ChainSpec::from_genesis(
+pub fn local_testnet_config() -> Result<ChainSpec, String> {
+	let wasm_binary = WASM_BINARY.ok_or("Development wasm binary not available".to_string())?;
+
+	Ok(ChainSpec::from_genesis(
 		"Local Testnet",
 		"local_testnet",
 		ChainType::Local,
-		|| testnet_genesis(
+		move || testnet_genesis(
+			wasm_binary,
 			vec![
 				authority_keys_from_seed("Alice"),
 				authority_keys_from_seed("Bob"),
@@ -110,36 +116,40 @@ pub fn local_testnet_config() -> ChainSpec {
 		None,
 		None,
 		None,
-	)
+	))
 }
 
-fn testnet_genesis(initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
+/// Configure initial storage state for FRAME modules.
+fn testnet_genesis(
+	wasm_binary: &[u8],
+	initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
 	root_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
-	_enable_println: bool) -> GenesisConfig {
+	_enable_println: bool,
+) -> GenesisConfig {
 	GenesisConfig {
-		system: Some(SystemConfig {
-			code: WASM_BINARY.to_vec(),
+		frame_system: Some(SystemConfig {
+			code: wasm_binary.to_vec(),
 			changes_trie_config: Default::default(),
 		}),
-		balances: Some(BalancesConfig {
+		pallet_balances: Some(BalancesConfig {
 			balances: endowed_accounts.iter().cloned().map(|k|(k, 1 << 60)).collect(),
 		}),
 		validatorset: Some(ValidatorSetConfig {
 			validators: initial_authorities.iter().map(|x| x.0.clone()).collect::<Vec<_>>(),
 		}),
-		session: Some(SessionConfig {
+		pallet_session: Some(SessionConfig {
 			keys: initial_authorities.iter().map(|x| {
 				(x.0.clone(), x.0.clone(), session_keys(x.1.clone(), x.2.clone()))
 			}).collect::<Vec<_>>(),
 		}),
-		aura: Some(AuraConfig {
+		pallet_aura: Some(AuraConfig {
 			authorities: vec![],
 		}),
-		grandpa: Some(GrandpaConfig {
+		pallet_grandpa: Some(GrandpaConfig {
 			authorities: vec![],
 		}),
-		sudo: Some(SudoConfig {
+		pallet_sudo: Some(SudoConfig {
 			key: root_key,
 		}),
 		rbac: Some(RbacConfig {
