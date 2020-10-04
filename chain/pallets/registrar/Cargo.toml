@@ -3,34 +3,10 @@ description = 'Registrar Pallet'
 edition = '2018'
 license = 'Apache-2.0'
 name = 'pallet-registrar'
-version = '2.0.0-rc6'
+version = '2.0.0'
 
 [package.metadata.docs.rs]
 targets = ['x86_64-unknown-linux-gnu']
-
-[dev-dependencies.sp-core]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dev-dependencies.sp-io]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dev-dependencies.sp-runtime]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.sp-runtime]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
 
 [dependencies.codec]
 default-features = false
@@ -38,30 +14,21 @@ features = ['derive']
 package = 'parity-scale-codec'
 version = '1.3.4'
 
-[dependencies.frame-support]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.sp-std]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
-[dependencies.frame-system]
-default-features = false
-git = 'https://github.com/paritytech/substrate.git'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
-
 [dependencies.did]
 default-features = false
 git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
-tag = 'v2.0.0-rc6'
-version = '2.0.0-rc6'
+version = '2.0.0'
+
+[dependencies]
+frame-support = { default-features = false, version = '2.0.0' }
+frame-system = { default-features = false, version = '2.0.0' }
+sp-runtime = { default-features = false, version = '2.0.0' }
+sp-std = { default-features = false, version = '2.0.0'}
+
+[dev-dependencies]
+sp-core = { default-features = false, version = '2.0.0' }
+sp-io = { default-features = false, version = '2.0.0' }
 
 [features]
 default = ['std']
@@ -69,7 +36,7 @@ std = [
     'codec/std',
     'frame-support/std',
     'frame-system/std',
-    'did/std',
     'sp-runtime/std',
     'sp-std/std',
+    'did/std',
 ]
