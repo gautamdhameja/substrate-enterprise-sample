@@ -58,11 +58,9 @@ pallet-product-tracking = { default_features = false, version = '2.0.0', git = '
 
 [dependencies.rbac]
 default-features = false
-# git = 'https://github.com/gautamdhameja/substrate-rbac'
-git = 'https://github.com/stiiifff/substrate-rbac/'
+git = 'https://github.com/gautamdhameja/substrate-rbac'
 package = 'substrate-rbac'
-branch = 'v2.0.0'
-# version = '2.0.0'
+branch = 'enterprise-sample'
 
 [dependencies.registrar]
 default-features = false
