@@ -269,12 +269,12 @@ impl registrar::Trait for Runtime {
     type Event = Event;
 }
 
-impl pallet_product_registry::Trait for Runtime {
+impl product_registry::Trait for Runtime {
     type Event = Event;
     type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
 
-impl pallet_product_tracking::Trait for Runtime {
+impl product_tracking::Trait for Runtime {
     type Event = Event;
     type CreateRoleOrigin = registrar::EnsureOrg<Runtime>;
 }
@@ -326,8 +326,8 @@ construct_runtime!(
         PalletDid: pallet_did::{Module, Call, Storage, Event<T>},
         TransactionPayment: pallet_transaction_payment::{Module, Storage},
         Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
-        ProductRegistry: pallet_product_registry::{Module, Call, Storage, Event<T>},
-        ProductTracking: pallet_product_tracking::{Module, Call, Storage, Event<T>},
+        ProductRegistry: product_registry::{Module, Call, Storage, Event<T>},
+        ProductTracking: product_tracking::{Module, Call, Storage, Event<T>},
         Registrar: registrar::{Module, Call, Storage, Event<T>},
         Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
     }

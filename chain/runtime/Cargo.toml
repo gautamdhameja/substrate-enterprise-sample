@@ -53,14 +53,24 @@ sp-version = { default-features = false, version = '2.0.0' }
 # Substrate Enterprise Sample -specific pallets
 
 pallet-did = { default_features = false, version = '2.0.0', git = 'https://github.com/substrate-developer-hub/pallet-did' }
-pallet-product-registry = { default_features = false, version = '2.0.0' }
-pallet-product-tracking = { default_features = false, version = '2.0.0', git = 'https://github.com/stiiifff/pallet-product-tracking' }
 
 [dependencies.rbac]
 default-features = false
 git = 'https://github.com/gautamdhameja/substrate-rbac'
 package = 'substrate-rbac'
 branch = 'enterprise-sample'
+
+[dependencies.product-registry]
+default-features = false
+package = 'pallet-product-registry'
+path = '../pallets/product-registry'
+version = '2.0.0'
+
+[dependencies.product-tracking]
+default-features = false
+package = 'pallet-product-tracking'
+path = '../pallets/product-tracking'
+version = '2.0.0'
 
 [dependencies.registrar]
 default-features = false
@@ -105,8 +115,8 @@ std = [
     'sp-transaction-pool/std',
     'sp-version/std',
 	'pallet-did/std',
-	'pallet-product-registry/std',
-	'pallet-product-tracking/std',
+	'product-registry/std',
+	'product-tracking/std',
 	'validatorset/std',
 	'rbac/std',
 	'registrar/std'

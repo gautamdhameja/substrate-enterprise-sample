@@ -3660,22 +3660,23 @@ dependencies = [
 [[package]]
 name = "pallet-product-registry"
 version = "2.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42e88ff78178ac374739463d6a7bbef498eaba7bb0f7965d8e09bfd951539e0a"
 dependencies = [
  "frame-support",
  "frame-system",
  "pallet-timestamp",
  "parity-scale-codec",
+ "sp-core",
+ "sp-io",
+ "sp-runtime",
 ]
 
 [[package]]
 name = "pallet-product-tracking"
 version = "2.0.0"
-source = "git+https://github.com/stiiifff/pallet-product-tracking#513644d4bc8fee882f3245b9d8be95b8a7bd3221"
 dependencies = [
  "frame-support",
  "frame-system",
+ "hex",
  "pallet-product-registry",
  "pallet-timestamp",
  "parity-scale-codec",
