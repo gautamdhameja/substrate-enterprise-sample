@@ -2,6 +2,8 @@
 members = [
 	'node',
 	'runtime',
+	'pallets/product-registry',
+	'pallets/product-tracking',
 	'pallets/registrar'
 ]
 [profile.release]

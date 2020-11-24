@@ -1,0 +1,66 @@
+{
+    "ProductId": "Identifier",
+    "Identifier": "Vec<u8>",
+    "Decimal": "i32",
+    "ShipmentId": "Identifier",
+    "ShippingEventIndex": "u128",
+    "DeviceId": "Identifier",
+
+    "ShipmentStatus": {
+        "_enum": [
+            "Pending",
+            "InTransit",
+            "Delivered"
+        ]
+    },
+    "Shipment": {
+        "id": "ShipmentId",
+        "owner": "AccountId",
+        "status": "ShipmentStatus",
+        "products": "Vec<ProductId>",
+        "registered": "Moment",
+        "delivered": "Option<Moment>"
+    },
+    "ShippingOperation": {
+        "_enum": [
+            "Pickup",
+            "Scan",
+            "Deliver"
+        ]
+    },
+    "ShippingEventType": {
+        "_enum": [
+            "ShipmentRegistration",
+            "ShipmentPickup",
+            "ShipmentScan",
+            "ShipmentDeliver"
+        ]
+    },
+    "ShippingEvent": {
+        "event_type": "ShippingEventType",
+        "shipment_id": "ShipmentId",
+        "location": "Option<ReadPoint>",
+        "readings": "Vec<Reading<Moment>>",
+        "timestamp": "Moment"
+    },
+    "ReadPoint": {
+        "latitude": "Decimal",
+        "longitude": "Decimal"
+    },
+    "ReadingType": {
+        "_enum": [
+            "Humidity",
+            "Pressure",
+            "Shock",
+            "Tilt",
+            "Temperature",
+            "Vibration"
+        ]
+    },
+    "Reading": {
+        "device_id": "DeviceId",
+        "reading_type": "ReadingType",
+        "timestamp": "Moment",
+        "value": "Decimal"
+    }
+}

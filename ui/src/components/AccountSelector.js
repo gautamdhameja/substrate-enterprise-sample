@@ -58,7 +58,7 @@ function Main (props) {
         <Grid stackable columns='equal' >
           <Grid.Row stretched >
             <Menu.Item as={Link} to='/'>
-              <Image src='Substrate-Logo.png' size='mini' />
+              <Image src={`${process.env.PUBLIC_URL}/Substrate-Logo.png`} size='mini' />
             </Menu.Item>
             <BlockNumber />
             <BlockNumber finalized />
