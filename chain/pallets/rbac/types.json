@@ -1,0 +1,12 @@
+{
+    "Permission": {
+        "_enum": [
+            "Execute",
+            "Manage"
+        ]
+    },
+    "Role": {
+        "pallet": "Vec<u8>",
+        "permission": "Permission"
+    }
+}

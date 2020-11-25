@@ -43,15 +43,25 @@ The sample demonstrates many features and capabilities of the
 
 ## Running the demo
 
+Follow the [installation instructions](https://substrate.dev/docs/en/knowledgebase/getting-started/)
+for getting started with Rust and Substrate. This project is built on Substrate v2.0.0, which means
+that it uses the
+[Rust `nightly-2020-10-05` toolchain](https://substrate.dev/docs/en/knowledgebase/getting-started/#rust-nightly-toolchain)
+for Wasm compilation. Ensure that you run the following commands as part of the installation
+process:
+
+```bash
+rustup install nightly-2020-10-05
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-05
+```
+
 - Run the [Substrate chain](chain)
 
   ```bash
   cd chain
-  cargo build --release
-  # Purge existing chain state
-  ./target/release/enterprise-sample purge-chain --dev
-  # Launch the node
-  ./target/release/enterprise-sample --dev
+  WASM_BUILD_TOOLCHAIN=nightly-2020-10-05 cargo build --release
+  # Launch the node in development mode and do not persist chain state
+  ./target/release/enterprise-sample --dev --tmp
   ```
 
 - Launch the [front-end](ui)
@@ -78,5 +88,3 @@ The sample demonstrates many features and capabilities of the
 ## Related Github Repositories
 
 - [Decentralized Identifier Pallet](https://github.com/substrate-developer-hub/pallet-did)
-- [Role-Based Access Control Pallet](https://github.com/gautamdhameja/substrate-rbac)
-- [Validator Set Pallet](https://github.com/gautamdhameja/substrate-validator-set)

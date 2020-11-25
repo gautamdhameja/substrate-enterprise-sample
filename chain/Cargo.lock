@@ -6805,7 +6805,6 @@ dependencies = [
 [[package]]
 name = "substrate-rbac"
 version = "0.1.0"
-source = "git+https://github.com/gautamdhameja/substrate-rbac?branch=enterprise-sample#eecdb14403149d30be6539760aa92fecbcc3e372"
 dependencies = [
  "frame-support",
  "frame-system",
@@ -6820,7 +6819,6 @@ dependencies = [
 [[package]]
 name = "substrate-validator-set"
 version = "0.2.0"
-source = "git+https://github.com/gautamdhameja/substrate-validator-set#73dea431fe890a1b889fb2dfe441e890a55009e2"
 dependencies = [
  "frame-support",
  "frame-system",

@@ -234,8 +234,6 @@ const Homepage = () => (
         </Header>
         <List bulleted className='homepage-list'>
           <List.Item content="Decentralized Identifier Pallet" href="https://github.com/substrate-developer-hub/pallet-did"/>
-          <List.Item content="Role-Based Access Control Pallet" href="https://github.com/gautamdhameja/substrate-rbac"/>
-          <List.Item content="Validator Set Pallet" href="https://github.com/gautamdhameja/substrate-validator-set"/>
         </List>
 
         <Header as='h3' className='homepage-header'>Learn More</Header>

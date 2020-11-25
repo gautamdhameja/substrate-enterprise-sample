@@ -56,9 +56,9 @@ pallet-did = { default_features = false, version = '2.0.0', git = 'https://githu
 
 [dependencies.rbac]
 default-features = false
-git = 'https://github.com/gautamdhameja/substrate-rbac'
+path = '../pallets/rbac'
 package = 'substrate-rbac'
-branch = 'enterprise-sample'
+version = '0.1.0'
 
 [dependencies.product-registry]
 default-features = false
@@ -80,9 +80,8 @@ version = '2.0.0'
 
 [dependencies.validatorset]
 default-features = false
-git = 'https://github.com/gautamdhameja/substrate-validator-set'
+path = '../pallets/validator-set'
 package = 'substrate-validator-set'
-branch = 'master'
 version = '0.2.0'
 
 [features]

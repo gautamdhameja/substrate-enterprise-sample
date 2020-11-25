@@ -9,21 +9,31 @@ The [runtime](runtime) for this blockchain includes the following application-sp
 
 - [Registrar](pallets/registrar)
 - [Decentralized Identifiers](https://github.com/substrate-developer-hub/pallet-did)
-- [Product Registry](https://github.com/stiiifff/pallet-product-registry)
-- [Product Tracking](https://github.com/stiiifff/pallet-product-tracking)
-- [Validator Set](https://github.com/gautamdhameja/substrate-validator-set)
-- [Role-Based Access Control](https://github.com/jimmychu0807/substrate-rbac)
+- [Product Registry](pallets/product-registry)
+- [Product Tracking](pallets/product-tracking)
+- [Validator Set](pallets/validator-set)
+- [Role-Based Access Control](pallets/rbac)
 
 ## Build & Launch
+
+Follow the [installation instructions](https://substrate.dev/docs/en/knowledgebase/getting-started/)
+for getting started with Rust and Substrate. This project is built on Substrate v2.0.0, which means
+that it uses the
+[Rust `nightly-2020-10-05` toolchain](https://substrate.dev/docs/en/knowledgebase/getting-started/#rust-nightly-toolchain)
+for Wasm compilation. Ensure that you run the following commands as part of the installation
+process:
+
+```bash
+rustup install nightly-2020-10-05
+rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-05
+```
 
 Execute these commands to build and launch the node:
 
 ```shell
-cargo build --release
-# Purge existing chain state
-./target/release/enterprise-sample purge-chain --dev
-# Launch the node
-./target/release/enterprise-sample --dev
+WASM_BUILD_TOOLCHAIN=nightly-2020-10-05 cargo build --release
+# Launch the node in development mode and do not persist chain state
+./target/release/enterprise-sample --dev --tmp
 ```
 
 ## Upstream
