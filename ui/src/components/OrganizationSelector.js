@@ -13,8 +13,8 @@ export default function Main (props) {
     let unsub2 = null;
     const addr = accountPair ? accountPair.address : null;
 
-    async function organizationsOf (addr) {
-      unsub2 = await api.query.registrar.organizationsOf(addr, rawData => {
+    async function membersOf (addr) {
+      unsub2 = await api.query.registrar.membersOf(addr, rawData => {
         const orgs = rawData.map(r => ({ value: r.toString(), text: r.toString() }));
 
         const defaultOrg = orgs.length > 0 ? orgs[0].value : '';
@@ -34,7 +34,7 @@ export default function Main (props) {
           setSelectedOrganization(addr);
           setSelected(addr);
         } else {
-          organizationsOf(addr);
+          membersOf(addr);
         }
       });
     }
