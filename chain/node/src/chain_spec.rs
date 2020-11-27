@@ -154,6 +154,9 @@ fn testnet_genesis(
 		}),
 		rbac: Some(RbacConfig {
 			super_admins: vec![get_account_id_from_seed::<sr25519::Public>("Alice")]
-		})
+		}),
+		pallet_collective_Instance1: Some(Default::default()),
+		pallet_elections_phragmen: Some(Default::default()),
+		pallet_democracy: Some(Default::default()),
 	}
 }
