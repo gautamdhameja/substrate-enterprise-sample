@@ -1,0 +1,15 @@
+{
+  "name": "enterprise-sample-scripts",
+  "version": "0.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "@polkadot/api": "^2.8.2",
+    "uuid": "^8.3.1"
+  }
+}

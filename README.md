@@ -78,11 +78,11 @@ rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-05
   yarn install && yarn start
   ```
 
-- [Seed the chain with data](chain-story-init)
+- [Seed the chain with data](scripts/init.js)
 
   ```bash
-  cd chain-story-init
-  yarn install && yarn start
+  cd scripts
+  yarn install && node ./init.js
   ```
 
 ## Related Github Repositories

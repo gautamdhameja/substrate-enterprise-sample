@@ -56,15 +56,28 @@ pub fn development_config() -> Result<ChainSpec, String> {
 		ChainType::Development,
 		move || testnet_genesis(
 			wasm_binary,
+			// authorities
 			vec![
 				authority_keys_from_seed("Alice"),
 			],
+			// root key
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			// sysadmin key
+			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			// endowed accounts
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				get_account_id_from_seed::<sr25519::Public>("Bob"),
+				get_account_id_from_seed::<sr25519::Public>("Charlie"),
+				get_account_id_from_seed::<sr25519::Public>("Dave"),
+				get_account_id_from_seed::<sr25519::Public>("Eve"),
+				get_account_id_from_seed::<sr25519::Public>("Ferdie"),
 				get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Charlie//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Dave//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Eve//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
 			],
 			true,
 		),
@@ -89,6 +102,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 				authority_keys_from_seed("Alice"),
 				authority_keys_from_seed("Bob"),
 			],
+			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
@@ -124,6 +138,7 @@ fn testnet_genesis(
 	wasm_binary: &[u8],
 	initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
 	root_key: AccountId,
+	sysadmin_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
 	_enable_println: bool,
 ) -> GenesisConfig {
@@ -153,7 +168,7 @@ fn testnet_genesis(
 			key: root_key,
 		}),
 		rbac: Some(RbacConfig {
-			super_admins: vec![get_account_id_from_seed::<sr25519::Public>("Alice")]
+			super_admins: vec![sysadmin_key]
 		}),
 		pallet_collective_Instance1: Some(Default::default()),
 		pallet_elections_phragmen: Some(Default::default()),
