@@ -28,24 +28,22 @@ async function main() {
   }
 
   try {
-    // bootstrap superuser privileges
-    submitTxn(api.tx.registrar.createOrganization('Supply Chain Consortium'), users.admin);
-
-    // creating a role has the side-effect of assigning the new role to the account that created it
-    submitTxn(api.tx.rbac.createRole(`Registrar`, 'Manage'), users.admin);
-    submitTxn(api.tx.rbac.createRole(`ProductRegistry`, 'Manage'), users.admin);
-    submitTxn(api.tx.rbac.createRole(`ProductTracking`, 'Manage'), users.admin);
-    submitTxn(api.tx.rbac.createRole(`Balances`, 'Manage'), users.admin);
-
-    // in order to assign a role, it must be created first
-    const executeRegistrar = api.registry.createType("Role", { pallet: 'Registrar', permission: 'Execute' });
-    submitTxn(api.tx.rbac.createRole(`Registrar`, 'Execute'), users.admin);
-    const executeProductRegistry = api.registry.createType("Role", { pallet: 'ProductRegistry', permission: 'Execute' });
-    submitTxn(api.tx.rbac.createRole(`ProductRegistry`, 'Execute'), users.admin);
-    const executeProductTracking = api.registry.createType("Role", { pallet: 'ProductTracking', permission: 'Execute' });
-    submitTxn(api.tx.rbac.createRole(`ProductTracking`, 'Execute'), users.admin);
-    const executeBalances = api.registry.createType("Role", { pallet: 'Balances', permission: 'Execute' });
-    submitTxn(api.tx.rbac.createRole(`Balances`, 'Execute'), users.admin);
+    submitTxn(api.tx.utility.batch([
+      // bootstrap superuser privileges
+      api.tx.registrar.createOrganization('Supply Chain Consortium'), 
+  
+      // creating a role has the side-effect of assigning the new role to the account that created it
+      api.tx.rbac.createRole(`Registrar`, 'Manage'), 
+      api.tx.rbac.createRole(`ProductRegistry`, 'Manage'), 
+      api.tx.rbac.createRole(`ProductTracking`, 'Manage'), 
+      api.tx.rbac.createRole(`Balances`, 'Manage'), 
+  
+      // in order to assign a role, it must be created first
+      api.tx.rbac.createRole(`Registrar`, 'Execute'), 
+      api.tx.rbac.createRole(`ProductRegistry`, 'Execute'), 
+      api.tx.rbac.createRole(`ProductTracking`, 'Execute'), 
+      api.tx.rbac.createRole(`Balances`, 'Execute'), 
+    ]), users.admin);
 
     const second = 1000;
     const block = 3.01 * second;
@@ -54,41 +52,48 @@ async function main() {
     const day = 24 * hour;
     await new Promise(r => setTimeout(r, block));
 
+    const executeRegistrar = api.registry.createType("Role", { pallet: 'Registrar', permission: 'Execute' });
+    const executeProductRegistry = api.registry.createType("Role", { pallet: 'ProductRegistry', permission: 'Execute' });
+    const executeProductTracking = api.registry.createType("Role", { pallet: 'ProductTracking', permission: 'Execute' });
+    const executeBalances = api.registry.createType("Role", { pallet: 'Balances', permission: 'Execute' });
+
     // assign roles
-    submitTxn(api.tx.rbac.assignRole(users.bob.key.address, executeRegistrar), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.bob.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.betty.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.bob.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.betty.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.bobBank.key.address, executeBalances), users.admin);
+    submitTxn(api.tx.utility.batch([
+      api.tx.rbac.assignRole(users.bob.key.address, executeRegistrar),
+      api.tx.rbac.assignRole(users.bob.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.betty.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.bob.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.betty.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.bobBank.key.address, executeBalances),
 
-    submitTxn(api.tx.rbac.assignRole(users.charlie.key.address, executeRegistrar), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.charlie.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.clarice.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.charlie.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.clarice.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.charlieBank.key.address, executeBalances), users.admin);
+      api.tx.rbac.assignRole(users.charlie.key.address, executeRegistrar),
+      api.tx.rbac.assignRole(users.charlie.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.clarice.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.charlie.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.clarice.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.charlieBank.key.address, executeBalances),
 
-    submitTxn(api.tx.rbac.assignRole(users.dave.key.address, executeRegistrar), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.dave.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.daisy.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.dave.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.daisy.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.daveBank.key.address, executeBalances), users.admin);
+      api.tx.rbac.assignRole(users.dave.key.address, executeRegistrar),
+      api.tx.rbac.assignRole(users.dave.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.daisy.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.dave.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.daisy.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.daveBank.key.address, executeBalances),
 
-    submitTxn(api.tx.rbac.assignRole(users.eve.key.address, executeRegistrar), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.eve.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.erowid.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.eve.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.erowid.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.eveBank.key.address, executeBalances), users.admin);
-
-    submitTxn(api.tx.rbac.assignRole(users.ferdie.key.address, executeRegistrar), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.ferdie.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.francis.key.address, executeProductRegistry), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.ferdie.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.francis.key.address, executeProductTracking), users.admin);
-    submitTxn(api.tx.rbac.assignRole(users.ferdieBank.key.address, executeBalances), users.admin);
+      api.tx.rbac.assignRole(users.eve.key.address, executeRegistrar), 
+      api.tx.rbac.assignRole(users.eve.key.address, executeProductRegistry), 
+      api.tx.rbac.assignRole(users.erowid.key.address, executeProductRegistry), 
+      api.tx.rbac.assignRole(users.eve.key.address, executeProductTracking), 
+      api.tx.rbac.assignRole(users.erowid.key.address, executeProductTracking), 
+      api.tx.rbac.assignRole(users.eveBank.key.address, executeBalances), 
+  
+      api.tx.rbac.assignRole(users.ferdie.key.address, executeRegistrar), 
+      api.tx.rbac.assignRole(users.ferdie.key.address, executeProductRegistry), 
+      api.tx.rbac.assignRole(users.francis.key.address, executeProductRegistry), 
+      api.tx.rbac.assignRole(users.ferdie.key.address, executeProductTracking), 
+      api.tx.rbac.assignRole(users.francis.key.address, executeProductTracking), 
+      api.tx.rbac.assignRole(users.ferdieBank.key.address, executeBalances), 
+    ]), users.admin);
 
     await new Promise(r => setTimeout(r, block));
 

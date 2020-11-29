@@ -464,6 +464,12 @@ impl pallet_session::Trait for Runtime {
     type WeightInfo = ();
 }
 
+impl pallet_utility::Trait for Runtime {
+    type Event = Event;
+    type Call = Call;
+    type WeightInfo = ();
+}
+
 impl<C> frame_system::offchain::SendTransactionTypes<C> for Runtime
 where
     Call: From<C>,
@@ -497,6 +503,7 @@ construct_runtime!(
         ProductTracking: product_tracking::{Module, Call, Storage, Event<T>},
         Registrar: registrar::{Module, Call, Storage, Event<T>},
         Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
+        Utility: pallet_utility::{Module, Call, Event},
     }
 );
 
