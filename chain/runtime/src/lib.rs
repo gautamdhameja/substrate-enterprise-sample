@@ -29,6 +29,7 @@ use sp_version::NativeVersion;
 pub use sp_runtime::BuildStorage;
 pub use pallet_timestamp::Call as TimestampCall;
 pub use pallet_balances::Call as BalancesCall;
+pub use rbac::{Role, Permission};
 pub use sp_runtime::{Permill, Perbill};
 pub use frame_support::{
 	construct_runtime, parameter_types, StorageValue,
@@ -470,6 +471,22 @@ impl pallet_utility::Trait for Runtime {
     type WeightInfo = ();
 }
 
+parameter_types! {
+    pub const DepositBase: Balance = CENTS;
+    pub const DepositFactor: Balance = CENTS;
+    pub const MaxSignatories: u16 = 10;
+}
+
+impl pallet_multisig::Trait for Runtime {
+	type Event = Event;
+	type Call = Call;
+	type Currency = Balances;
+	type DepositBase = DepositBase;
+	type DepositFactor = DepositFactor;
+	type MaxSignatories = MaxSignatories;
+	type WeightInfo = ();
+}
+
 impl<C> frame_system::offchain::SendTransactionTypes<C> for Runtime
 where
     Call: From<C>,
@@ -504,6 +521,7 @@ construct_runtime!(
         Registrar: registrar::{Module, Call, Storage, Event<T>},
         Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
         Utility: pallet_utility::{Module, Call, Event},
+        Multisig: pallet_multisig::{Module, Call, Storage, Event<T>},
     }
 );
 

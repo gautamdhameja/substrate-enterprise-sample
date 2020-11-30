@@ -35,6 +35,7 @@ pallet-collective = { default-features = false, version = '2.0.0' }
 pallet-democracy = { default-features = false, version = '2.0.0' }
 pallet-elections-phragmen = { default-features = false, version = '2.0.0' }
 pallet-grandpa = { default-features = false, version = '2.0.0' }
+pallet-multisig = { default-features = false, version = '2.0.0' }
 pallet-randomness-collective-flip = { default-features = false, version = '2.0.0' }
 pallet-scheduler = { default-features = false, version = '2.0.0' }
 pallet-session = { default-features = false, version = '2.0.0' }
@@ -61,9 +62,9 @@ pallet-did = { default_features = false, version = '2.0.0', git = 'https://githu
 
 [dependencies.rbac]
 default-features = false
-git = 'https://github.com/gautamdhameja/substrate-rbac'
+git = 'https://github.com/danforbes/substrate-rbac'
 package = 'substrate-rbac'
-branch = 'enterprise-sample'
+branch = 'df/feat/genesis'
 
 [dependencies.product-registry]
 default-features = false
@@ -104,6 +105,7 @@ std = [
     'pallet-democracy/std',
     'pallet-elections-phragmen/std',
     'pallet-grandpa/std',
+    'pallet-multisig/std',
     'pallet-randomness-collective-flip/std',
     'pallet-scheduler/std',
     'pallet-session/std',

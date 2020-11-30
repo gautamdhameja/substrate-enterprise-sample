@@ -1,7 +1,7 @@
 use sp_core::{Pair, Public, sr25519};
 use enterprise_sample_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig,
-	SudoConfig, SystemConfig, WASM_BINARY, Signature,
+	Multisig, Permission, Role, SudoConfig, SystemConfig, WASM_BINARY, Signature,
 	ValidatorSetConfig, SessionConfig, opaque::SessionKeys, RbacConfig
 };
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
@@ -63,7 +63,24 @@ pub fn development_config() -> Result<ChainSpec, String> {
 			// root key
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			// sysadmin key
-			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			Multisig::multi_account_id(&[
+				// must be sorted by public account ID
+				get_account_id_from_seed::<sr25519::Public>("Ferdie"),
+				get_account_id_from_seed::<sr25519::Public>("Dave"),
+				get_account_id_from_seed::<sr25519::Public>("Bob"),
+				get_account_id_from_seed::<sr25519::Public>("Charlie"),
+				get_account_id_from_seed::<sr25519::Public>("Alice"),
+				get_account_id_from_seed::<sr25519::Public>("Eve")], 4),
+			// RBAC permissions
+			vec![
+				(Role { pallet: b"Multisig".to_vec(), permission: Permission::Execute }, vec![
+					get_account_id_from_seed::<sr25519::Public>("Ferdie"),
+					get_account_id_from_seed::<sr25519::Public>("Dave"),
+					get_account_id_from_seed::<sr25519::Public>("Bob"),
+					get_account_id_from_seed::<sr25519::Public>("Charlie"),
+					get_account_id_from_seed::<sr25519::Public>("Alice"),
+					get_account_id_from_seed::<sr25519::Public>("Eve")])
+			],
 			// endowed accounts
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
@@ -104,6 +121,7 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 			],
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			vec![],
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				get_account_id_from_seed::<sr25519::Public>("Bob"),
@@ -139,6 +157,7 @@ fn testnet_genesis(
 	initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
 	root_key: AccountId,
 	sysadmin_key: AccountId,
+	rbac_perms: Vec<(Role, Vec<AccountId>)>,
 	endowed_accounts: Vec<AccountId>,
 	_enable_println: bool,
 ) -> GenesisConfig {
@@ -168,7 +187,8 @@ fn testnet_genesis(
 			key: root_key,
 		}),
 		rbac: Some(RbacConfig {
-			super_admins: vec![sysadmin_key]
+			super_admins: vec![sysadmin_key],
+			permissions: rbac_perms
 		}),
 		pallet_collective_Instance1: Some(Default::default()),
 		pallet_elections_phragmen: Some(Default::default()),

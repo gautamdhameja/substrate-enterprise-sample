@@ -9,7 +9,9 @@ const api = await ApiPromise.create({ provider, types });
 async function main() {
   const keyring = new Keyring({ type: 'sr25519' });
   const users = {
-    admin: { key: keyring.addFromUri('//Alice', { name: 'ADMIN' }), nonce: 0 },
+    alice: { key: keyring.addFromUri('//Alice', { name: 'Alice' }), nonce: 0 },
+    aliceBank: { key: keyring.addFromUri('//Alice//stash', { name: 'Alice-BANK' }), nonce: 0 },
+    andy: { key: keyring.addFromUri('//Andy', { name: 'Andy' }), nonce: 0 },
     bob: { key: keyring.addFromUri('//Bob', { name: 'Bob' }), nonce: 0 },
     bobBank: { key: keyring.addFromUri('//Bob//stash', { name: 'Bob-BANK' }), nonce: 0 },
     betty: { key: keyring.addFromUri('//Bert', { name: 'Bert' }), nonce: 0 },
@@ -20,7 +22,7 @@ async function main() {
     daveBank: { key: keyring.addFromUri('//Dave//stash', { name: 'Dave-BANK' }), nonce: 0 },
     daisy: { key: keyring.addFromUri('//Daisy', { name: 'Daisy' }), nonce: 0 },
     eve: { key: keyring.addFromUri('//Eve', { name: 'Eve' }), nonce: 0 },
-    eveBank: { key: keyring.addFromUri('//Eve//stash', { name: 'Eve-BANL' }), nonce: 0 },
+    eveBank: { key: keyring.addFromUri('//Eve//stash', { name: 'Eve-BANK' }), nonce: 0 },
     erowid: { key: keyring.addFromUri('//Erowid', { name: 'Erowid' }), nonce: 0 },
     ferdie: { key: keyring.addFromUri('//Ferdie', { name: 'Ferdie' }), nonce: 0 },
     ferdieBank: { key: keyring.addFromUri('//Ferdie//stash', { name: 'Ferdie-BANK' }), nonce: 0 },
@@ -28,7 +30,7 @@ async function main() {
   }
 
   try {
-    submitTxn(api.tx.utility.batch([
+    execMultisig(api.tx.utility.batch([
       // bootstrap superuser privileges
       api.tx.registrar.createOrganization('Supply Chain Consortium'), 
   
@@ -43,7 +45,7 @@ async function main() {
       api.tx.rbac.createRole(`ProductRegistry`, 'Execute'), 
       api.tx.rbac.createRole(`ProductTracking`, 'Execute'), 
       api.tx.rbac.createRole(`Balances`, 'Execute'), 
-    ]), users.admin);
+    ]), [users.alice, users.bob, users.charlie, users.dave, users.eve, users.ferdie], 4, 99999999);
 
     const second = 1000;
     const block = 3.01 * second;
@@ -58,7 +60,14 @@ async function main() {
     const executeBalances = api.registry.createType("Role", { pallet: 'Balances', permission: 'Execute' });
 
     // assign roles
-    submitTxn(api.tx.utility.batch([
+    execMultisig(api.tx.utility.batch([
+      api.tx.rbac.assignRole(users.alice.key.address, executeRegistrar),
+      api.tx.rbac.assignRole(users.alice.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.andy.key.address, executeProductRegistry),
+      api.tx.rbac.assignRole(users.alice.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.andy.key.address, executeProductTracking),
+      api.tx.rbac.assignRole(users.aliceBank.key.address, executeBalances),
+
       api.tx.rbac.assignRole(users.bob.key.address, executeRegistrar),
       api.tx.rbac.assignRole(users.bob.key.address, executeProductRegistry),
       api.tx.rbac.assignRole(users.betty.key.address, executeProductRegistry),
@@ -93,13 +102,17 @@ async function main() {
       api.tx.rbac.assignRole(users.ferdie.key.address, executeProductTracking), 
       api.tx.rbac.assignRole(users.francis.key.address, executeProductTracking), 
       api.tx.rbac.assignRole(users.ferdieBank.key.address, executeBalances), 
-    ]), users.admin);
+    ]), [users.alice, users.bob, users.charlie, users.dave, users.eve, users.ferdie], 4, 99999999);
 
-    await new Promise(r => setTimeout(r, block));
+    await new Promise(r => setTimeout(r, 2 * block));
 
     const salary = 100_000_000_000_000;
 
     // create organizations & add members
+    submitTxn(api.tx.registrar.createOrganization(`Alice's Autos`), users.alice);
+    submitTxn(api.tx.registrar.addToOrganization(users.andy.key.address), users.alice);
+    submitTxn(api.tx.balances.transfer(users.andy.key.address, salary), users.aliceBank);
+
     submitTxn(api.tx.registrar.createOrganization(`Bob's Burgers`), users.bob);
     submitTxn(api.tx.registrar.addToOrganization(users.betty.key.address), users.bob);
     submitTxn(api.tx.balances.transfer(users.betty.key.address, salary), users.bobBank);
@@ -123,6 +136,11 @@ async function main() {
     await new Promise(r => setTimeout(r, block));
 
     // create products
+    const car = uuidv4();
+    submitTxn(api.tx.productRegistry.registerProduct(car, users.alice.key.address, [['desc', 'silver car']]), users.andy);
+    const jeep = uuidv4();
+    submitTxn(api.tx.productRegistry.registerProduct(jeep, users.alice.key.address, [['desc', 'blue jeep']]), users.andy);
+
     const beef = uuidv4();
     submitTxn(api.tx.productRegistry.registerProduct(beef, users.bob.key.address, [['desc', 'beef burger']]), users.betty);
     const veggie = uuidv4();
@@ -160,6 +178,13 @@ async function main() {
     //   timestamp: now + 2 * hour,
     //   value: 100,
     // });
+
+    const aliceShipment = uuidv4();
+    submitTxn(api.tx.productTracking.registerShipment(aliceShipment, users.alice.key.address, [car, jeep]), users.andy);
+    submitTxn(api.tx.productTracking.trackShipment(aliceShipment, 'Pickup', now + rand(0.5, 6.0) * hour, loc(), null), users.andy);
+    submitTxn(api.tx.productTracking.trackShipment(aliceShipment, 'Scan', now + rand(0.5, 2.5) * day, loc(), null), users.andy);
+    submitTxn(api.tx.productTracking.trackShipment(aliceShipment, 'Scan', now + rand(3, 4) * day, loc(), null), users.andy);
+    submitTxn(api.tx.productTracking.trackShipment(aliceShipment, 'Deliver', now + rand(4.5, 6.0) * day, loc(), null), users.andy);
 
     const bobShipment = uuidv4();
     submitTxn(api.tx.productTracking.registerShipment(bobShipment, users.bob.key.address, [beef, veggie]), users.betty);
@@ -204,6 +229,25 @@ async function main() {
 
 main().catch(console.error).finally(() => process.exit());
 
+async function execMultisig(call, signers, num, weight) {
+  const sortedSigners = signers.sort((first, second) => first.key.address > second.key.address ? 1 : -1);
+  const others = (me) => sortedSigners.filter(sig => sig !== me).map(user => user.key.address);
+  const events = await submitTxn(api.tx.multisig.approveAsMulti(num, others(sortedSigners[0]), null, call.method.hash, null), sortedSigners[0]);
+  const multisigEvent = events.find(({ event: { section, method } }) => section === 'multisig' && method === 'NewMultisig');
+  if (!multisigEvent) {
+    throw ' ! Could not find expected multisig event';
+  }
+
+  const multisig = await api.query.multisig.multisigs(multisigEvent.event.data[1], call.method.hash);
+  const timepoint = multisig.unwrap().when;
+  for (let idx = 1; idx < num - 1; ++idx) {
+    const signer = sortedSigners[idx];
+    submitTxn(api.tx.multisig.approveAsMulti(num, others(signer), timepoint, call.method.hash, null), signer);
+  }
+
+  submitTxn(api.tx.multisig.asMulti(num, others(sortedSigners[num - 1]), timepoint, call.method.toHex(), false, weight), sortedSigners[num - 1]);
+}
+
 function submitTxn(txn, sender) {
   const txnId = `${sender.key.meta.name}-${sender.nonce}`;
   const getType = (arg) => `${arg.type}` === 'Bytes' && arg.Type.name === 'Text' ? 'Text' : arg.type;
@@ -211,18 +255,20 @@ function submitTxn(txn, sender) {
   console.log(` > [${txnId}] Submitting: ${txn.method.section}.${txn.method.method}(${args})`);
   return new Promise(async (resolve, reject) => {
     try {
-      const drop = await txn.signAndSend(sender.key, { nonce: sender.nonce++ }, ({ status, events }) => {
+      const drop = await txn.signAndSend(sender.key, { nonce: sender.nonce++ }, ({ status, events, dispatchError }) => {
         if (!status.isInBlock && !status.isFinalized) {
           return;
         }
 
         drop();
-        if (!events.some(event => event.event.method === 'ExtrinsicFailed')) {
-          console.log(` < [${txnId}] In block: ${status.asInBlock}`);
-          resolve(events);
+        if (dispatchError) {
+          if (!dispatchError.isModule) throw `${dispatchError}`;
+          const decoded = api.registry.findMetaError(dispatchError.asModule);
+          throw decoded.documentation.join(' ');
         }
 
-        reject(` ! extrinsic failed in block ${status.asInBlock}`);
+        console.log(` < [${txnId}] In block: ${status.asInBlock}`);
+        resolve(events);
       });
     } catch (e) {
       reject(`${e}`);
