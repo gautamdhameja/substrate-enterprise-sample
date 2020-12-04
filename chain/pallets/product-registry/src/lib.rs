@@ -18,7 +18,7 @@ mod tests;
 
 // General constraints to limit data size
 // Note: these could also be passed as trait config parameters
-pub const PRODUCT_ID_MAX_LENGTH: usize = 14;
+pub const PRODUCT_ID_MAX_LENGTH: usize = 36;
 pub const PRODUCT_PROP_NAME_MAX_LENGTH: usize = 10;
 pub const PRODUCT_PROP_VALUE_MAX_LENGTH: usize = 20;
 pub const PRODUCT_MAX_PROPS: usize = 3;

@@ -1,0 +1,17 @@
+{
+  "name": "enterprise-demo-scripts",
+  "version": "0.1.0",
+  "license": "Unlicense",
+  "scripts": {
+    "start": "node ./src/init.js"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "dependencies": {
+    "@polkadot/api": "^2.9.1",
+    "uuid": "^8.3.1"
+  }
+}

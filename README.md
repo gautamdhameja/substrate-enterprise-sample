@@ -86,11 +86,11 @@ so ensure that those dependencies are installed before continuing.
   yarn install && yarn start
   ```
 
-- [Seed the chain with data](chain-story-init)
+- [Initialize](scripts/src/init.js) a demonstration supply chain consortium
 
   ```bash
-  cd chain-story-init
-  yarn install && yarn start
+  cd scripts
+  yarn && yarn start
   ```
 
 ## Related Github Repositories
