@@ -63,7 +63,7 @@ rustup target add wasm32-unknown-unknown --toolchain nightly-2020-10-05
 This demo also uses [Node.js](https://nodejs.org/en/) and [Yarn](https://classic.yarnpkg.com/en/),
 so ensure that those dependencies are installed before continuing.
 
-- Run the [listener](listener) that receives off-chain worker notifications
+- Run the [listener](ocw-listener) that receives off-chain worker notifications
 
   ```bash
   cd listener
