@@ -47,6 +47,27 @@ decl_storage! {
 			/// Maps organizations to their members.
 			pub MembersOf get(fn members_of):map hasher(blake2_128_concat) T::AccountId => Vec<T::AccountId>;
 	}
+	add_extra_genesis {
+		config(orgs): Vec<(T::AccountId, Vec<u8>)>;
+		config(members): Vec<(T::AccountId, Vec<T::AccountId>)>;
+		build(|config| {
+			for org in config.orgs.iter() {
+				match Module::<T>::create_org(&org.0, org.1.clone()) {
+					Err(e) => panic!(e),
+					Ok(_) => (),
+				}
+			}
+
+			for (org, members) in config.members.iter() {
+				for member in members.iter() {
+					match Module::<T>::add_to_org(org, member) {
+						Err(e) => panic!(e),
+						Ok(_) => (),
+					}
+				}
+			}
+		});
+	}
 }
 
 // Dispatchable functions allows users to interact with the pallet and invoke state changes.
@@ -64,15 +85,7 @@ decl_module! {
 		#[weight = 10_000]
 		pub fn create_organization(origin, org_name: Vec<u8>) -> dispatch::DispatchResult {
 			let who = ensure_signed(origin)?;
-			let mut orgs = Self::organizations();
-			ensure!(!orgs.contains(&who), Error::<T>::OrganizationExists);
-
-			orgs.push(who.clone());
-			<Organizations<T>>::put(orgs);
-
-			// DID add attribute
-			<did::Module<T>>::create_attribute(&who, &who, b"Org", &org_name, None)?;
-
+			Self::create_org(&who, org_name.clone())?;
 			Self::deposit_event(RawEvent::CreatedOrganization(who, org_name));
 			Ok(())
 		}
@@ -84,24 +97,7 @@ decl_module! {
 		#[weight = 10_000]
 		pub fn add_to_organization(origin, account: T::AccountId) -> dispatch::DispatchResult {
 			let who = ensure_signed(origin)?;
-			// Organizations list.
-			let orgs = Self::organizations();
-			ensure!(orgs.contains(&who), Error::<T>::InvalidOrganization);
-
-			// Accounts that belong to a certain organization.
-			let mut members = Self::members_of(&account);
-
-			// Validate organization and account should not be part.
-			if !members.contains(&who) {
-				members.push(who.clone());
-				MembersOf::<T>::insert(&account, members);
-			} else {
-				return Err(Error::<T>::MemberOfOrganization.into());
-			}
-
-			// Add account as a DID delegate.
-			<did::Module<T>>::create_delegate(&who, &who, &account, &b"OrgMember".to_vec(), None)?;
-
+			Self::add_to_org(&who, &account)?;
 			Self::deposit_event(RawEvent::AddedToOrganization(who, b"OrgMember".to_vec()));
 			Ok(())
 		}
@@ -109,6 +105,39 @@ decl_module! {
 }
 
 impl<T: Trait> Module<T> {
+	pub fn create_org(owner: &T::AccountId, org_name: Vec<u8>) -> dispatch::DispatchResult {
+		let mut orgs = <Module<T>>::organizations();
+		ensure!(!orgs.contains(&owner), Error::<T>::OrganizationExists);
+
+		orgs.push(owner.clone());
+		<Organizations<T>>::put(orgs);
+
+		// DID add attribute
+		<did::Module<T>>::create_attribute(&owner, &owner, b"Org", &org_name, None)?;
+		Ok(())
+	}
+
+	pub fn add_to_org(org: &T::AccountId, account: &T::AccountId) -> dispatch::DispatchResult {
+		// Organizations list.
+		let orgs = Self::organizations();
+		ensure!(orgs.contains(&org), Error::<T>::InvalidOrganization);
+
+		// Accounts that belong to a certain organization.
+		let mut members = Self::members_of(&org);
+
+		// Validate organization and account should not be part.
+		if !members.contains(&account) {
+			members.push(account.clone());
+			MembersOf::<T>::insert(&org, members);
+		} else {
+			return Err(Error::<T>::MemberOfOrganization.into());
+		}
+
+		// Add account as a DID delegate.
+		<did::Module<T>>::create_delegate(&org, &org, &account, &b"OrgMember".to_vec(), None)?;
+		Ok(())
+	}
+
 	/// Returns true if and only if the account is a member of an organization.
 	pub fn part_of_organization(account: &T::AccountId) -> bool {
 		let orgs = <Module<T>>::organizations();

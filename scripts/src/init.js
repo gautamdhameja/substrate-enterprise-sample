@@ -29,15 +29,6 @@ async function main() {
   }
 
   try {
-    // bootstrap superuser privileges
-    submit(api, api.tx.registrar.createOrganization('Supply Chain Consortium'), users.admin);
-
-    // creating a role has the side-effect of assigning the new role to the account that created it
-    submit(api, api.tx.rbac.createRole(`Registrar`, 'Manage'), users.admin);
-    submit(api, api.tx.rbac.createRole(`ProductRegistry`, 'Manage'), users.admin);
-    submit(api, api.tx.rbac.createRole(`ProductTracking`, 'Manage'), users.admin);
-    submit(api, api.tx.rbac.createRole(`Balances`, 'Manage'), users.admin);
-
     // in order to assign a role, it must be created first
     const executeRegistrar = api.registry.createType("Role", { pallet: 'Registrar', permission: 'Execute' });
     submit(api, api.tx.rbac.createRole(`Registrar`, 'Execute'), users.admin);

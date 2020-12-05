@@ -29,6 +29,7 @@ use sp_version::NativeVersion;
 pub use sp_runtime::BuildStorage;
 pub use pallet_timestamp::Call as TimestampCall;
 pub use pallet_balances::Call as BalancesCall;
+pub use rbac::{Role, Permission};
 pub use sp_runtime::{Permill, Perbill};
 pub use frame_support::{
 	construct_runtime, parameter_types, StorageValue,
@@ -495,7 +496,7 @@ construct_runtime!(
         Sudo: pallet_sudo::{Module, Call, Config<T>, Storage, Event<T>},
         ProductRegistry: product_registry::{Module, Call, Storage, Event<T>},
         ProductTracking: product_tracking::{Module, Call, Storage, Event<T>},
-        Registrar: registrar::{Module, Call, Storage, Event<T>},
+        Registrar: registrar::{Module, Call, Storage, Event<T>, Config<T>},
         Rbac: rbac::{Module, Call, Storage, Event<T>, Config<T>},
     }
 );
