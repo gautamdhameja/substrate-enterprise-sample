@@ -1,8 +1,8 @@
 use sp_core::{Pair, Public, sr25519};
 use enterprise_sample_runtime::{
 	AccountId, AuraConfig, BalancesConfig, GenesisConfig, GrandpaConfig,
-	SudoConfig, SystemConfig, WASM_BINARY, Signature,
-	ValidatorSetConfig, SessionConfig, opaque::SessionKeys, RbacConfig
+	Permission, Role, RegistrarConfig, SudoConfig, SystemConfig, Signature,
+	ValidatorSetConfig, SessionConfig, opaque::SessionKeys, RbacConfig, WASM_BINARY
 };
 use sp_consensus_aura::sr25519::AuthorityId as AuraId;
 use sp_finality_grandpa::AuthorityId as GrandpaId;
@@ -55,17 +55,48 @@ pub fn development_config() -> Result<ChainSpec, String> {
 		"dev",
 		ChainType::Development,
 		move || testnet_genesis(
+			// Wasm runtime
 			wasm_binary,
+			// initial authorities
 			vec![
 				authority_keys_from_seed("Alice"),
 			],
+			// root user
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			// endowed accounts
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				get_account_id_from_seed::<sr25519::Public>("Bob"),
+				get_account_id_from_seed::<sr25519::Public>("Charlie"),
+				get_account_id_from_seed::<sr25519::Public>("Dave"),
+				get_account_id_from_seed::<sr25519::Public>("Eve"),
+				get_account_id_from_seed::<sr25519::Public>("Ferdie"),
 				get_account_id_from_seed::<sr25519::Public>("Alice//stash"),
 				get_account_id_from_seed::<sr25519::Public>("Bob//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Charlie//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Dave//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Eve//stash"),
+				get_account_id_from_seed::<sr25519::Public>("Ferdie//stash"),
 			],
+			// super admins
+			vec![],
+			// permissions
+			vec![
+				(Role { pallet: b"Rbac".to_vec(), permission: Permission::Execute },
+				vec![get_account_id_from_seed::<sr25519::Public>("Alice")]),
+				(Role { pallet: b"Registrar".to_vec(), permission: Permission::Manage },
+				vec![get_account_id_from_seed::<sr25519::Public>("Alice")]),
+				(Role { pallet: b"ProductRegistry".to_vec(), permission: Permission::Manage },
+				vec![get_account_id_from_seed::<sr25519::Public>("Alice")]),
+				(Role { pallet: b"ProductTracking".to_vec(), permission: Permission::Manage },
+				vec![get_account_id_from_seed::<sr25519::Public>("Alice")]),
+				(Role { pallet: b"Balances".to_vec(), permission: Permission::Manage },
+				vec![get_account_id_from_seed::<sr25519::Public>("Alice")]),
+			],
+			// organizations
+			vec![(get_account_id_from_seed::<sr25519::Public>("Alice"), b"Supply Chain Consortium".to_vec())],
+			// organization members
+			vec![],
 			true,
 		),
 		vec![],
@@ -84,12 +115,16 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 		"local_testnet",
 		ChainType::Local,
 		move || testnet_genesis(
+			// Wasm runtime
 			wasm_binary,
+			// initial authorities
 			vec![
 				authority_keys_from_seed("Alice"),
 				authority_keys_from_seed("Bob"),
 			],
+			// root user
 			get_account_id_from_seed::<sr25519::Public>("Alice"),
+			// endowed accounts
 			vec![
 				get_account_id_from_seed::<sr25519::Public>("Alice"),
 				get_account_id_from_seed::<sr25519::Public>("Bob"),
@@ -109,6 +144,14 @@ pub fn local_testnet_config() -> Result<ChainSpec, String> {
 				get_account_id_from_seed::<sr25519::Public>("Northwind Traders"),
 				get_account_id_from_seed::<sr25519::Public>("Umbrella Corp."),
 			],
+			// super admins
+			vec![],
+			// permissions
+			vec![],
+			// organizations
+			vec![],
+			// organization members
+			vec![],
 			true,
 		),
 		vec![],
@@ -125,6 +168,10 @@ fn testnet_genesis(
 	initial_authorities: Vec<(AccountId, AuraId, GrandpaId)>,
 	root_key: AccountId,
 	endowed_accounts: Vec<AccountId>,
+	super_admins: Vec<AccountId>,
+	permissions: Vec<(Role, Vec<AccountId>)>,
+	orgs: Vec<(AccountId, Vec<u8>)>,
+	members: Vec<(AccountId, Vec<AccountId>)>,
 	_enable_println: bool,
 ) -> GenesisConfig {
 	GenesisConfig {
@@ -153,7 +200,12 @@ fn testnet_genesis(
 			key: root_key,
 		}),
 		rbac: Some(RbacConfig {
-			super_admins: vec![get_account_id_from_seed::<sr25519::Public>("Alice")]
+			super_admins,
+			permissions,
+		}),
+		registrar: Some(RegistrarConfig {
+			orgs,
+			members,
 		}),
 		pallet_collective_Instance1: Some(Default::default()),
 		pallet_elections_phragmen: Some(Default::default()),
