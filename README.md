@@ -66,7 +66,7 @@ so ensure that those dependencies are installed before continuing.
 - Run the [listener](ocw-listener) that receives off-chain worker notifications
 
   ```bash
-  cd listener
+  cd ocw-listener
   yarn install && yarn start
   ```
 
@@ -146,9 +146,10 @@ function:
   or more optional user-defined properties. The `EnsureOrg` origin is used to control the accounts
   that are allowed to create products.
 - [Product Tracking pallet](chain/pallets/product-tracking/src/lib.rs) - The Product Tracking pallet
-  tracks shipments of products as they move throughout the supply chain. Shipments, like products,
-  are assigned an ID and associated with an organization. This pallet supports tracking several
-  types of shipping events: registration, pickup, scan, and delivery. With the exception of
+  tracks shipments of products as they move throughout the supply chain. The `EnsureOrg` origin is
+  used to control the accounts that are allowed to interact with this pallet. Shipments, like
+  products, are assigned an ID and associated with an organization. This pallet supports tracking
+  several types of shipping events: registration, pickup, scan, and delivery. With the exception of
   registration, shipment events may be associated with a list of sensor readings. Shipment events
   are placed in a queue that is monitored by an
   [off-chain worker](https://substrate.dev/docs/en/knowledgebase/runtime/off-chain-workers); when
