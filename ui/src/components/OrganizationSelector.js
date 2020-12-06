@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Segment, Form } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
 
+import { u8aToString } from '@polkadot/util';
+
 export default function Main (props) {
   const { api } = useSubstrate();
   const { accountPair, setSelectedOrganization } = props;
@@ -25,12 +27,15 @@ export default function Main (props) {
     }
 
     async function organizations (addr) {
-      unsub1 = await api.query.registrar.organizations(rawData => {
+      unsub1 = await api.query.registrar.organizations(async rawData => {
         const strData = rawData.map(r => r.toString());
 
         if (strData.includes(addr)) {
           // Current account is an org
-          setOrganizations([{ value: addr, text: addr }]);
+          const nonce = await api.query.palletDid.attributeNonce([addr, 'Org']);
+          const attrHash = api.registry.createType('(AccountId, Text, u64)', [addr, 'Org', nonce.subn(1)]).hash;
+          const orgAttr = await api.query.palletDid.attributeOf([addr, attrHash]);
+          setOrganizations([{ value: addr, text: u8aToString(orgAttr.value) }]);
           setSelectedOrganization(addr);
           setSelected(addr);
         } else {
@@ -44,7 +49,7 @@ export default function Main (props) {
       unsub1 && unsub1();
       unsub2 && unsub2();
     };
-  }, [accountPair, api.query.registrar, setSelectedOrganization]);
+  }, [accountPair, api.query.palletDid, api.query.registrar, api.registry, setSelectedOrganization]);
 
   const onChange = org => {
     setSelected(org);
