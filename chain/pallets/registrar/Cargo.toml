@@ -15,10 +15,11 @@ package = 'parity-scale-codec'
 version = '1.3.4'
 
 [dependencies.did]
-default-features = false
-git = 'https://github.com/substrate-developer-hub/pallet-did'
 package = 'pallet-did'
+default_features = false
 version = '2.0.0'
+git = 'https://github.com/substrate-developer-hub/pallet-did'
+rev = '5a3d5769c12de04b42788234180894455b4afce4'
 
 [dependencies]
 serde = { features = ['derive'], optional = true, version = '1.0.114' }

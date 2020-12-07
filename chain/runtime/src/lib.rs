@@ -69,6 +69,8 @@ pub type Hash = sp_core::H256;
 /// Digest item type.
 pub type DigestItem = generic::DigestItem<Hash>;
 
+pub type Moment = u64;
+
 /// Opaque types. These are used by the CLI to instantiate machinery that don't need to know
 /// the specifics of the runtime. They can then be made to be agnostic over specific formats
 /// of data like extrinsics, allowing for them to continue syncing the network through upgrades
@@ -226,7 +228,7 @@ parameter_types! {
 
 impl pallet_timestamp::Trait for Runtime {
     /// A timestamp: milliseconds since the unix epoch.
-    type Moment = u64;
+    type Moment = Moment;
     type OnTimestampSet = Aura;
     type MinimumPeriod = MinimumPeriod;
     type WeightInfo = ();
@@ -427,10 +429,15 @@ impl pallet_did::Trait for Runtime {
     type Event = Event;
     type Public = MultiSigner;
     type Signature = Signature;
+    type Time = pallet_timestamp::Module<Runtime>;
 }
 
 impl registrar::Trait for Runtime {
     type Event = Event;
+    type Moment = Moment;
+    type Public = MultiSigner;
+    type Signature = Signature;
+    type Did = pallet_did::Module<Runtime>;
 }
 
 impl product_registry::Trait for Runtime {

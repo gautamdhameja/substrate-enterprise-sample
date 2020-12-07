@@ -1,5 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
+use codec::{Decode, Encode};
+use sp_runtime::traits::{AtLeast32Bit, IdentifyAccount, Member, Scale, Verify};
 use sp_std::{prelude::*, vec::Vec, if_std};
 use frame_support::{
 	decl_module, decl_event, decl_storage, decl_error,
@@ -7,11 +9,16 @@ use frame_support::{
 	traits::EnsureOrigin
 };
 use frame_system::{self as system, ensure_signed, RawOrigin};
+use did::did::Did;
 
 /// Configure the pallet by specifying the parameters and types on which it depends.
-pub trait Trait: system::Trait + did::Trait {
+pub trait Trait: system::Trait {
 	/// Because this pallet emits events, it depends on the runtime's definition of an event.
 	type Event: From<Event<Self>> + Into<<Self as system::Trait>::Event>;
+	type Moment: dispatch::Parameter + Default + AtLeast32Bit + Scale<Self::BlockNumber, Output = Self::Moment> + Copy;
+	type Public: IdentifyAccount<AccountId = Self::AccountId>;
+	type Signature: Verify<Signer = Self::Public> + Member + Decode + Encode;
+	type Did: Did<<Self as system::Trait>::AccountId, <Self as system::Trait>::BlockNumber, Self::Moment, Self::Signature>;
 }
 
 // Errors inform users why an extrinsic failed.
@@ -113,7 +120,7 @@ impl<T: Trait> Module<T> {
 		<Organizations<T>>::put(orgs);
 
 		// DID add attribute
-		<did::Module<T>>::create_attribute(&owner, &owner, b"Org", &org_name, None)?;
+		T::Did::create_attribute(&owner, &owner, b"Org", &org_name, None)?;
 		Ok(())
 	}
 
@@ -134,7 +141,7 @@ impl<T: Trait> Module<T> {
 		}
 
 		// Add account as a DID delegate.
-		<did::Module<T>>::create_delegate(&org, &org, &account, &b"OrgMember".to_vec(), None)?;
+		T::Did::create_delegate(&org, &org, &account, &b"OrgMember".to_vec(), None)?;
 		Ok(())
 	}
 
@@ -142,7 +149,7 @@ impl<T: Trait> Module<T> {
 	pub fn part_of_organization(account: &T::AccountId) -> bool {
 		let orgs = <Module<T>>::organizations();
 		for org in orgs.iter() {
-			if <did::Module<T>>::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
+			if T::Did::valid_delegate(org, &b"OrgMember".to_vec(), &account).is_ok() {
 				return true
 			}
 		}
