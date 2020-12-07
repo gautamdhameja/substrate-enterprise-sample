@@ -3,7 +3,7 @@ import { Form, Card } from 'semantic-ui-react';
 
 import { useSubstrate } from '../substrate-lib';
 import { TxButton } from '../substrate-lib/components';
-import { hexToString } from '@polkadot/util';
+import { hexToString, u8aToString } from '@polkadot/util';
 
 function RegisterShipmentFormComponent (props) {
   const { api } = useSubstrate();
@@ -45,8 +45,19 @@ function RegisterShipmentFormComponent (props) {
 
   // For updating the Owner field
   useEffect(() => {
-    setState(state => ({ ...state, owner: organization }));
-  }, [organization]);
+    async function setOwner () {
+      if (!organization) {
+        return;
+      }
+
+      const nonce = await api.query.palletDid.attributeNonce([organization, 'Org']);
+      const attrHash = api.registry.createType('(AccountId, Text, u64)', [organization, 'Org', nonce.subn(1)]).hash;
+      const orgAttr = await api.query.palletDid.attributeOf([organization, attrHash]);
+      setState(state => ({ ...state, owner: u8aToString(orgAttr.value) }));
+    }
+
+    setOwner();
+  }, [api.query.palletDid, api.registry, organization]);
 
   const handleChange = (_, data) =>
     setState({ ...state, [data.state]: data.value });

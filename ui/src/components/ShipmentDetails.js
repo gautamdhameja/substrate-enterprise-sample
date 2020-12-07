@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Header, Icon, Grid, List, Step, Segment } from 'semantic-ui-react';
 import { useSubstrate } from '../substrate-lib';
-import { hexToString } from '@polkadot/util';
+import { hexToString, u8aToString } from '@polkadot/util';
 
 import ShipmentOperations from './ShipmentOperations';
 
@@ -17,8 +17,16 @@ function ShipmentDetailsComponent (props) {
     let unsubscribe;
 
     async function shipment (shipmentId) {
-      await api.query.productTracking.shipments(shipmentId, data =>
-        setShipment(data ? data.value : null)
+      await api.query.productTracking.shipments(shipmentId, async data => {
+        if (!data || !data.value || !data.value.owner) {
+          return;
+        }
+
+        const nonce = await api.query.palletDid.attributeNonce([data.value.owner, 'Org']);
+        const attrHash = api.registry.createType('(AccountId, Text, u64)', [data.value.owner, 'Org', nonce.subn(1)]).hash;
+        const orgAttr = await api.query.palletDid.attributeOf([data.value.owner, attrHash]);
+        setShipment({ ...data.value, owner: u8aToString(orgAttr.value) });
+      }
       );
     }
 
@@ -28,7 +36,7 @@ function ShipmentDetailsComponent (props) {
       setShipment(null);
       return () => unsubscribe && unsubscribe();
     }
-  }, [api.query.productTracking, shipmentId]);
+  }, [api.query.palletDid, api.query.productTracking, api.registry, shipmentId]);
 
   useEffect(() => {
     let unsubscribe;
